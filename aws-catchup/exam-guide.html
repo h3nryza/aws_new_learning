@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Guide &amp; Certification Landscape - AWS Catch-Up Guide 2021-2026</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-inner">
+            <a href="index.html">Index</a>
+            <a href="security-identity.html">Security &amp; Identity</a>
+            <a href="ai-ml.html">AI &amp; ML</a>
+            <a href="devops-iac.html">DevOps &amp; IaC</a>
+            <a href="networking.html">Networking</a>
+            <a href="compute-storage-db.html">Compute/Storage/DB</a>
+            <a href="exam-guide.html" class="active">Exam Guide</a>
+            <a href="new-services.html">New Services</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1><strong>Exam Guide &amp; Certification Landscape</strong></h1>
+        <p class="subtitle">All AWS certifications as of 2026</p>
+        <p class="meta">AWS Catch-Up Guide 2021&ndash;2026 &mdash; Last updated June 2026</p>
+    </header>
+
+    <main class="content">
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#overview">1. All Current AWS Certifications</a></li>
+                <li><a href="#professional-exams">2. Professional Exams (Primary Focus)</a>
+                    <ul>
+                        <li><a href="#sap-c02">2a. Solutions Architect Professional &mdash; SAP-C02</a></li>
+                        <li><a href="#dop-c02">2b. DevOps Engineer Professional &mdash; DOP-C02</a></li>
+                    </ul>
+                </li>
+                <li><a href="#specialty-exams">3. Specialty Exams</a>
+                    <ul>
+                        <li><a href="#scs-c03">3a. Security Specialty &mdash; SCS-C03</a></li>
+                        <li><a href="#ans-c01">3b. Advanced Networking Specialty &mdash; ANS-C01</a></li>
+                    </ul>
+                </li>
+                <li><a href="#new-exams">4. New Exams</a>
+                    <ul>
+                        <li><a href="#aif-c01">4a. AI Practitioner &mdash; AIF-C01</a></li>
+                        <li><a href="#dea-c01">4b. Data Engineer Associate &mdash; DEA-C01</a></li>
+                        <li><a href="#mla-c01">4c. ML Engineer Associate &mdash; MLA-C01</a></li>
+                    </ul>
+                </li>
+                <li><a href="#associate-exams">5. Associate Exams (Reference)</a></li>
+                <li><a href="#exam-delivery">6. Exam Delivery &amp; Recertification</a></li>
+                <li><a href="#key-trends">7. Key Trends</a></li>
+            </ul>
+        </div>
+
+        <!-- =================================================================
+             1. All Current AWS Certifications - Master Table
+             ================================================================= -->
+        <div class="card" id="overview">
+            <div class="card-header">
+                <h2>1. All Current AWS Certifications</h2>
+            </div>
+            <div class="card-body">
+
+                <p>Complete certification landscape as of mid-2026. The table below includes every AWS certification &mdash; active, retiring, and recently retired.</p>
+
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Level</th>
+                                <th>Exam</th>
+                                <th>Code</th>
+                                <th>Status</th>
+                                <th>Cost</th>
+                                <th>Duration</th>
+                                <th>Pass Score</th>
+                                <th>Scored Qs</th>
+                                <th>Question Types</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Foundational -->
+                            <tr>
+                                <td><span class="badge" style="background: var(--exam-foundational); color: white;">Foundational</span></td>
+                                <td>Cloud Practitioner</td>
+                                <td><code>CLF-C02</code></td>
+                                <td><span class="badge badge-updated">Active</span></td>
+                                <td>$100</td>
+                                <td>90 min</td>
+                                <td>700</td>
+                                <td>50</td>
+                                <td>MC, MR</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge" style="background: var(--exam-foundational); color: white;">Foundational</span></td>
+                                <td>AI Practitioner</td>
+                                <td><code>AIF-C01</code></td>
+                                <td><span class="badge badge-new">NEW</span></td>
+                                <td>$100</td>
+                                <td>90 min</td>
+                                <td>700</td>
+                                <td>50</td>
+                                <td>MC, MR, Ordering, Matching</td>
+                            </tr>
+                            <!-- Associate -->
+                            <tr>
+                                <td><span class="badge" style="background: var(--exam-associate); color: white;">Associate</span></td>
+                                <td>Solutions Architect</td>
+                                <td><code>SAA-C03</code></td>
+                                <td><span class="badge badge-updated">Active</span></td>
+                                <td>$150</td>
+                                <td>130 min</td>
+                                <td>720</td>
+                                <td>50</td>
+                                <td>MC, MR</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge" style="background: var(--exam-associate); color: white;">Associate</span></td>
+                                <td>Developer</td>
+                                <td><code>DVA-C02</code></td>
+                                <td><span class="badge badge-updated">Active</span></td>
+                                <td>$150</td>
+                                <td>130 min</td>
+                                <td>720</td>
+                                <td>50</td>
+                                <td>MC, MR</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge" style="background: var(--exam-associate); color: white;">Associate</span></td>
+                                <td>CloudOps Engineer</td>
+                                <td><code>SOA-C03</code></td>
+                                <td><span class="badge badge-updated">Active (renamed)</span></td>
+                                <td>$150</td>
+                                <td>130 min</td>
+                                <td>720</td>
+                                <td>50</td>
+                                <td>MC, MR, Ordering, Matching</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge" style="background: var(--exam-associate); color: white;">Associate</span></td>
+                                <td>Data Engineer</td>
+                                <td><code>DEA-C01</code></td>
+                                <td><span class="badge badge-new">NEW</span></td>
+                                <td>$150</td>
+                                <td>130 min</td>
+                                <td>720</td>
+                                <td>50</td>
+                                <td>MC, MR</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge" style="background: var(--exam-associate); color: white;">Associate</span></td>
+                                <td>ML Engineer</td>
+                                <td><code>MLA-C01</code></td>
+                                <td><span class="badge badge-new">NEW</span></td>
+                                <td>$150</td>
+                                <td>130 min</td>
+                                <td>720</td>
+                                <td>50</td>
+                                <td>MC, MR, Ordering, Matching</td>
+                            </tr>
+                            <!-- Professional -->
+                            <tr style="background: #fff8e1;">
+                                <td><span class="badge" style="background: var(--exam-pro); color: white;">Professional</span></td>
+                                <td><strong>Solutions Architect</strong></td>
+                                <td><code>SAP-C02</code></td>
+                                <td><span class="badge badge-updated">Active</span></td>
+                                <td>$300</td>
+                                <td>180 min</td>
+                                <td>750</td>
+                                <td>65</td>
+                                <td>MC, MR</td>
+                            </tr>
+                            <tr style="background: #fff8e1;">
+                                <td><span class="badge" style="background: var(--exam-pro); color: white;">Professional</span></td>
+                                <td><strong>DevOps Engineer</strong></td>
+                                <td><code>DOP-C02</code></td>
+                                <td><span class="badge badge-updated">Active</span></td>
+                                <td>$300</td>
+                                <td>180 min</td>
+                                <td>750</td>
+                                <td>65</td>
+                                <td>MC, MR</td>
+                            </tr>
+                            <!-- Specialty -->
+                            <tr>
+                                <td><span class="badge" style="background: var(--exam-specialty); color: white;">Specialty</span></td>
+                                <td>Security</td>
+                                <td><code>SCS-C03</code></td>
+                                <td><span class="badge badge-updated">Updated Dec 2025</span></td>
+                                <td>$300</td>
+                                <td>170 min</td>
+                                <td>750</td>
+                                <td>50</td>
+                                <td>MC, MR, Ordering, Matching</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge" style="background: var(--exam-specialty); color: white;">Specialty</span></td>
+                                <td>Advanced Networking</td>
+                                <td><code>ANS-C01</code></td>
+                                <td><span class="badge badge-deprecated">RETIRING Aug 25, 2026</span></td>
+                                <td>$300</td>
+                                <td>170 min</td>
+                                <td>750</td>
+                                <td>50</td>
+                                <td>MC, MR</td>
+                            </tr>
+                            <tr style="opacity: 0.5;">
+                                <td><span class="badge" style="background: var(--exam-specialty); color: white;">Specialty</span></td>
+                                <td><s>Machine Learning</s></td>
+                                <td><code>MLS-C01</code></td>
+                                <td><span class="badge badge-deprecated">RETIRED Mar 31, 2026</span></td>
+                                <td>&mdash;</td>
+                                <td>&mdash;</td>
+                                <td>&mdash;</td>
+                                <td>&mdash;</td>
+                                <td>&mdash;</td>
+                            </tr>
+                            <tr style="opacity: 0.5;">
+                                <td><span class="badge" style="background: var(--exam-specialty); color: white;">Specialty</span></td>
+                                <td><s>Database</s></td>
+                                <td><code>DBS-C01</code></td>
+                                <td><span class="badge badge-deprecated">RETIRED</span></td>
+                                <td>&mdash;</td>
+                                <td>&mdash;</td>
+                                <td>&mdash;</td>
+                                <td>&mdash;</td>
+                                <td>&mdash;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="info">
+                    <strong>Legend:</strong> MC = Multiple Choice (one correct answer from four options). MR = Multiple Response (two or more correct answers from five or more options). Ordering = Arrange 3&ndash;5 items in correct sequence. Matching = Match responses to 3&ndash;7 prompts.
+                </div>
+
+                <p><a class="doc-link" href="https://aws.amazon.com/certification/" target="_blank">AWS Certification Home Page</a></p>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             2. PROFESSIONAL EXAMS (PRIMARY FOCUS)
+             ================================================================= -->
+        <h2 class="section-title" id="professional-exams">2. Professional Exams (Primary Focus)</h2>
+
+        <!-- SAP-C02 -->
+        <div class="card" id="sap-c02">
+            <div class="card-header">
+                <h2>Solutions Architect Professional &mdash; SAP-C02</h2>
+                <span class="badge" style="background: var(--exam-pro); color: white;">Professional</span>
+                <span class="badge badge-updated">Updated</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Exam Details</h3>
+                <table>
+                    <tbody>
+                        <tr><td><strong>Exam Code</strong></td><td>SAP-C02</td></tr>
+                        <tr><td><strong>Cost</strong></td><td>$300 USD</td></tr>
+                        <tr><td><strong>Duration</strong></td><td>180 minutes</td></tr>
+                        <tr><td><strong>Passing Score</strong></td><td>750 / 1000</td></tr>
+                        <tr><td><strong>Scored Questions</strong></td><td>65 (+ 10 unscored)</td></tr>
+                        <tr><td><strong>Question Types</strong></td><td>Multiple Choice, Multiple Response</td></tr>
+                        <tr><td><strong>Validity</strong></td><td>3 years</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Domain Breakdown</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Domain</th>
+                            <th>Weight</th>
+                            <th>Key Topics</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. Design for Organizational Complexity</strong></td>
+                            <td>26%</td>
+                            <td>Multi-account strategies, Organizations (SCPs/RCPs/Declarative Policies), Control Tower, cross-account access, networking connectivity</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Design New Solutions</strong></td>
+                            <td>29%</td>
+                            <td>Business requirements to architecture, security, reliability, performance, cost optimization, Well-Architected</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Continuous Improvement for Existing Solutions</strong></td>
+                            <td>25%</td>
+                            <td>Operational excellence, reliability improvements, performance tuning, cost reduction, security hardening</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Accelerate Workload Migration &amp; Modernization</strong></td>
+                            <td>20%</td>
+                            <td>Migration strategies (7 Rs), Migration Hub, DMS/SCT, Application Discovery Service, Elastic Disaster Recovery, modernization patterns</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>What Changed from SAP-C01</h3>
+                <ul>
+                    <li><strong>Well-Architected Framework emphasis</strong> &mdash; stronger focus on all six pillars (Sustainability pillar added in 2021)</li>
+                    <li><strong>Migration &amp; Modernization as a dedicated domain</strong> &mdash; previously scattered across other domains, now 20% of the exam</li>
+                    <li><strong>Multi-account emphasis</strong> &mdash; Organizations RCPs, Declarative Policies, Control Tower proactive controls, delegated administrator pattern</li>
+                    <li><strong>Modern architectures</strong> &mdash; containers (ECS/EKS), serverless, event-driven patterns are now standard expectations</li>
+                    <li><strong>AWS Elastic Disaster Recovery</strong> &mdash; replaced CloudEndure Disaster Recovery</li>
+                    <li><strong>IAM Identity Center</strong> &mdash; replaces AWS SSO references throughout</li>
+                    <li><strong>VPC Lattice and Cloud WAN</strong> &mdash; new networking services featured prominently</li>
+                </ul>
+
+                <h3>Key Services to Know</h3>
+                <div style="column-count: 3; column-gap: 20px;">
+                    <ul style="margin: 0;">
+                        <li>VPC / VPC Lattice</li>
+                        <li>Transit Gateway</li>
+                        <li>Direct Connect</li>
+                        <li>Cloud WAN</li>
+                        <li>Organizations</li>
+                        <li>Control Tower</li>
+                        <li>CloudFormation / CDK</li>
+                        <li>Route 53</li>
+                        <li>CloudFront</li>
+                        <li>Lambda</li>
+                        <li>ECS / EKS</li>
+                        <li>DynamoDB</li>
+                        <li>Aurora (Serverless v2)</li>
+                        <li>S3 / S3 Express One Zone</li>
+                        <li>KMS</li>
+                        <li>Security Hub</li>
+                        <li>Migration Hub</li>
+                        <li>DMS / SCT</li>
+                        <li>IAM Identity Center</li>
+                        <li>Elastic Disaster Recovery</li>
+                    </ul>
+                </div>
+
+                <h3>Top Study Areas (Catching Up from 2021)</h3>
+                <div class="concept">
+                    <strong>Priority study list for someone with SAP-C01 knowledge from 2021:</strong>
+                    <ol>
+                        <li><strong>Multi-account governance</strong> &mdash; Organizations RCPs, Declarative Policies, Control Tower proactive controls, delegated admin pattern</li>
+                        <li><strong>VPC Lattice and Cloud WAN</strong> &mdash; application-layer service networking and global WAN management</li>
+                        <li><strong>Aurora Serverless v2 and I/O-Optimized</strong> &mdash; fine-grained scaling replaces v1, new storage pricing tier</li>
+                        <li><strong>S3 Express One Zone</strong> &mdash; directory buckets with single-digit-millisecond latency for compute-adjacent workloads</li>
+                        <li><strong>IAM Identity Center</strong> &mdash; replaces AWS SSO, Trusted Identity Propagation, Permission Sets as IAM roles</li>
+                        <li><strong>Container orchestration</strong> &mdash; ECS Service Connect for service mesh, EKS Pod Identity replacing IRSA</li>
+                    </ol>
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> SAP-C02 questions are long, scenario-based, and often have two seemingly correct answers. The key differentiator is usually cost-effectiveness vs operational overhead. "Least operational overhead" is the most common qualifier. Focus on understanding <em>when</em> to use each service, not just what it does.
+                </div>
+
+                <a class="doc-link" href="https://aws.amazon.com/certification/certified-solutions-architect-professional/" target="_blank">AWS: Solutions Architect Professional Certification Page</a>
+                <br>
+                <a class="doc-link" href="https://d1.awsstatic.com/training-and-certification/docs-sa-pro/AWS-Certified-Solutions-Architect-Professional_Exam-Guide.pdf" target="_blank">SAP-C02 Exam Guide (PDF)</a>
+            </div>
+        </div>
+
+        <!-- DOP-C02 -->
+        <div class="card" id="dop-c02">
+            <div class="card-header">
+                <h2>DevOps Engineer Professional &mdash; DOP-C02</h2>
+                <span class="badge" style="background: var(--exam-pro); color: white;">Professional</span>
+                <span class="badge badge-updated">Updated</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Exam Details</h3>
+                <table>
+                    <tbody>
+                        <tr><td><strong>Exam Code</strong></td><td>DOP-C02</td></tr>
+                        <tr><td><strong>Cost</strong></td><td>$300 USD</td></tr>
+                        <tr><td><strong>Duration</strong></td><td>180 minutes</td></tr>
+                        <tr><td><strong>Passing Score</strong></td><td>750 / 1000</td></tr>
+                        <tr><td><strong>Scored Questions</strong></td><td>65 (+ 10 unscored)</td></tr>
+                        <tr><td><strong>Question Types</strong></td><td>Multiple Choice, Multiple Response</td></tr>
+                        <tr><td><strong>Validity</strong></td><td>3 years</td></tr>
+                        <tr><td><strong>Cross-cert</strong></td><td>Passing DOP-C02 recertifies CloudOps Engineer Associate</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Domain Breakdown (6 Domains)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Domain</th>
+                            <th>Weight</th>
+                            <th>Key Topics</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. SDLC Automation</strong></td>
+                            <td>22%</td>
+                            <td>CI/CD pipelines, CodePipeline V2, CodeBuild, CodeDeploy, branching strategies, artifact management, deployment strategies (blue/green, canary, rolling)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Configuration Management &amp; IaC</strong></td>
+                            <td>17%</td>
+                            <td>CloudFormation, CDK v2, SAM, Systems Manager, drift detection, stack sets, change sets, construct levels</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Resilient Cloud Solutions</strong></td>
+                            <td>15%</td>
+                            <td>Multi-AZ/Region architectures, auto-scaling, health checks, failover, backup strategies, disaster recovery</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Monitoring &amp; Logging</strong></td>
+                            <td>15%</td>
+                            <td>CloudWatch (metrics, logs, alarms, Application Signals), X-Ray, CloudTrail, centralized logging, anomaly detection</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Incident &amp; Event Response</strong></td>
+                            <td>14%</td>
+                            <td>EventBridge, Lambda, Step Functions, SNS, automated remediation, runbooks, incident management</td>
+                        </tr>
+                        <tr>
+                            <td><strong>6. Security &amp; Compliance</strong></td>
+                            <td>17%</td>
+                            <td>IAM, Config rules, Security Hub, Secrets Manager, KMS, multi-account security, compliance automation</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>What Changed from DOP-C01</h3>
+                <ul>
+                    <li><strong>Expanded from 5 to 6 domains</strong> &mdash; Security &amp; Compliance broken out as its own domain (17%)</li>
+                    <li><strong>Container orchestration emphasis</strong> &mdash; ECS Service Connect, EKS Pod Identity, Fargate, container deployment patterns</li>
+                    <li><strong>CDK added as a first-class topic</strong> &mdash; CDK v2 construct levels (L1/L2/L3), CDK Pipelines, cdk synth/deploy workflows</li>
+                    <li><strong>EventBridge central to event-driven patterns</strong> &mdash; EventBridge Pipes, Scheduler, and event buses replace many SNS/SQS patterns</li>
+                    <li><strong>Systems Manager prominent</strong> &mdash; Session Manager, Patch Manager, Parameter Store, Run Command, Automation, Change Manager</li>
+                    <li><strong>Multi-account patterns</strong> &mdash; Organizations-aware deployments, StackSets, cross-account pipelines</li>
+                    <li><strong>CodePipeline V2</strong> &mdash; execution modes (SUPERSEDED, QUEUED, PARALLEL), triggers, rollback stages</li>
+                </ul>
+
+                <h3>Key Services to Know</h3>
+                <div style="column-count: 3; column-gap: 20px;">
+                    <ul style="margin: 0;">
+                        <li>CodePipeline (V2)</li>
+                        <li>CodeBuild</li>
+                        <li>CodeDeploy</li>
+                        <li>CloudFormation</li>
+                        <li>CDK v2</li>
+                        <li>SAM</li>
+                        <li>Systems Manager</li>
+                        <li>CloudWatch</li>
+                        <li>X-Ray</li>
+                        <li>EventBridge</li>
+                        <li>Lambda</li>
+                        <li>Step Functions</li>
+                        <li>ECS / EKS</li>
+                        <li>Config</li>
+                        <li>Organizations</li>
+                        <li>Security Hub</li>
+                        <li>Secrets Manager</li>
+                        <li>KMS</li>
+                    </ul>
+                </div>
+
+                <h3>Top Study Areas (Catching Up from 2021)</h3>
+                <div class="concept">
+                    <strong>Priority study list for someone with DOP-C01 knowledge from 2021:</strong>
+                    <ol>
+                        <li><strong>CDK v2</strong> &mdash; construct levels (L1 CfnResources, L2 curated, L3 patterns), CDK Pipelines, <code>cdk synth</code>/<code>cdk deploy</code>, single-package model</li>
+                        <li><strong>CodePipeline V2</strong> &mdash; execution modes (SUPERSEDED, QUEUED, PARALLEL), trigger filtering, rollback stages, V1 vs V2 pipeline type differences</li>
+                        <li><strong>ECS Service Connect</strong> &mdash; built-in service mesh with Envoy proxy, replaces App Mesh for many use cases</li>
+                        <li><strong>EKS Pod Identity vs IRSA</strong> &mdash; simplified IAM-to-pod mapping without OIDC provider, becoming the recommended approach</li>
+                        <li><strong>Lambda SnapStart</strong> &mdash; pre-initialized snapshots eliminate cold starts for Java/Python/.NET, tiered pricing</li>
+                        <li><strong>EventBridge Pipes and Scheduler</strong> &mdash; point-to-point integrations with filtering/transformation, cron/rate/one-time scheduling</li>
+                        <li><strong>CloudWatch Application Signals</strong> &mdash; SLO monitoring with pre-built dashboards for application health</li>
+                        <li><strong>Step Functions Distributed Map and JSONata</strong> &mdash; large-scale parallel processing (up to 10k concurrent), JSONata replaces Amazon States Language for transformations</li>
+                    </ol>
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> DOP-C02 loves "automate everything" scenarios. If a question describes a manual process, the answer almost always involves automating it with EventBridge + Lambda/Step Functions, Systems Manager Automation, or a CodePipeline. The Security domain (17%) is significant &mdash; expect questions on Config rules, cross-account security, and secrets rotation.
+                </div>
+
+                <a class="doc-link" href="https://aws.amazon.com/certification/certified-devops-engineer-professional/" target="_blank">AWS: DevOps Engineer Professional Certification Page</a>
+                <br>
+                <a class="doc-link" href="https://d1.awsstatic.com/training-and-certification/docs-devops-pro/AWS-Certified-DevOps-Engineer-Professional_Exam-Guide.pdf" target="_blank">DOP-C02 Exam Guide (PDF)</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             3. SPECIALTY EXAMS
+             ================================================================= -->
+        <h2 class="section-title" id="specialty-exams">3. Specialty Exams</h2>
+
+        <!-- SCS-C03 -->
+        <div class="card" id="scs-c03">
+            <div class="card-header">
+                <h2>Security Specialty &mdash; SCS-C03</h2>
+                <span class="badge" style="background: var(--exam-specialty); color: white;">Specialty</span>
+                <span class="badge badge-updated">Updated Dec 2, 2025</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Exam Details</h3>
+                <table>
+                    <tbody>
+                        <tr><td><strong>Exam Code</strong></td><td>SCS-C03</td></tr>
+                        <tr><td><strong>Cost</strong></td><td>$300 USD</td></tr>
+                        <tr><td><strong>Duration</strong></td><td>170 minutes</td></tr>
+                        <tr><td><strong>Passing Score</strong></td><td>750 / 1000</td></tr>
+                        <tr><td><strong>Scored Questions</strong></td><td>50 (+ 15 unscored)</td></tr>
+                        <tr><td><strong>Question Types</strong></td><td>Multiple Choice, Multiple Response, <strong>Ordering, Matching</strong></td></tr>
+                        <tr><td><strong>Validity</strong></td><td>3 years</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Domain Breakdown</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Domain</th>
+                            <th>Weight</th>
+                            <th>Key Topics</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. Threat Detection &amp; Incident Response</strong></td>
+                            <td>14%</td>
+                            <td>GuardDuty, Detective, automated incident response, forensics, attack sequence detection</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Security Logging &amp; Monitoring</strong></td>
+                            <td>16%</td>
+                            <td>CloudTrail, CloudWatch, Security Lake, VPC Flow Logs, centralized logging, OCSF format</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Infrastructure Security</strong></td>
+                            <td>18%</td>
+                            <td>VPC, Network Firewall, WAF, Shield, Verified Access, PrivateLink, security groups, NACLs</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Identity &amp; Access Management</strong></td>
+                            <td>20%</td>
+                            <td>IAM, IAM Identity Center, Cognito, federation, ABAC, cross-account access, resource policies, Organizations policies</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Data Protection</strong></td>
+                            <td>18%</td>
+                            <td>KMS (multi-region, XKS, imported key material), encryption strategies, Macie, data masking, certificate management</td>
+                        </tr>
+                        <tr>
+                            <td><strong>6. Security Foundations &amp; Governance</strong></td>
+                            <td>14%</td>
+                            <td>Organizations (SCPs/RCPs/Declarative), Control Tower, Security Hub, Config, compliance, GenAI security</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>What Changed from SCS-C02 to SCS-C03</h3>
+                <table class="vs-table">
+                    <thead>
+                        <tr>
+                            <th>Area</th>
+                            <th>Added / Expanded</th>
+                            <th>Removed / Reduced</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>IAM</td>
+                            <td>Weight increased to 20% (largest domain). Deeper IAM Identity Center, Cognito, resource policies</td>
+                            <td>&mdash;</td>
+                        </tr>
+                        <tr>
+                            <td>GenAI Security</td>
+                            <td><strong>NEW:</strong> OWASP Top 10 for LLMs, Bedrock Guardrails, responsible AI security</td>
+                            <td>&mdash;</td>
+                        </tr>
+                        <tr>
+                            <td>Data Formats</td>
+                            <td><strong>OCSF format</strong> (Security Lake) added alongside ASFF</td>
+                            <td><strong>ASFF deep dives</strong> reduced (still relevant but less emphasis)</td>
+                        </tr>
+                        <tr>
+                            <td>Data Protection</td>
+                            <td>Data masking, multi-region key management, imported vs AWS-generated key material</td>
+                            <td>TLS basics reduced (assumed knowledge)</td>
+                        </tr>
+                        <tr>
+                            <td>Infrastructure</td>
+                            <td>Verified Access, Network Firewall advanced policies</td>
+                            <td>Host-based firewalls, VPC Reachability deep dives removed</td>
+                        </tr>
+                        <tr>
+                            <td>Question Format</td>
+                            <td><strong>Ordering and Matching</strong> question types added</td>
+                            <td>&mdash;</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Key Services to Know</h3>
+                <div style="column-count: 3; column-gap: 20px;">
+                    <ul style="margin: 0;">
+                        <li>GuardDuty</li>
+                        <li>Security Hub</li>
+                        <li>Detective</li>
+                        <li>Macie</li>
+                        <li>Inspector</li>
+                        <li>Config</li>
+                        <li>CloudTrail</li>
+                        <li>KMS</li>
+                        <li>IAM Identity Center</li>
+                        <li>Cognito</li>
+                        <li>WAF</li>
+                        <li>Shield</li>
+                        <li>Network Firewall</li>
+                        <li>Secrets Manager</li>
+                        <li>Organizations</li>
+                        <li>Control Tower</li>
+                        <li>Bedrock Guardrails</li>
+                        <li>Security Lake</li>
+                    </ul>
+                </div>
+
+                <div class="warning">
+                    <strong>New question types:</strong> SCS-C03 introduces <strong>Ordering</strong> (arrange 3&ndash;5 items in correct sequence, e.g., incident response steps) and <strong>Matching</strong> (match services/features to descriptions for 3&ndash;7 prompts). These require deeper understanding than standard MC/MR &mdash; you cannot rely on elimination strategies.
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> IAM is now the heaviest domain at 20%. Expect complex cross-account, federation, and Organizations policy scenarios. GenAI security is new and testable &mdash; know OWASP Top 10 for LLMs (prompt injection, data poisoning, insecure output handling) and how Bedrock Guardrails mitigates them.
+                </div>
+
+                <a class="doc-link" href="https://aws.amazon.com/certification/certified-security-specialty/" target="_blank">AWS: Security Specialty Certification Page</a>
+                <br>
+                <a class="doc-link" href="https://d1.awsstatic.com/training-and-certification/docs-security-spec/AWS-Certified-Security-Specialty_Exam-Guide.pdf" target="_blank">SCS-C03 Exam Guide (PDF)</a>
+            </div>
+        </div>
+
+        <!-- ANS-C01 -->
+        <div class="card" id="ans-c01">
+            <div class="card-header">
+                <h2>Advanced Networking Specialty &mdash; ANS-C01</h2>
+                <span class="badge" style="background: var(--exam-specialty); color: white;">Specialty</span>
+                <span class="badge badge-deprecated">RETIRING Aug 25, 2026</span>
+            </div>
+            <div class="card-body">
+
+                <div class="warning">
+                    <strong>RETIRING:</strong> The Advanced Networking Specialty exam (ANS-C01) will retire on <strong>August 25, 2026</strong>. After this date, the exam will no longer be available. Existing certifications remain valid for their 3-year term. No replacement exam has been announced &mdash; networking topics are being absorbed into Professional-level exams.
+                </div>
+
+                <h3>Exam Details</h3>
+                <table>
+                    <tbody>
+                        <tr><td><strong>Exam Code</strong></td><td>ANS-C01</td></tr>
+                        <tr><td><strong>Cost</strong></td><td>$300 USD</td></tr>
+                        <tr><td><strong>Duration</strong></td><td>170 minutes</td></tr>
+                        <tr><td><strong>Passing Score</strong></td><td>750 / 1000</td></tr>
+                        <tr><td><strong>Scored Questions</strong></td><td>50 (+ 15 unscored)</td></tr>
+                        <tr><td><strong>Question Types</strong></td><td>Multiple Choice, Multiple Response</td></tr>
+                        <tr><td><strong>Last Day to Take</strong></td><td>August 25, 2026</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Domain Breakdown</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Domain</th>
+                            <th>Weight</th>
+                            <th>Key Topics</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. Network Design</strong></td>
+                            <td>30%</td>
+                            <td>Hybrid architectures, multi-VPC, multi-Region, Direct Connect, Transit Gateway, Cloud WAN</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Network Implementation</strong></td>
+                            <td>26%</td>
+                            <td>Routing, DNS, load balancing, VPN, Direct Connect provisioning, PrivateLink</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Network Management &amp; Operations</strong></td>
+                            <td>20%</td>
+                            <td>Monitoring, troubleshooting, VPC Flow Logs, Traffic Mirroring, IPAM, Network Manager</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Network Security</strong></td>
+                            <td>24%</td>
+                            <td>Network Firewall, WAF, Shield, security groups, NACLs, encryption in transit, DDoS mitigation</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Must-Know Services</h3>
+                <div style="column-count: 2; column-gap: 20px;">
+                    <ul style="margin: 0;">
+                        <li><strong>Transit Gateway</strong> &mdash; hub-and-spoke VPC connectivity, peering, multicast</li>
+                        <li><strong>Direct Connect</strong> &mdash; dedicated connections, LAG, MACsec, hosted/dedicated VIFs</li>
+                        <li><strong>Site-to-Site VPN</strong> &mdash; accelerated VPN, transit VPN, dynamic routing (BGP)</li>
+                        <li><strong>Route 53</strong> &mdash; routing policies, health checks, Resolver (inbound/outbound endpoints)</li>
+                        <li><strong>CloudFront</strong> &mdash; OAC (replacing OAI), edge functions, TLS policies</li>
+                        <li><strong>ELB</strong> &mdash; ALB, NLB, GWLB, target types, cross-zone, IP preservation</li>
+                        <li><strong>Network Firewall</strong> &mdash; stateful/stateless rules, rule groups, centralized deployment</li>
+                        <li><strong>VPC / IPAM</strong> &mdash; subnets, route tables, endpoints, prefix lists, IPAM pools</li>
+                        <li><strong>PrivateLink</strong> &mdash; interface endpoints, Gateway Load Balancer endpoints</li>
+                        <li><strong>Global Accelerator</strong> &mdash; anycast IP, endpoint groups, failover</li>
+                    </ul>
+                </div>
+
+                <h3>Should-Know (Newer Services)</h3>
+                <ul>
+                    <li><strong>VPC Lattice</strong> &mdash; application-layer service-to-service networking across VPCs and compute types</li>
+                    <li><strong>Cloud WAN</strong> &mdash; managed global WAN with network policies and segments</li>
+                    <li><strong>Verified Access</strong> &mdash; zero-trust application access without VPN</li>
+                    <li><strong>Cloud Map</strong> &mdash; service discovery for cloud resources</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> If you plan to take this exam, do so before August 25, 2026. The exam is heavily focused on hybrid connectivity (Direct Connect + VPN failover scenarios), Transit Gateway routing, and DNS resolution across hybrid environments. Know Direct Connect connection types, VIF types, and BGP routing in detail.
+                </div>
+
+                <a class="doc-link" href="https://aws.amazon.com/certification/certified-advanced-networking-specialty/" target="_blank">AWS: Advanced Networking Specialty Certification Page</a>
+                <br>
+                <a class="doc-link" href="https://d1.awsstatic.com/training-and-certification/docs-advnetworking-spec/AWS-Certified-Advanced-Networking-Specialty_Exam-Guide.pdf" target="_blank">ANS-C01 Exam Guide (PDF)</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             4. NEW EXAMS
+             ================================================================= -->
+        <h2 class="section-title" id="new-exams">4. New Exams</h2>
+
+        <!-- AIF-C01 -->
+        <div class="card" id="aif-c01">
+            <div class="card-header">
+                <h2>AI Practitioner &mdash; AIF-C01</h2>
+                <span class="badge" style="background: var(--exam-foundational); color: white;">Foundational</span>
+                <span class="badge badge-new">NEW</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Exam Details</h3>
+                <table>
+                    <tbody>
+                        <tr><td><strong>Exam Code</strong></td><td>AIF-C01</td></tr>
+                        <tr><td><strong>Level</strong></td><td>Foundational</td></tr>
+                        <tr><td><strong>Target Audience</strong></td><td>Non-builders: business analysts, project managers, sales professionals, marketing</td></tr>
+                        <tr><td><strong>Cost</strong></td><td>$100 USD</td></tr>
+                        <tr><td><strong>Duration</strong></td><td>90 minutes</td></tr>
+                        <tr><td><strong>Passing Score</strong></td><td>700 / 1000</td></tr>
+                        <tr><td><strong>Scored Questions</strong></td><td>50 (+ 15 unscored)</td></tr>
+                        <tr><td><strong>Question Types</strong></td><td>Multiple Choice, Multiple Response, Ordering, Matching</td></tr>
+                        <tr><td><strong>Validity</strong></td><td>3 years</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Domain Breakdown</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Domain</th>
+                            <th>Weight</th>
+                            <th>Key Topics</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. Fundamentals of AI &amp; ML</strong></td>
+                            <td>20%</td>
+                            <td>Supervised vs unsupervised vs reinforcement learning, training/validation/test splits, bias/variance, overfitting/underfitting</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Fundamentals of Generative AI</strong></td>
+                            <td>24%</td>
+                            <td>Transformers, LLMs, foundation models, tokenization, embeddings, diffusion models, GANs, VAEs, temperature/top-p/top-k</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Applications of Foundation Models</strong></td>
+                            <td>28%</td>
+                            <td>RAG architecture, prompt engineering (zero-shot, few-shot, chain-of-thought), fine-tuning (RLHF, transfer learning, instruction tuning), agents</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Guidelines for Responsible AI</strong></td>
+                            <td>14%</td>
+                            <td>8 responsible AI dimensions (fairness, explainability, robustness, privacy, safety, controllability, veracity, governance), bias detection, Clarify</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Security, Compliance &amp; Governance for AI</strong></td>
+                            <td>14%</td>
+                            <td>Data privacy, model governance, Bedrock Guardrails, content filtering, PII handling, compliance</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Key Topics in Detail</h3>
+
+                <h4>Prompt Engineering Techniques</h4>
+                <ul>
+                    <li><strong>Zero-shot:</strong> Prompt with no examples &mdash; relies on the model's pre-trained knowledge</li>
+                    <li><strong>Few-shot:</strong> Provide 2&ndash;5 examples in the prompt to guide the model's response format and style</li>
+                    <li><strong>Chain-of-thought:</strong> Ask the model to "think step by step" to improve reasoning accuracy</li>
+                    <li><strong>System prompts:</strong> Define the model's persona, constraints, and behavioral guidelines</li>
+                </ul>
+
+                <h4>Model Customization Techniques</h4>
+                <ul>
+                    <li><strong>RAG (Retrieval-Augmented Generation):</strong> Augment model responses with external knowledge from a vector database at inference time &mdash; no model retraining needed</li>
+                    <li><strong>Fine-tuning:</strong> Further train a pre-trained model on domain-specific labeled data &mdash; modifies model weights</li>
+                    <li><strong>RLHF (Reinforcement Learning from Human Feedback):</strong> Human evaluators rank model outputs to train a reward model that guides further fine-tuning</li>
+                    <li><strong>Transfer learning:</strong> Apply a model trained on one task to a related but different task</li>
+                    <li><strong>Continued pre-training:</strong> Extend pre-training with domain-specific unlabeled data (e.g., medical literature)</li>
+                </ul>
+
+                <h4>Evaluation Metrics</h4>
+                <ul>
+                    <li><strong>ROUGE:</strong> Recall-Oriented Understudy for Gisting Evaluation &mdash; measures overlap between generated and reference summaries</li>
+                    <li><strong>BLEU:</strong> Bilingual Evaluation Understudy &mdash; measures precision of n-gram overlap, commonly used for translation</li>
+                    <li><strong>BERTScore:</strong> Uses BERT embeddings to compute semantic similarity between generated and reference text</li>
+                    <li><strong>Perplexity:</strong> Measures how well a probability model predicts a sample &mdash; lower is better</li>
+                    <li><strong>Human evaluation:</strong> Subject matter experts rate relevance, coherence, and helpfulness</li>
+                </ul>
+
+                <h3>Key AWS Services</h3>
+                <ul>
+                    <li><strong>Amazon Bedrock</strong> &mdash; managed access to foundation models (Claude, Llama, Titan, etc.) with Knowledge Bases, Agents, and Guardrails</li>
+                    <li><strong>Amazon SageMaker</strong> &mdash; build, train, and deploy custom ML models</li>
+                    <li><strong>Amazon Q</strong> &mdash; AI assistant for developers (Q Developer) and business users (Q Business)</li>
+                    <li><strong>Amazon Comprehend</strong> &mdash; NLP: sentiment analysis, entity recognition, language detection</li>
+                    <li><strong>Amazon Transcribe</strong> &mdash; speech to text</li>
+                    <li><strong>Amazon Lex</strong> &mdash; conversational interfaces (chatbots)</li>
+                    <li><strong>Amazon Polly</strong> &mdash; text to speech</li>
+                    <li><strong>Amazon Rekognition</strong> &mdash; image and video analysis</li>
+                    <li><strong>Amazon Textract</strong> &mdash; document text and data extraction (OCR+)</li>
+                </ul>
+
+                <h3>8 Responsible AI Dimensions</h3>
+                <ol>
+                    <li><strong>Fairness</strong> &mdash; equitable treatment across groups, bias mitigation</li>
+                    <li><strong>Explainability</strong> &mdash; ability to understand and interpret model decisions</li>
+                    <li><strong>Robustness</strong> &mdash; consistent performance across conditions and adversarial inputs</li>
+                    <li><strong>Privacy</strong> &mdash; protection of personal and sensitive data</li>
+                    <li><strong>Safety</strong> &mdash; preventing harmful, toxic, or dangerous outputs</li>
+                    <li><strong>Controllability</strong> &mdash; mechanisms to steer and constrain model behavior</li>
+                    <li><strong>Veracity &amp; Truthfulness</strong> &mdash; generating accurate, factual, non-hallucinated responses</li>
+                    <li><strong>Governance</strong> &mdash; oversight, accountability, auditing, and compliance</li>
+                </ol>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Despite being a foundational exam, AIF-C01 covers a broad range of AI/ML concepts. Focus on understanding RAG vs fine-tuning trade-offs, when to use each prompt engineering technique, and the 8 responsible AI dimensions. Bedrock Guardrails is the AWS-specific responsible AI service to know.
+                </div>
+
+                <a class="doc-link" href="https://aws.amazon.com/certification/certified-ai-practitioner/" target="_blank">AWS: AI Practitioner Certification Page</a>
+                <br>
+                <a class="doc-link" href="https://d1.awsstatic.com/training-and-certification/docs-ai-practitioner/AWS-Certified-AI-Practitioner_Exam-Guide.pdf" target="_blank">AIF-C01 Exam Guide (PDF)</a>
+            </div>
+        </div>
+
+        <!-- DEA-C01 -->
+        <div class="card" id="dea-c01">
+            <div class="card-header">
+                <h2>Data Engineer Associate &mdash; DEA-C01</h2>
+                <span class="badge" style="background: var(--exam-associate); color: white;">Associate</span>
+                <span class="badge badge-new">NEW</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Exam Details</h3>
+                <table>
+                    <tbody>
+                        <tr><td><strong>Exam Code</strong></td><td>DEA-C01</td></tr>
+                        <tr><td><strong>Cost</strong></td><td>$150 USD</td></tr>
+                        <tr><td><strong>Duration</strong></td><td>130 minutes</td></tr>
+                        <tr><td><strong>Passing Score</strong></td><td>720 / 1000</td></tr>
+                        <tr><td><strong>Scored Questions</strong></td><td>50 (+ 15 unscored)</td></tr>
+                        <tr><td><strong>Question Types</strong></td><td>Multiple Choice, Multiple Response</td></tr>
+                        <tr><td><strong>Validity</strong></td><td>3 years</td></tr>
+                        <tr><td><strong>Prerequisite</strong></td><td>None (recommended 2&ndash;3 years data engineering experience)</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Domain Breakdown</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Domain</th>
+                            <th>Weight</th>
+                            <th>Key Topics</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. Data Ingestion &amp; Transformation</strong></td>
+                            <td>34%</td>
+                            <td>Batch/streaming ingestion, ETL/ELT, Glue jobs/crawlers/catalog, Kinesis, MSK, Lambda, data quality</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Data Store Management</strong></td>
+                            <td>26%</td>
+                            <td>S3 (lifecycle, partitioning, formats), data lake architecture, Redshift, RDS/Aurora, DynamoDB, data modeling</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Data Operations &amp; Support</strong></td>
+                            <td>22%</td>
+                            <td>Pipeline orchestration (Step Functions, MWAA, EventBridge), monitoring, troubleshooting, performance optimization</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Data Security &amp; Governance</strong></td>
+                            <td>18%</td>
+                            <td>Lake Formation, IAM, KMS encryption, data classification, access control, compliance, data lineage</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Key Services to Know</h3>
+                <div style="column-count: 3; column-gap: 20px;">
+                    <ul style="margin: 0;">
+                        <li>Amazon S3</li>
+                        <li>AWS Glue</li>
+                        <li>Amazon Athena</li>
+                        <li>Amazon Redshift</li>
+                        <li>Amazon Kinesis</li>
+                        <li>Amazon MSK</li>
+                        <li>Amazon EMR</li>
+                        <li>AWS DMS</li>
+                        <li>AWS Lake Formation</li>
+                        <li>AWS Step Functions</li>
+                        <li>Amazon MWAA</li>
+                        <li>AWS Lambda</li>
+                        <li>Amazon EventBridge</li>
+                        <li>Amazon DynamoDB</li>
+                        <li>Amazon RDS / Aurora</li>
+                    </ul>
+                </div>
+
+                <div class="concept">
+                    <strong>Data formats to know:</strong> Parquet (columnar, compressed, best for analytics), ORC (similar to Parquet, Hive ecosystem), Avro (row-based, schema evolution, streaming), JSON (flexible but large), CSV (legacy, no schema). Know when to use each and how Glue handles conversions.
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> This exam is heavily weighted toward ingestion and transformation (34%). Understand Glue job types (Spark, Streaming, Python Shell), crawler behavior, and how the Data Catalog integrates with Athena and Redshift Spectrum. Lake Formation fine-grained access control (column/row/cell level) is a frequent topic.
+                </div>
+
+                <a class="doc-link" href="https://aws.amazon.com/certification/certified-data-engineer-associate/" target="_blank">AWS: Data Engineer Associate Certification Page</a>
+                <br>
+                <a class="doc-link" href="https://d1.awsstatic.com/training-and-certification/docs-data-engineer-associate/AWS-Certified-Data-Engineer-Associate_Exam-Guide.pdf" target="_blank">DEA-C01 Exam Guide (PDF)</a>
+            </div>
+        </div>
+
+        <!-- MLA-C01 -->
+        <div class="card" id="mla-c01">
+            <div class="card-header">
+                <h2>ML Engineer Associate &mdash; MLA-C01</h2>
+                <span class="badge" style="background: var(--exam-associate); color: white;">Associate</span>
+                <span class="badge badge-new">NEW</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Exam Details</h3>
+                <table>
+                    <tbody>
+                        <tr><td><strong>Exam Code</strong></td><td>MLA-C01</td></tr>
+                        <tr><td><strong>Cost</strong></td><td>$150 USD</td></tr>
+                        <tr><td><strong>Duration</strong></td><td>130 minutes</td></tr>
+                        <tr><td><strong>Passing Score</strong></td><td>720 / 1000</td></tr>
+                        <tr><td><strong>Scored Questions</strong></td><td>50 (+ 15 unscored)</td></tr>
+                        <tr><td><strong>Question Types</strong></td><td>Multiple Choice, Multiple Response, <strong>Ordering, Matching</strong></td></tr>
+                        <tr><td><strong>Validity</strong></td><td>3 years</td></tr>
+                        <tr><td><strong>Replaces</strong></td><td>MLS-C01 (Machine Learning Specialty, retired Mar 31, 2026)</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Domain Breakdown</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Domain</th>
+                            <th>Weight</th>
+                            <th>Key Topics</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. Data Preparation for ML</strong></td>
+                            <td>28%</td>
+                            <td>Feature engineering, data cleaning, data augmentation, class imbalance handling (SMOTE, undersampling), data versioning</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. ML Model Development</strong></td>
+                            <td>26%</td>
+                            <td>Algorithm selection, hyperparameter tuning, training on SageMaker, Bedrock model customization, evaluation metrics</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Deployment &amp; Orchestration</strong></td>
+                            <td>22%</td>
+                            <td>SageMaker endpoints (real-time, serverless, async, batch), model registry, A/B testing, CI/CD for ML, MLOps</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Monitoring, Maintenance &amp; Security</strong></td>
+                            <td>24%</td>
+                            <td>Model monitoring (data drift, concept drift), model retraining triggers, SageMaker Model Monitor, Clarify, IAM, VPC configs</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Key Services to Know</h3>
+                <div style="column-count: 3; column-gap: 20px;">
+                    <ul style="margin: 0;">
+                        <li>Amazon Bedrock</li>
+                        <li>Amazon SageMaker (all features)</li>
+                        <li>Amazon Q</li>
+                        <li>Amazon Comprehend</li>
+                        <li>Amazon Lex</li>
+                        <li>Amazon Polly</li>
+                        <li>Amazon Rekognition</li>
+                        <li>Amazon Textract</li>
+                        <li>Amazon Transcribe</li>
+                        <li>Amazon Translate</li>
+                        <li>Amazon Personalize</li>
+                        <li>SageMaker Model Monitor</li>
+                        <li>SageMaker Clarify</li>
+                        <li>SageMaker Pipelines</li>
+                        <li>SageMaker Feature Store</li>
+                    </ul>
+                </div>
+
+                <div class="concept">
+                    <strong>MLA-C01 vs MLS-C01 (retired):</strong> The new ML Engineer Associate is positioned lower (Associate vs Specialty) but incorporates GenAI/Bedrock topics that did not exist when MLS-C01 was created. It focuses more on MLOps, deployment, and operational ML workflows rather than deep algorithm theory.
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> SageMaker is the centerpiece of this exam. Know all endpoint types and when to use each: real-time (low latency, always-on), serverless (intermittent traffic, cost savings), asynchronous (large payloads, long processing), batch transform (offline bulk inference). Bedrock Knowledge Bases (RAG) and Agents are also testable.
+                </div>
+
+                <a class="doc-link" href="https://aws.amazon.com/certification/certified-machine-learning-engineer-associate/" target="_blank">AWS: ML Engineer Associate Certification Page</a>
+                <br>
+                <a class="doc-link" href="https://d1.awsstatic.com/training-and-certification/docs-ml-engineer-associate/AWS-Certified-Machine-Learning-Engineer-Associate_Exam-Guide.pdf" target="_blank">MLA-C01 Exam Guide (PDF)</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             5. ASSOCIATE EXAMS (REFERENCE)
+             ================================================================= -->
+        <h2 class="section-title" id="associate-exams">5. Associate Exams (Reference)</h2>
+
+        <!-- SAA-C03 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Solutions Architect Associate &mdash; SAA-C03</h3>
+                <span class="badge" style="background: var(--exam-associate); color: white;">Associate</span>
+                <span class="badge badge-updated">Active</span>
+            </div>
+            <div class="card-body">
+                <h4>Domain Breakdown</h4>
+                <table>
+                    <thead>
+                        <tr><th>Domain</th><th>Weight</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Secure Architectures</td><td>30%</td></tr>
+                        <tr><td>Resilient Architectures</td><td>26%</td></tr>
+                        <tr><td>High-Performing Architectures</td><td>24%</td></tr>
+                        <tr><td>Cost-Optimized Architectures</td><td>20%</td></tr>
+                    </tbody>
+                </table>
+                <h4>Key Changes from SAA-C02</h4>
+                <ul>
+                    <li>Serverless and container services now standard (not "emerging")</li>
+                    <li>Security domain increased to 30% (was 24%)</li>
+                    <li>IAM Identity Center, VPC endpoints, and data protection are more prominent</li>
+                    <li>Lake Formation, Athena, and analytics services added</li>
+                    <li>Cost Explorer, Compute Optimizer, and Savings Plans emphasized</li>
+                </ul>
+                <a class="doc-link" href="https://aws.amazon.com/certification/certified-solutions-architect-associate/" target="_blank">AWS: Solutions Architect Associate Certification Page</a>
+            </div>
+        </div>
+
+        <!-- DVA-C02 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Developer Associate &mdash; DVA-C02</h3>
+                <span class="badge" style="background: var(--exam-associate); color: white;">Associate</span>
+                <span class="badge badge-updated">Active</span>
+            </div>
+            <div class="card-body">
+                <h4>Domain Breakdown</h4>
+                <table>
+                    <thead>
+                        <tr><th>Domain</th><th>Weight</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Development with AWS Services</td><td>32%</td></tr>
+                        <tr><td>Security</td><td>26%</td></tr>
+                        <tr><td>Deployment</td><td>24%</td></tr>
+                        <tr><td>Troubleshooting &amp; Optimization</td><td>18%</td></tr>
+                    </tbody>
+                </table>
+                <h4>Key Changes from DVA-C01</h4>
+                <ul>
+                    <li>Security weight increased significantly to 26%</li>
+                    <li>Lambda, API Gateway, DynamoDB, and Step Functions remain core</li>
+                    <li>CDK, SAM, and CloudFormation for IaC</li>
+                    <li>X-Ray and CloudWatch for observability</li>
+                    <li>EventBridge added as a key service</li>
+                    <li>Cognito for authentication and authorization</li>
+                </ul>
+                <a class="doc-link" href="https://aws.amazon.com/certification/certified-developer-associate/" target="_blank">AWS: Developer Associate Certification Page</a>
+            </div>
+        </div>
+
+        <!-- SOA-C03 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>CloudOps Engineer Associate &mdash; SOA-C03</h3>
+                <span class="badge" style="background: var(--exam-associate); color: white;">Associate</span>
+                <span class="badge badge-updated">Active (renamed)</span>
+            </div>
+            <div class="card-body">
+                <div class="info">
+                    <strong>Renamed:</strong> "SysOps Administrator" has been renamed to <strong>"CloudOps Engineer"</strong> to reflect the modern scope of cloud operations. Exam code updated from SOA-C02 to SOA-C03.
+                </div>
+                <h4>Domain Breakdown</h4>
+                <table>
+                    <thead>
+                        <tr><th>Domain</th><th>Weight</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Monitoring, Logging &amp; Remediation</td><td>20%</td></tr>
+                        <tr><td>Reliability &amp; Business Continuity</td><td>16%</td></tr>
+                        <tr><td>Deployment, Provisioning &amp; Automation</td><td>18%</td></tr>
+                        <tr><td>Security &amp; Compliance</td><td>16%</td></tr>
+                        <tr><td>Networking &amp; Content Delivery</td><td>18%</td></tr>
+                        <tr><td>Cost &amp; Performance Optimization</td><td>12%</td></tr>
+                    </tbody>
+                </table>
+                <h4>Key Changes from SOA-C02</h4>
+                <ul>
+                    <li>Renamed from SysOps Administrator to CloudOps Engineer</li>
+                    <li>New question types: Ordering and Matching (in addition to MC/MR)</li>
+                    <li>Stronger focus on automation and IaC (CloudFormation, CDK)</li>
+                    <li>Container operations (ECS, EKS) added</li>
+                    <li>Systems Manager features expanded (Session Manager, Patch Manager, Automation)</li>
+                    <li>Passing DevOps Professional recertifies this exam</li>
+                </ul>
+                <a class="doc-link" href="https://aws.amazon.com/certification/certified-sysops-admin-associate/" target="_blank">AWS: CloudOps Engineer Associate Certification Page</a>
+            </div>
+        </div>
+
+        <!-- CLF-C02 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Cloud Practitioner &mdash; CLF-C02</h3>
+                <span class="badge" style="background: var(--exam-foundational); color: white;">Foundational</span>
+                <span class="badge badge-updated">Active</span>
+            </div>
+            <div class="card-body">
+                <h4>Domain Breakdown</h4>
+                <table>
+                    <thead>
+                        <tr><th>Domain</th><th>Weight</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Cloud Concepts</td><td>24%</td></tr>
+                        <tr><td>Security &amp; Compliance</td><td>30%</td></tr>
+                        <tr><td>Cloud Technology &amp; Services</td><td>34%</td></tr>
+                        <tr><td>Billing, Pricing &amp; Support</td><td>12%</td></tr>
+                    </tbody>
+                </table>
+                <h4>Key Changes from CLF-C01</h4>
+                <ul>
+                    <li>Security &amp; Compliance weight increased to 30% (was 25%)</li>
+                    <li>Cloud Technology &amp; Services consolidated into one domain (was two)</li>
+                    <li>AI/ML services (Bedrock, SageMaker, Q) added as testable services</li>
+                    <li>Well-Architected Framework: Sustainability pillar added</li>
+                    <li>Can be renewed via Cloud Quest (game-based recertification)</li>
+                </ul>
+                <a class="doc-link" href="https://aws.amazon.com/certification/certified-cloud-practitioner/" target="_blank">AWS: Cloud Practitioner Certification Page</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             6. EXAM DELIVERY & RECERTIFICATION
+             ================================================================= -->
+        <h2 class="section-title" id="exam-delivery">6. Exam Delivery &amp; Recertification</h2>
+
+        <!-- Recertification Policy -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Recertification Policy</h2>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>How It Works</th>
+                            <th>Extension</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Exam Retake</strong></td>
+                            <td>Retake the current version of the exam</td>
+                            <td>3-year extension from the date you pass</td>
+                            <td>AWS provides a <strong>50% discount voucher</strong> for recertification</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Certification Maintenance</strong></td>
+                            <td>Complete activities on AWS Skill Builder (digital courses, assessments)</td>
+                            <td><strong>1-year extension</strong></td>
+                            <td>Requires an active Skill Builder subscription or use of free maintenance content</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Game-Based Renewal</strong></td>
+                            <td>Complete AWS Cloud Quest scenarios</td>
+                            <td>Renews Cloud Practitioner and AI Practitioner</td>
+                            <td>Only available for foundational-level certifications</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cross-Certification</strong></td>
+                            <td>Passing a higher-level exam recertifies lower exams</td>
+                            <td>3 years (tied to higher exam validity)</td>
+                            <td>Example: DevOps Pro (DOP-C02) recertifies CloudOps Engineer Associate (SOA-C03)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="concept">
+                    <strong>Recertification timeline:</strong> Certifications are valid for 3 years. You can begin recertification activities starting 1 year before expiration. If your certification lapses, you must retake the full exam &mdash; there is no grace period for maintenance.
+                </div>
+            </div>
+        </div>
+
+        <!-- AWS Skill Builder -->
+        <div class="card">
+            <div class="card-header">
+                <h2>AWS Skill Builder</h2>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tier</th>
+                            <th>Cost</th>
+                            <th>Includes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Free Tier</strong></td>
+                            <td>$0</td>
+                            <td>1,000+ courses, 20-question practice quiz sets, certification maintenance content</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Individual Monthly</strong></td>
+                            <td>$29/month</td>
+                            <td>Everything in Free, plus: full-length practice exams, SimuLearn, hands-on labs, Escape Room challenges</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Individual Annual</strong></td>
+                            <td>$449/year</td>
+                            <td>Everything in Monthly, plus: Digital Classroom (instructor-led equivalent), additional lab credits</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Notable Skill Builder Features</h3>
+                <ul>
+                    <li><strong>SimuLearn:</strong> Interactive exam-like simulations with scenario-based questions and real-time feedback</li>
+                    <li><strong>Escape Room:</strong> Gamified learning challenges that test knowledge in a fun, time-pressured environment</li>
+                    <li><strong>Microcredentials:</strong> Short assessments that validate specific skill areas (e.g., "Serverless Foundations", "GenAI Essentials")</li>
+                    <li><strong>Enhanced Practice Exams:</strong> Full-length timed exams with detailed explanations for each answer</li>
+                    <li><strong>Hands-On Labs:</strong> Sandboxed AWS environments for practical exercises</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>TIP:</strong> The $29/month Skill Builder plan pays for itself if you are preparing for an exam &mdash; a single official practice exam from Pearson VUE costs $20+, and Skill Builder gives unlimited access to all practice exams plus labs and SimuLearn content.
+                </div>
+
+                <a class="doc-link" href="https://skillbuilder.aws/" target="_blank">AWS Skill Builder</a>
+            </div>
+        </div>
+
+        <!-- New Question Types -->
+        <div class="card">
+            <div class="card-header">
+                <h2>New Question Types</h2>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Format</th>
+                            <th>Example</th>
+                            <th>Appears On</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Multiple Choice (MC)</strong></td>
+                            <td>One correct answer from four options</td>
+                            <td>"Which service provides...?"</td>
+                            <td>All exams</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Multiple Response (MR)</strong></td>
+                            <td>Two or more correct answers from five+ options</td>
+                            <td>"Select TWO services that..." (partial credit possible)</td>
+                            <td>All exams</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ordering</strong></td>
+                            <td>Arrange 3&ndash;5 items in the correct sequence</td>
+                            <td>"Order the following incident response steps from first to last"</td>
+                            <td>AIF-C01, MLA-C01, SCS-C03, SOA-C03</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Matching</strong></td>
+                            <td>Match responses to 3&ndash;7 prompts</td>
+                            <td>"Match each AWS service to its primary function"</td>
+                            <td>AIF-C01, MLA-C01, SCS-C03, SOA-C03</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning">
+                    <strong>Strategy change required:</strong> Ordering and Matching questions cannot be answered through elimination the way MC/MR questions sometimes can. You must understand the relationships and sequences deeply. Practice with official AWS sample questions to get comfortable with these formats.
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             7. KEY TRENDS
+             ================================================================= -->
+        <h2 class="section-title" id="key-trends">7. Key Trends</h2>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>AWS Certification Trends (2021&ndash;2026)</h2>
+            </div>
+            <div class="card-body">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Trend</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1</strong></td>
+                            <td><strong>AI/ML is the biggest growth area</strong></td>
+                            <td>Three new exams since 2024: AIF-C01 (AI Practitioner), DEA-C01 (Data Engineer), MLA-C01 (ML Engineer). Bedrock, SageMaker, and Amazon Q now appear on nearly every exam. GenAI security added to SCS-C03.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2</strong></td>
+                            <td><strong>Specialty exams are consolidating</strong></td>
+                            <td>Database Specialty (DBS-C01) &mdash; retired. Machine Learning Specialty (MLS-C01) &mdash; retired March 2026, replaced by MLA-C01. Advanced Networking (ANS-C01) &mdash; retiring August 2026. Security Specialty is the sole remaining specialty, freshly updated.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3</strong></td>
+                            <td><strong>Security emphasis increasing across all exams</strong></td>
+                            <td>Security domains have increased weight on SAA-C03 (30%), DVA-C02 (26%), and DOP-C02 (17% as a standalone domain). IAM Identity Center, Organizations policies, and encryption are universal topics.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4</strong></td>
+                            <td><strong>Container/serverless now standard on nearly every exam</strong></td>
+                            <td>ECS, EKS, Fargate, and Lambda are no longer "advanced" topics. Container deployment patterns, service mesh (Service Connect), and serverless architectures are expected knowledge at all levels above Foundational.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5</strong></td>
+                            <td><strong>IaC diversification</strong></td>
+                            <td>CDK v2 is now as important as CloudFormation on DOP-C02 and SAP-C02. SAM remains relevant for serverless. Understanding construct levels (L1/L2/L3), CDK Pipelines, and <code>cdk synth</code>/<code>cdk deploy</code> is required.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>6</strong></td>
+                            <td><strong>New question formats require deeper understanding</strong></td>
+                            <td>Ordering and Matching questions (on AIF-C01, MLA-C01, SCS-C03, SOA-C03) test relationships and sequences, not just recognition. Process-of-elimination strategies are less effective. Hands-on experience is increasingly valuable.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="concept">
+                    <strong>Overall direction:</strong> AWS is moving toward fewer, broader exams at the Associate level (consolidating specialties downward) while increasing the depth and breadth of Professional exams. AI/ML content is being woven into every certification path. The days of memorizing service names and basic features are fading &mdash; scenario-based questions with subtle trade-offs are the norm.
+                </div>
+
+                <div class="tip">
+                    <strong>STUDY STRATEGY:</strong> For someone catching up from 2021, prioritize in this order: (1) Professional exam updates (SAP-C02, DOP-C02) since these are likely your recertification targets. (2) Security Specialty (SCS-C03) if security is part of your role. (3) AI/ML fundamentals &mdash; even if you do not plan to take AIF-C01 or MLA-C01, GenAI topics now appear on Professional exams. (4) Associate exams only as reference material for foundational concepts.
+                </div>
+
+                <a class="doc-link" href="https://aws.amazon.com/certification/" target="_blank">AWS Certification Home</a>
+                <br>
+                <a class="doc-link" href="https://aws.amazon.com/certification/recertification/" target="_blank">AWS Recertification Policy</a>
+                <br>
+                <a class="doc-link" href="https://aws.amazon.com/certification/certification-prep/" target="_blank">AWS Certification Preparation Resources</a>
+            </div>
+        </div>
+
+    </main>
+
+    <footer style="text-align: center; padding: 30px 20px; color: var(--text-light); font-size: 0.85rem;">
+        <p>AWS Catch-Up Guide 2021&ndash;2026 &mdash; Exam Guide &amp; Certification Landscape &mdash; Last updated June 2026</p>
+    </footer>
+
+</body>
+</html>

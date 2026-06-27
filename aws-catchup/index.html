@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Catch-Up Guide 2021-2026</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <a href="index.html" class="active">Index</a>
+        <a href="security-identity.html">Security &amp; Identity</a>
+        <a href="ai-ml.html">AI &amp; ML</a>
+        <a href="devops-iac.html">DevOps &amp; IaC</a>
+        <a href="networking.html">Networking</a>
+        <a href="compute-storage-db.html">Compute/Storage/DB</a>
+        <a href="exam-guide.html">Exam Guide</a>
+        <a href="new-services.html">New Services</a>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1>AWS Catch-Up Guide 2021-2026</h1>
+        <p class="subtitle">From SA Pro + DevOps Pro (2021) to current state</p>
+    </header>
+
+    <main>
+
+        <!-- Stats Bar -->
+        <section class="stats-bar">
+            <div class="stat">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Services Updated</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">15+</span>
+                <span class="stat-label">New Services</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">6</span>
+                <span class="stat-label">Exams Updated</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">3</span>
+                <span class="stat-label">New Exams</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">5+</span>
+                <span class="stat-label">Services Deprecated</span>
+            </div>
+        </section>
+
+        <!-- Quick Summary: Top 10 Changes -->
+        <section class="card">
+            <h2>Top 10 Most Impactful Changes (2021-2026)</h2>
+            <p>If you only have time to learn ten things, make it these:</p>
+            <ol class="top-changes">
+                <li>
+                    <strong>IAM Identity Center replaced AWS SSO</strong> <span class="date-tag">July 2022</span>
+                    <br>Full rebrand with expanded functionality &mdash; central identity management across Organizations.
+                </li>
+                <li>
+                    <strong>Amazon Bedrock launched &mdash; managed GenAI platform</strong> <span class="date-tag">Sep 2023</span>
+                    <br>Access to foundation models (Claude, Llama, Titan) via API with fine-tuning, RAG, and Guardrails.
+                </li>
+                <li>
+                    <strong>Amazon Q launched &mdash; AI assistant family</strong> <span class="date-tag">Apr 2024</span>
+                    <br>Amazon Q Developer, Q Business, and Q in QuickSight &mdash; AI assistants across the AWS ecosystem.
+                </li>
+                <li>
+                    <strong>Terraform BSL license change + OpenTofu fork</strong> <span class="date-tag">Aug 2023</span>
+                    <br>HashiCorp switched to Business Source License; community forked OpenTofu under Linux Foundation.
+                </li>
+                <li>
+                    <strong>VPC Lattice &mdash; new service-to-service networking</strong> <span class="date-tag">Mar 2023</span>
+                    <br>Application-layer networking that works across VPCs, accounts, and compute types (EC2, ECS, EKS, Lambda).
+                </li>
+                <li>
+                    <strong>Aurora Serverless v2 replaced v1</strong> <span class="date-tag">Apr 2022</span>
+                    <br>Instant scaling in fine-grained increments &mdash; v1 deprecated. Now the default serverless option.
+                </li>
+                <li>
+                    <strong>S3 Express One Zone &mdash; millisecond latency storage</strong> <span class="date-tag">Nov 2023</span>
+                    <br>New directory bucket type with single-digit-ms latency, designed for compute-adjacent workloads.
+                </li>
+                <li>
+                    <strong>CDK v2 replaced v1</strong> <span class="date-tag">Jun 2022</span>
+                    <br>Single-package model, all constructs consolidated. CDK v1 entered maintenance then end-of-support.
+                </li>
+                <li>
+                    <strong>Organizations: new RCPs and Declarative Policies</strong>
+                    <br>Resource Control Policies join SCPs for governance; Declarative Policies enforce service configurations.
+                </li>
+                <li>
+                    <strong>EKS Pod Identity replacing IRSA pattern</strong> <span class="date-tag">Nov 2023</span>
+                    <br>Simpler IAM-to-pod mapping without OIDC provider setup &mdash; becoming the recommended approach.
+                </li>
+            </ol>
+        </section>
+
+        <!-- Section Cards Grid -->
+        <h2 class="section-heading">Deep-Dive Sections</h2>
+        <div class="card-grid">
+
+            <a href="security-identity.html" class="card card-link">
+                <h3>Security &amp; Identity</h3>
+                <p>IAM Identity Center, Control Tower, Security Hub, GuardDuty, KMS, Verified Access, Security Lake</p>
+            </a>
+
+            <a href="ai-ml.html" class="card card-link">
+                <h3>AI &amp; Machine Learning</h3>
+                <p>Bedrock, SageMaker, Amazon Q, Trainium/Inferentia, Responsible AI</p>
+            </a>
+
+            <a href="devops-iac.html" class="card card-link">
+                <h3>DevOps &amp; IaC</h3>
+                <p>Terraform, CDK v2, CloudFormation, CodePipeline V2, ECS/EKS, Lambda, Step Functions</p>
+            </a>
+
+            <a href="networking.html" class="card card-link">
+                <h3>Networking</h3>
+                <p>VPC Lattice, Cloud WAN, CloudFront, Route 53, Direct Connect, Network Firewall</p>
+            </a>
+
+            <a href="compute-storage-db.html" class="card card-link">
+                <h3>Compute, Storage &amp; Databases</h3>
+                <p>Graviton, S3 Express, Aurora Serverless v2, DynamoDB, ElastiCache Serverless</p>
+            </a>
+
+            <a href="exam-guide.html" class="card card-link">
+                <h3>Exam Guide</h3>
+                <p>SAP-C02, DOP-C02, SCS-C03, ANS-C01, AIF-C01, MLA-C01, DEA-C01</p>
+            </a>
+
+            <a href="new-services.html" class="card card-link">
+                <h3>New &amp; Renamed Services</h3>
+                <p>Complete reference of every new, renamed, and deprecated AWS service since 2021</p>
+            </a>
+
+        </div>
+
+        <!-- Exam Overview Table -->
+        <section class="card">
+            <h2>Current AWS Certification Overview</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Level</th>
+                            <th>Exam Name</th>
+                            <th>Code</th>
+                            <th>Status</th>
+                            <th>Cost</th>
+                            <th>Your Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Foundational</td>
+                            <td>Cloud Practitioner</td>
+                            <td>CLF-C02</td>
+                            <td>Current</td>
+                            <td>$100 USD</td>
+                            <td><span class="priority-ref">Reference</span></td>
+                        </tr>
+                        <tr>
+                            <td>Associate</td>
+                            <td>Solutions Architect &ndash; Associate</td>
+                            <td>SAA-C03</td>
+                            <td>Current</td>
+                            <td>$150 USD</td>
+                            <td><span class="priority-ref">Reference</span></td>
+                        </tr>
+                        <tr>
+                            <td>Associate</td>
+                            <td>Developer &ndash; Associate</td>
+                            <td>DVA-C02</td>
+                            <td>Current</td>
+                            <td>$150 USD</td>
+                            <td><span class="priority-ref">Reference</span></td>
+                        </tr>
+                        <tr>
+                            <td>Associate</td>
+                            <td>SysOps Administrator &ndash; Associate</td>
+                            <td>SOA-C02</td>
+                            <td>Current</td>
+                            <td>$150 USD</td>
+                            <td><span class="priority-ref">Reference</span></td>
+                        </tr>
+                        <tr>
+                            <td>Associate</td>
+                            <td>Data Engineer &ndash; Associate</td>
+                            <td>DEA-C01</td>
+                            <td>New Exam</td>
+                            <td>$150 USD</td>
+                            <td><span class="priority-ref">Reference</span></td>
+                        </tr>
+                        <tr>
+                            <td>Professional</td>
+                            <td>Solutions Architect &ndash; Professional</td>
+                            <td>SAP-C02</td>
+                            <td>Updated</td>
+                            <td>$300 USD</td>
+                            <td><span class="priority-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td>Professional</td>
+                            <td>DevOps Engineer &ndash; Professional</td>
+                            <td>DOP-C02</td>
+                            <td>Updated</td>
+                            <td>$300 USD</td>
+                            <td><span class="priority-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td>Specialty</td>
+                            <td>Security &ndash; Specialty</td>
+                            <td>SCS-C02</td>
+                            <td>Updated</td>
+                            <td>$300 USD</td>
+                            <td><span class="priority-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td>Specialty</td>
+                            <td>Advanced Networking &ndash; Specialty</td>
+                            <td>ANS-C01</td>
+                            <td>Updated</td>
+                            <td>$300 USD</td>
+                            <td><span class="priority-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td>Specialty</td>
+                            <td>Machine Learning &ndash; Specialty</td>
+                            <td>MLA-C01</td>
+                            <td>Updated</td>
+                            <td>$300 USD</td>
+                            <td><span class="priority-med">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td>Specialty</td>
+                            <td>AI Practitioner</td>
+                            <td>AIF-C01</td>
+                            <td>New Exam</td>
+                            <td>$150 USD</td>
+                            <td><span class="priority-med">MEDIUM</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Study Timeline -->
+        <section class="card">
+            <h2>Suggested 1-Month Study Plan</h2>
+            <p>A focused timeline to get back up to speed, assuming you already have SA Pro and DevOps Pro foundational knowledge from 2021.</p>
+            <div class="timeline">
+                <div class="timeline-week">
+                    <h3>Week 1: Security &amp; Identity + Exam Blueprints</h3>
+                    <ul>
+                        <li>Review IAM Identity Center, Control Tower updates, and Security Hub enhancements</li>
+                        <li>Study SCPs, RCPs, and Declarative Policies in Organizations</li>
+                        <li>Download and review SAP-C02 and DOP-C02 exam guides &mdash; compare to previous versions</li>
+                        <li>Identify new domains and shifted weightings</li>
+                    </ul>
+                </div>
+                <div class="timeline-week">
+                    <h3>Week 2: DevOps &amp; IaC + Networking</h3>
+                    <ul>
+                        <li>Understand CDK v2 changes, Terraform BSL/OpenTofu landscape, CloudFormation updates</li>
+                        <li>Review CodePipeline V2, ECS/EKS enhancements, Lambda updates</li>
+                        <li>Study VPC Lattice, Cloud WAN, and Network Firewall updates</li>
+                        <li>Hands-on: deploy a CDK v2 stack and explore VPC Lattice</li>
+                    </ul>
+                </div>
+                <div class="timeline-week">
+                    <h3>Week 3: AI/ML + Compute, Storage &amp; Databases</h3>
+                    <ul>
+                        <li>Deep dive into Bedrock, SageMaker updates, and Amazon Q</li>
+                        <li>Understand Responsible AI features and Guardrails</li>
+                        <li>Review Graviton processors, S3 Express One Zone, Aurora Serverless v2</li>
+                        <li>Study DynamoDB and ElastiCache Serverless updates</li>
+                    </ul>
+                </div>
+                <div class="timeline-week">
+                    <h3>Week 4: Practice Exams + Weak Area Review</h3>
+                    <ul>
+                        <li>Take practice exams for SAP-C02 and DOP-C02</li>
+                        <li>Review incorrect answers and identify weak areas</li>
+                        <li>Re-study weak areas using the deep-dive section pages</li>
+                        <li>Final review of new and renamed services</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>AWS Catch-Up Guide 2021-2026 &mdash; Last updated June 2026</p>
+    </footer>
+
+</body>
+</html>

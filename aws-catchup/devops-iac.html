@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps &amp; Infrastructure as Code &mdash; AWS Catch-Up Guide 2021-2026</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-inner">
+            <a href="index.html">Index</a>
+            <a href="security-identity.html">Security &amp; Identity</a>
+            <a href="ai-ml.html">AI &amp; ML</a>
+            <a href="devops-iac.html" class="active">DevOps &amp; IaC</a>
+            <a href="networking.html">Networking</a>
+            <a href="compute-storage-db.html">Compute/Storage/DB</a>
+            <a href="exam-guide.html">Exam Guide</a>
+            <a href="new-services.html">New Services</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1><strong>DevOps</strong> &amp; Infrastructure as Code</h1>
+        <p class="subtitle">Terraform, CI/CD, Containers, Serverless, and Observability</p>
+        <p class="meta">AWS Catch-Up Guide 2021&ndash;2026 &mdash; Last updated June 2026</p>
+    </header>
+
+    <main class="content">
+
+        <!-- Table of Contents -->
+        <nav class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#terraform">1. Terraform + AWS</a></li>
+                <li><a href="#cdk">2. AWS CDK</a></li>
+                <li><a href="#cloudformation">3. CloudFormation</a></li>
+                <li><a href="#codepipeline">4. CodePipeline V2</a></li>
+                <li><a href="#codebuild">5. CodeBuild</a></li>
+                <li><a href="#codedeploy">6. CodeDeploy</a></li>
+                <li><a href="#codecatalyst-codecommit">7. CodeCatalyst &amp; CodeCommit</a></li>
+                <li><a href="#ecs">8. ECS Major Updates</a></li>
+                <li><a href="#eks">9. EKS Major Updates</a></li>
+                <li><a href="#lambda">10. Lambda Updates</a></li>
+                <li><a href="#stepfunctions">11. Step Functions Updates</a></li>
+                <li><a href="#eventbridge">12. EventBridge Updates</a></li>
+                <li><a href="#systems-manager">13. Systems Manager</a></li>
+                <li><a href="#cloudwatch">14. CloudWatch Updates</a></li>
+                <li><a href="#resilience-hub">15. Resilience Hub</a></li>
+                <li><a href="#fis">16. Fault Injection Service</a></li>
+                <li><a href="#appconfig">17. AWS AppConfig (Feature Flags)</a></li>
+                <li><a href="#batch">18. AWS Batch Updates</a></li>
+                <li><a href="#deprecated">19. Services Deprecated / Sunsetting</a></li>
+            </ul>
+        </nav>
+
+        <!-- ============================================================ -->
+        <!-- 1. Terraform + AWS -->
+        <!-- ============================================================ -->
+        <div class="card" id="terraform">
+            <div class="card-header">
+                <h2>1. Terraform + AWS</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3 class="section-title">License &amp; Ecosystem Upheaval (2023&ndash;2025)</h3>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="timeline-date">Aug 2023 &mdash; HashiCorp BSL License Change</span>
+                        <p>Terraform switched from <strong>MPL 2.0</strong> to <strong>BSL 1.1</strong> (Business Source License). This restricts <em>competitive commercial use</em> &mdash; you cannot embed Terraform in a competing product. <strong>No operational impact</strong> for teams using Terraform internally or with HCP Terraform.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Sep 2023 &mdash; OpenTofu Fork</span>
+                        <p>The Linux Foundation accepted <strong>OpenTofu</strong> as an official project, maintaining the <strong>MPL 2.0</strong> license. CLI compatible with Terraform. Unique features include:</p>
+                        <ul>
+                            <li><strong>State Encryption</strong> (v1.7) &mdash; encrypt state at rest natively</li>
+                            <li><strong>OCI Registry</strong> support for modules and providers</li>
+                            <li><strong>Native S3 locking</strong> without DynamoDB table</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Feb 2025 &mdash; IBM Acquired HashiCorp ($6.4B)</span>
+                        <p>IBM completed the acquisition. BSL license remains unchanged. No immediate product impact.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Apr 2024 &mdash; Terraform Cloud Renamed HCP Terraform</span>
+                        <p>Terraform Cloud rebranded to <strong>HCP Terraform</strong> (HashiCorp Cloud Platform). Legacy free tier ended <strong>March 2026</strong>.</p>
+                    </div>
+                </div>
+
+                <h3 class="section-title">HCP Terraform Pricing Tiers (Post-March 2026)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tier</th>
+                            <th>Resources</th>
+                            <th>Cost</th>
+                            <th>Key Features</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Free</strong></td>
+                            <td>Up to 500</td>
+                            <td>$0</td>
+                            <td>Remote state, basic runs</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Essentials</strong></td>
+                            <td>500+</td>
+                            <td>$0.10/resource/mo</td>
+                            <td>Team management, SSO</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Standard</strong></td>
+                            <td>500+</td>
+                            <td>$0.47/resource/mo</td>
+                            <td>Policy as code, drift detection</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Premium</strong></td>
+                            <td>500+</td>
+                            <td>$0.99/resource/mo</td>
+                            <td>Audit logging, concurrent runs, custom agents</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="section-title">AWS Provider v5</h3>
+                <ul>
+                    <li><strong>Breaking changes</strong> &mdash; EC2-Classic resource removals, deprecated argument cleanups</li>
+                    <li>Requires Terraform &ge; 1.0</li>
+                    <li>New default tags propagation</li>
+                </ul>
+
+                <h3 class="section-title">Best Practices</h3>
+                <ul>
+                    <li>Use <strong>remote backends</strong> (S3 + DynamoDB for locking, or HCP Terraform)</li>
+                    <li>Always commit <code>.terraform.lock.hcl</code> to version control</li>
+                    <li>Separate <strong>workspaces per environment</strong> (dev/staging/prod)</li>
+                    <li>Keep modules small and composable</li>
+                    <li>Use <strong>pre-commit hooks</strong>: <code>terraform fmt</code>, <code>terraform validate</code>, <code>tflint</code>, <code>Checkov</code></li>
+                    <li>Never commit <code>terraform.tfstate</code> or secrets to version control</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> IaC is <strong>17% of DOP-C02</strong>. Know the decision criteria for Terraform vs CDK vs CloudFormation. Understand BSL license implications and when OpenTofu is a valid alternative.
+                </div>
+
+                <a href="https://developer.hashicorp.com/terraform/docs" class="doc-link" target="_blank">Terraform Docs</a>
+                <a href="https://opentofu.org/docs/" class="doc-link" target="_blank" style="margin-left: 16px;">OpenTofu Docs</a>
+                <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs" class="doc-link" target="_blank" style="margin-left: 16px;">AWS Provider Docs</a>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 2. AWS CDK -->
+        <!-- ============================================================ -->
+        <div class="card" id="cdk">
+            <div class="card-header">
+                <h2>2. AWS CDK</h2>
+                <span class="badge badge-updated">Major Update</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <div class="warning">
+                    <strong>CDK v1 reached end of support on June 1, 2023.</strong> All new development must use CDK v2. Migration is required for existing v1 projects.
+                </div>
+
+                <h3 class="section-title">CDK v2 &mdash; What Changed</h3>
+                <ul>
+                    <li><strong>Single package model:</strong> all stable constructs consolidated into <code>aws-cdk-lib</code>. No more installing individual service packages (e.g., <code>@aws-cdk/aws-s3</code>).</li>
+                    <li>Experimental constructs moved to separate <code>alpha</code> packages</li>
+                    <li><code>cdk watch</code> for faster iterative development &mdash; auto-deploys on file changes</li>
+                </ul>
+
+                <h3 class="section-title">Three Construct Levels</h3>
+                <table class="vs-table">
+                    <thead>
+                        <tr>
+                            <th>Level</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>L1</strong></td>
+                            <td>CFN Resources</td>
+                            <td>Auto-generated 1:1 CloudFormation mapping. Prefixed with <code>Cfn</code>. Full control, no defaults.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>L2</strong></td>
+                            <td>Curated Constructs</td>
+                            <td>AWS-curated with sensible defaults and best practices. Most commonly used. E.g., <code>s3.Bucket</code>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>L3</strong></td>
+                            <td>Patterns</td>
+                            <td>High-level combinations of multiple resources. E.g., <code>ApplicationLoadBalancedFargateService</code>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="section-title">CDK Ecosystem</h3>
+                <ul>
+                    <li><strong>CDK for Terraform (CDKtf):</strong> define Terraform infrastructure using programming languages (TypeScript, Python, Java, C#, Go)</li>
+                    <li><strong>CDK Pipelines:</strong> self-mutating CI/CD pipelines &mdash; the pipeline updates itself when you push changes to the pipeline definition</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Understand the CDK v2 single-package model (<code>aws-cdk-lib</code>), the three construct levels (L1/L2/L3), and CDK Pipelines for self-mutating deployments. CDK synth produces CloudFormation templates.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/cdk/v2/guide/home.html" class="doc-link" target="_blank">AWS CDK v2 Developer Guide</a>
+                <a href="https://docs.aws.amazon.com/cdk/api/v2/" class="doc-link" target="_blank" style="margin-left: 16px;">CDK v2 API Reference</a>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 3. CloudFormation -->
+        <!-- ============================================================ -->
+        <div class="card" id="cloudformation">
+            <div class="card-header">
+                <h2>3. CloudFormation</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3 class="section-title">Key New Capabilities (2022&ndash;2025)</h3>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="timeline-date">Feb 2022 &mdash; Hooks (GA)</span>
+                        <p>Pre-create, pre-update, and pre-delete policy enforcement. Run custom validation logic before CloudFormation provisions resources. <strong>March 2025:</strong> Managed hooks using Lambda + Guard rules &mdash; simplified hook authoring.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">2022 &mdash; Modules</span>
+                        <p>Reusable resource groups published via the <strong>CloudFormation Registry</strong>. Package common patterns and share across accounts/organization.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">2023 &mdash; Git Sync</span>
+                        <p>Auto-triggers stack deployments on git push. Supports <strong>GitHub</strong>, <strong>GitLab</strong>, and <strong>Bitbucket</strong>. Enables GitOps workflows natively.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Feb 2024 &mdash; IaC Generator (GA)</span>
+                        <p>Generates CloudFormation templates from <strong>existing resources</strong>. Enables brownfield adoption &mdash; bring unmanaged resources under CloudFormation control without recreating them.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Feb 2025 &mdash; Stack Refactoring</span>
+                        <p>Move resources between stacks <strong>without recreating them</strong>. Supports up to 5 stacks in a single refactoring operation via CLI. Enables evolving architectures without downtime.</p>
+                    </div>
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Hooks for governance/compliance enforcement, Git Sync for GitOps patterns, IaC Generator for brownfield adoption, and Stack Refactoring for evolving multi-stack architectures. Know when to use each.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html" class="doc-link" target="_blank">CloudFormation User Guide</a>
+                <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-hooks.html" class="doc-link" target="_blank" style="margin-left: 16px;">CloudFormation Hooks</a>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 4. CodePipeline V2 -->
+        <!-- ============================================================ -->
+        <div class="card" id="codepipeline">
+            <div class="card-header">
+                <h2>4. CodePipeline V2</h2>
+                <span class="badge badge-updated">Major Update</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+            </div>
+            <div class="card-body">
+
+                <div class="concept">
+                    <strong>V2 pipeline type launched October 2023</strong> and became the <strong>default pipeline type in December 2024</strong>. V1 pipelines remain functional but lack new features.
+                </div>
+
+                <h3 class="section-title">V1 vs V2 Comparison</h3>
+                <table class="vs-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>V1</th>
+                            <th>V2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Git tag triggers</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Pipeline variables / parameters</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Execution modes</td>
+                            <td>Superseded only</td>
+                            <td>Superseded, Queued, Parallel</td>
+                        </tr>
+                        <tr>
+                            <td>Trigger filters (branch, file path, PR)</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Source revision overrides / rollback</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Stage-level rollback</td>
+                            <td>No</td>
+                            <td>Yes (Apr 2024)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="section-title">Execution Modes Explained</h3>
+                <ul>
+                    <li><strong>Superseded:</strong> new execution cancels in-progress execution (V1 default and only mode)</li>
+                    <li><strong>Queued:</strong> executions queue and run in order &mdash; no skipping</li>
+                    <li><strong>Parallel:</strong> multiple executions run simultaneously &mdash; ideal for independent deployments</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> V2 is now the default. Understand all three execution modes and their use cases. Stage-level rollback is a key differentiator &mdash; enables reverting a single stage without rerunning the entire pipeline.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html" class="doc-link" target="_blank">CodePipeline User Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 5. CodeBuild -->
+        <!-- ============================================================ -->
+        <div class="card" id="codebuild">
+            <div class="card-header">
+                <h2>5. CodeBuild</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+            </div>
+            <div class="card-body">
+
+                <h3 class="section-title">Key Updates</h3>
+                <ul>
+                    <li><strong>Lambda compute support:</strong> faster build startup times using Lambda-based compute &mdash; ideal for short, lightweight builds</li>
+                    <li><strong>macOS builds:</strong> available via Reserved Capacity &mdash; enables iOS/macOS CI/CD workflows</li>
+                    <li><strong>GitLab / GitLab Self-Managed as source:</strong> native integration alongside GitHub, Bitbucket, and CodeCommit</li>
+                    <li><strong>Docker Server capability:</strong> persistent Docker daemon for layer caching between builds &mdash; faster image builds</li>
+                    <li><strong>Secrets Manager integration:</strong> securely reference git credentials and build secrets without embedding them in buildspec files</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Know when to use Lambda compute (fast, lightweight) vs standard compute (Docker builds, long-running). Docker Server for build caching scenarios.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html" class="doc-link" target="_blank">CodeBuild User Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 6. CodeDeploy -->
+        <!-- ============================================================ -->
+        <div class="card" id="codedeploy">
+            <div class="card-header">
+                <h2>6. CodeDeploy</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+            </div>
+            <div class="card-body">
+
+                <h3 class="section-title">Zonal Deployments for EC2 (Dec 2023)</h3>
+                <ul>
+                    <li>Deploy one Availability Zone at a time &mdash; reduces blast radius</li>
+                    <li>Configure <strong>minimum healthy instances per AZ</strong> to maintain capacity during deployment</li>
+                    <li>Requires <strong>custom deployment configuration</strong> &mdash; not available with default deployment configs</li>
+                    <li>Enables AZ-aware canary and linear deployment strategies</li>
+                </ul>
+
+                <div class="concept">
+                    <strong>Key distinction:</strong> Zonal deployments complement existing deployment strategies (in-place, blue/green) by adding AZ-level granularity. This is critical for multi-AZ resilience during deployments.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/welcome.html" class="doc-link" target="_blank">CodeDeploy User Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 7. CodeCatalyst & CodeCommit -->
+        <!-- ============================================================ -->
+        <div class="card" id="codecatalyst-codecommit">
+            <div class="card-header">
+                <h2>7. CodeCatalyst &amp; CodeCommit</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+            </div>
+            <div class="card-body">
+
+                <h3 class="section-title">Amazon CodeCatalyst</h3>
+                <ul>
+                    <li>Launched at <strong>re:Invent 2022</strong> as a unified DevOps platform</li>
+                    <li>All-in-one: source control, CI/CD, issue tracking, cloud development environments</li>
+                </ul>
+                <div class="warning">
+                    <strong>CLOSED to new customers.</strong> CodeCatalyst is no longer accepting new sign-ups. Existing customers can continue using the service. For new projects, use the traditional Code* services (CodeCommit, CodeBuild, CodePipeline, CodeDeploy).
+                </div>
+
+                <h3 class="section-title">AWS CodeCommit</h3>
+                <div class="info">
+                    <strong>Deprecation REVERSED.</strong> CodeCommit was initially marked for deprecation in mid-2024 but was <strong>restored to General Availability on November 24, 2025</strong>. Git LFS support planned for Q1 2026.
+                </div>
+                <ul>
+                    <li>Fully managed Git repositories</li>
+                    <li>Integrated with IAM for authentication and authorization</li>
+                    <li>Supports pull requests, approval rules, and triggers</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> CodeCommit is GA and actively supported. CodeCatalyst is closed to new customers. Know that CodeCommit integrates with CodePipeline, CodeBuild, and EventBridge for CI/CD workflows.
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 8. ECS Major Updates -->
+        <!-- ============================================================ -->
+        <div class="card" id="ecs">
+            <div class="card-header">
+                <h2>8. ECS Major Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3 class="section-title">ECS Service Connect (Nov 2022)</h3>
+                <ul>
+                    <li>Built-in service-to-service communication via <strong>AWS Cloud Map</strong></li>
+                    <li>Envoy sidecar proxy <strong>auto-injected</strong> into tasks &mdash; no manual configuration</li>
+                    <li>Round-robin load balancing + outlier detection out of the box</li>
+                    <li><strong>No code changes needed</strong> &mdash; services discover each other by namespace</li>
+                    <li>Replaces AWS App Mesh for many ECS service mesh use cases</li>
+                </ul>
+
+                <h3 class="section-title">EBS Volume Integration (Jan 2024)</h3>
+                <ul>
+                    <li>Attach <strong>EBS volumes to Fargate and EC2 tasks</strong> for storage-intensive workloads</li>
+                    <li>Volumes auto-provisioned when task starts, auto-deleted when task stops</li>
+                    <li>Enables stateful containers (databases, ML training, data processing) on Fargate</li>
+                </ul>
+
+                <h3 class="section-title">Built-in Blue/Green Deployment (2024)</h3>
+                <ul>
+                    <li>Native canary deployment with <strong>automated rollbacks</strong></li>
+                    <li><strong>No CodeDeploy intermediary needed</strong> &mdash; ECS handles blue/green natively</li>
+                    <li>Simplifies deployment pipeline architecture</li>
+                </ul>
+
+                <h3 class="section-title">Other Updates</h3>
+                <ul>
+                    <li><strong>Graviton4 support (2025):</strong> ~40% better price-performance for ARM-based workloads</li>
+                    <li><strong>Classic console deprecated (Dec 2023):</strong> new console is the only option</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Service Connect vs App Mesh &mdash; Service Connect is simpler and preferred for ECS-only environments. Know EBS volume support on Fargate for stateful workloads. Built-in blue/green removes the CodeDeploy dependency.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html" class="doc-link" target="_blank">ECS Developer Guide</a>
+                <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html" class="doc-link" target="_blank" style="margin-left: 16px;">ECS Service Connect</a>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 9. EKS Major Updates -->
+        <!-- ============================================================ -->
+        <div class="card" id="eks">
+            <div class="card-header">
+                <h2>9. EKS Major Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3 class="section-title">EKS Pod Identity (Nov 2023)</h3>
+                <p>A simpler, more scalable alternative to IRSA (IAM Roles for Service Accounts) for granting AWS permissions to Kubernetes pods.</p>
+
+                <table class="vs-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>IRSA</th>
+                            <th>Pod Identity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Setup</td>
+                            <td>OIDC provider + trust policy per cluster</td>
+                            <td>EKS-native service principal</td>
+                        </tr>
+                        <tr>
+                            <td>Cross-cluster reuse</td>
+                            <td>Separate trust policy per cluster</td>
+                            <td>Same role reusable across clusters</td>
+                        </tr>
+                        <tr>
+                            <td>Session tags</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Cross-account access</td>
+                            <td>Complex (chained assume-role)</td>
+                            <td>Native support (June 2025)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info">
+                    <strong>IRSA is NOT deprecated.</strong> Both IRSA and Pod Identity coexist. Pod Identity is the recommended approach for new workloads, but existing IRSA configurations continue to work.
+                </div>
+
+                <h3 class="section-title">EKS Auto Mode (Dec 2024)</h3>
+                <ul>
+                    <li>Fully automates compute, storage, and networking management</li>
+                    <li>Powered by <strong>Karpenter</strong> for intelligent node provisioning</li>
+                    <li>Pre-configured add-ons (CoreDNS, kube-proxy, VPC CNI, EBS CSI driver)</li>
+                    <li><strong>51&ndash;70% TCO reduction</strong> compared to self-managed EKS</li>
+                    <li>AWS manages node lifecycle, patching, and scaling</li>
+                </ul>
+
+                <h3 class="section-title">EKS Blueprints</h3>
+                <ul>
+                    <li>CDK and Terraform framework for provisioning production-ready EKS clusters</li>
+                    <li>Opinionated defaults for networking, observability, security, and add-ons</li>
+                    <li>Extensible via add-on patterns</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Pod Identity vs IRSA is a <strong>critical exam topic</strong>. Know the comparison table. EKS Auto Mode represents a paradigm shift &mdash; understand when fully managed compute is appropriate vs self-managed node groups.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html" class="doc-link" target="_blank">EKS User Guide</a>
+                <a href="https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html" class="doc-link" target="_blank" style="margin-left: 16px;">EKS Pod Identity</a>
+                <a href="https://docs.aws.amazon.com/eks/latest/userguide/automode.html" class="doc-link" target="_blank" style="margin-left: 16px;">EKS Auto Mode</a>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 10. Lambda Updates -->
+        <!-- ============================================================ -->
+        <div class="card" id="lambda">
+            <div class="card-header">
+                <h2>10. Lambda Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3 class="section-title">Major Feature Launches</h3>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="timeline-date">Mar 2022 &mdash; 10 GB Ephemeral Storage</span>
+                        <p>Configurable from 512 MB up to <strong>10 GB</strong> in <code>/tmp</code>. Previously fixed at 512 MB.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Apr 2022 &mdash; Function URLs</span>
+                        <p>Built-in HTTPS endpoints for Lambda functions. <strong>No API Gateway needed</strong> for simple HTTP use cases. Supports IAM auth or no auth (public). Not a replacement for API Gateway when you need throttling, request validation, or API keys.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">2022 &mdash; Graviton2/ARM Support</span>
+                        <p><strong>34% better price-performance</strong> compared to x86. Set architecture to <code>arm64</code>. Most runtimes supported.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Nov 2022 &mdash; SnapStart (Java)</span>
+                        <p>Caches initialized memory and disk snapshot after <code>init</code> phase. Sub-second cold starts for Java functions.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Apr 2023 &mdash; Response Streaming</span>
+                        <p>Progressive response delivery &mdash; stream partial results to clients as they become available. Useful for large responses or real-time processing.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Nov 2024 &mdash; SnapStart for Python 3.12+ and .NET 8+</span>
+                        <p>Extended SnapStart beyond Java. Same snapshot caching mechanism for sub-second cold starts.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Nov 2025 &mdash; Managed Instances</span>
+                        <p>Serverless management model + EC2-style compute. Up to <strong>32 GB RAM</strong> and <strong>16 vCPUs</strong>. You configure instance type and fleet size. Bridges the gap between Lambda and EC2/ECS.</p>
+                    </div>
+                </div>
+
+                <h3 class="section-title">SnapStart Compatibility</h3>
+                <div class="warning">
+                    <strong>SnapStart is NOT supported with:</strong>
+                    <ul>
+                        <li>Node.js runtime</li>
+                        <li>Provisioned Concurrency (mutually exclusive)</li>
+                        <li>Amazon EFS file system mounts</li>
+                        <li>Ephemeral storage greater than 512 MB</li>
+                    </ul>
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> SnapStart is the answer for cold-start optimization (Java, Python 3.12+, .NET 8+). Function URLs for simple HTTPS without API Gateway. Know the SnapStart incompatibilities &mdash; especially Provisioned Concurrency and EFS.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/lambda/latest/dg/welcome.html" class="doc-link" target="_blank">Lambda Developer Guide</a>
+                <a href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html" class="doc-link" target="_blank" style="margin-left: 16px;">Lambda SnapStart</a>
+                <a href="https://docs.aws.amazon.com/lambda/latest/dg/urls-configuration.html" class="doc-link" target="_blank" style="margin-left: 16px;">Function URLs</a>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 11. Step Functions Updates -->
+        <!-- ============================================================ -->
+        <div class="card" id="stepfunctions">
+            <div class="card-header">
+                <h2>11. Step Functions Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3 class="section-title">Distributed Map (Dec 2022)</h3>
+                <ul>
+                    <li>Process up to <strong>10,000 parallel child executions</strong></li>
+                    <li>Source data directly from <strong>S3</strong> (CSV, JSON, S3 inventory)</li>
+                    <li><strong>Redrive failed children only</strong> (Nov 2023) &mdash; no need to re-run successful executions</li>
+                    <li>Ideal for large-scale data processing, ETL, and batch operations</li>
+                </ul>
+
+                <h3 class="section-title">JSONata Support (Nov 2024)</h3>
+                <ul>
+                    <li>Replaces 5 JSONPath fields (<code>InputPath</code>, <code>OutputPath</code>, <code>ResultPath</code>, <code>ResultSelector</code>, <code>Parameters</code>) with just 2: <strong>Arguments</strong> + <strong>Output</strong></li>
+                    <li>Built-in date/time, math, and string functions</li>
+                    <li>Variables accessible across states</li>
+                    <li>Dramatically simplifies data transformation in state machines</li>
+                </ul>
+
+                <h3 class="section-title">Integration Types</h3>
+                <table class="vs-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Scope</th>
+                            <th>IAM</th>
+                            <th>Use When</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Optimized</strong></td>
+                            <td>Pre-built for select services (Lambda, DynamoDB, SQS, SNS, ECS, etc.)</td>
+                            <td>Auto-generated IAM policies</td>
+                            <td>Target service has an optimized integration</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS SDK</strong></td>
+                            <td>200+ AWS services, 9,000+ API actions</td>
+                            <td>Manual IAM policy configuration</td>
+                            <td>No optimized integration exists, or you need a specific API action</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Distributed Map for large-scale parallel processing. Know the difference between Optimized and SDK integrations. JSONata simplifies data transformation but JSONPath is still supported.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html" class="doc-link" target="_blank">Step Functions Developer Guide</a>
+                <a href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-distributed-map.html" class="doc-link" target="_blank" style="margin-left: 16px;">Distributed Map</a>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 12. EventBridge Updates -->
+        <!-- ============================================================ -->
+        <div class="card" id="eventbridge">
+            <div class="card-header">
+                <h2>12. EventBridge Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3 class="section-title">EventBridge Pipes (GA 2022&ndash;2023)</h3>
+                <p>Point-to-point integrations that connect sources to targets with optional filtering, enrichment, and transformation &mdash; <strong>without writing Lambda glue code</strong>.</p>
+
+                <div class="concept">
+                    <strong>Three-step pipeline:</strong>
+                    <ol>
+                        <li><strong>Filter</strong> &mdash; event pattern matching to process only relevant events</li>
+                        <li><strong>Enrich</strong> &mdash; call Lambda, API Gateway, API Destination, or Step Functions to augment the event</li>
+                        <li><strong>Transform</strong> &mdash; reshape the event payload before delivery to the target</li>
+                    </ol>
+                </div>
+
+                <p><strong>Supported sources:</strong> DynamoDB Streams, Kinesis Data Streams, SQS, Amazon MSK, Amazon MQ</p>
+                <p><strong>Supported targets:</strong> 14+ services including Lambda, Step Functions, SQS, SNS, Kinesis, ECS, API Gateway, and more</p>
+
+                <h3 class="section-title">EventBridge Scheduler (2022)</h3>
+                <ul>
+                    <li>One-time or recurring schedules with cron or rate expressions</li>
+                    <li><strong>270+ AWS service targets</strong> &mdash; invoke nearly any AWS API on a schedule</li>
+                    <li><strong>Time zone aware</strong> &mdash; handles daylight saving transitions</li>
+                    <li>Built-in retry policies and dead-letter queue support</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> EventBridge Pipes replaces Lambda glue functions for point-to-point event processing. EventBridge Scheduler replaces many CloudWatch Events / EventBridge rules for scheduled tasks. Know the three-step Pipes model (Filter &rarr; Enrich &rarr; Transform).
+                </div>
+
+                <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/what-is-amazon-eventbridge.html" class="doc-link" target="_blank">EventBridge User Guide</a>
+                <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-pipes.html" class="doc-link" target="_blank" style="margin-left: 16px;">EventBridge Pipes</a>
+                <a href="https://docs.aws.amazon.com/scheduler/latest/UserGuide/what-is-scheduler.html" class="doc-link" target="_blank" style="margin-left: 16px;">EventBridge Scheduler</a>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 13. Systems Manager -->
+        <!-- ============================================================ -->
+        <div class="card" id="systems-manager">
+            <div class="card-header">
+                <h2>13. Systems Manager</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-deprecated">Partial Sunset</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+            </div>
+            <div class="card-body">
+
+                <h3 class="section-title">Capabilities Closed to New Customers</h3>
+                <div class="warning">
+                    <strong>Closed to new customers (Nov 2025):</strong>
+                    <ul>
+                        <li><strong>Incident Manager</strong> &mdash; incident response and on-call management</li>
+                        <li><strong>Change Manager</strong> &mdash; change request and approval workflows</li>
+                    </ul>
+                    Existing customers can continue using these services.
+                </div>
+
+                <h3 class="section-title">Active &amp; Updated Capabilities</h3>
+                <ul>
+                    <li><strong>Fleet Manager:</strong> GUI-based fleet management &mdash; view and manage instances across accounts/regions</li>
+                    <li><strong>Parameter Store:</strong> hierarchical configuration and secrets storage &mdash; standard (free) and advanced tiers</li>
+                    <li><strong>Session Manager:</strong> secure shell access without SSH keys, bastion hosts, or open inbound ports</li>
+                    <li><strong>Patch Manager:</strong> automated patching across OS and application packages</li>
+                    <li><strong>Automation:</strong> runbook-based operational workflows with approval gates</li>
+                    <li><strong>Run Command:</strong> remote command execution across managed instances at scale</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Focus on the active SSM capabilities. Session Manager is a common exam topic for secure instance access. Parameter Store vs Secrets Manager is a classic comparison. Incident Manager and Change Manager are winding down.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html" class="doc-link" target="_blank">Systems Manager User Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 14. CloudWatch Updates -->
+        <!-- ============================================================ -->
+        <div class="card" id="cloudwatch">
+            <div class="card-header">
+                <h2>14. CloudWatch Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3 class="section-title">Application Signals (GA 2024)</h3>
+                <p>AWS-native Application Performance Monitoring (APM) &mdash; a direct alternative to third-party tools like Datadog, New Relic, and Dynatrace.</p>
+                <ul>
+                    <li><strong>Auto-instrumented</strong> via OpenTelemetry &mdash; no code changes required</li>
+                    <li>Monitors the four <strong>golden signals:</strong> latency, throughput, errors, availability</li>
+                    <li><strong>SLO definition and tracking</strong> &mdash; set service level objectives and alert on breaches</li>
+                    <li><strong>Service dependency map</strong> &mdash; automatic visualization of service relationships</li>
+                    <li>Supported: <strong>Java, Python, Node.js</strong> on Lambda, ECS, EKS, and EC2</li>
+                </ul>
+
+                <h3 class="section-title">Internet Monitor (2023)</h3>
+                <ul>
+                    <li>Monitors internet-facing application performance from the end-user perspective</li>
+                    <li>Detects ISP and geographic issues impacting availability and performance</li>
+                    <li>Integrates with CloudWatch dashboards and alarms</li>
+                </ul>
+
+                <h3 class="section-title">Cross-Account Observability (2022+)</h3>
+                <ul>
+                    <li>Share metrics, logs, and traces across AWS accounts via <strong>Observability Access Manager (OAM)</strong></li>
+                    <li>Designate monitoring accounts and source accounts</li>
+                    <li><strong>No extra cost</strong> for shared logs and metrics</li>
+                    <li>Essential for multi-account AWS Organizations architectures</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Application Signals is the new AWS-native APM solution. Know the four golden signals (latency, throughput, errors, availability) and SLO capabilities. Cross-account observability via OAM is critical for multi-account architectures on both SA Pro and DevOps Pro exams.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html" class="doc-link" target="_blank">CloudWatch User Guide</a>
+                <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Application-Signals.html" class="doc-link" target="_blank" style="margin-left: 16px;">Application Signals</a>
+                <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Unified-Cross-Account.html" class="doc-link" target="_blank" style="margin-left: 16px;">Cross-Account Observability</a>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 15. Resilience Hub -->
+        <!-- ============================================================ -->
+        <div class="card" id="resilience-hub">
+            <div class="card-header">
+                <h2>15. Resilience Hub</h2>
+                <span class="badge badge-new">New &mdash; Nov 2021</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3 class="section-title">Core Capabilities</h3>
+                <ul>
+                    <li><strong>Resilience Policies:</strong> define RTO (Recovery Time Objective) and RPO (Recovery Point Objective) targets per application</li>
+                    <li><strong>Assessment:</strong> evaluate applications against the <strong>Well-Architected Framework</strong> and the <strong>Resilience Analysis Framework</strong></li>
+                    <li><strong>Dependency discovery:</strong> automatically identify infrastructure dependencies and single points of failure</li>
+                    <li><strong>Recommendations:</strong> actionable suggestions to meet defined RTO/RPO targets</li>
+                    <li><strong>Drift detection:</strong> alert when infrastructure changes compromise resilience posture</li>
+                </ul>
+
+                <h3 class="section-title">2025 Enhancements</h3>
+                <ul>
+                    <li><strong>GenAI-powered failure mode analysis</strong> &mdash; AI identifies potential failure scenarios</li>
+                    <li><strong>Multi-agent AI engine</strong> for automated resilience assessment and remediation suggestions</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Resilience Hub is the central service for defining and assessing application resilience. Know the relationship between RTO/RPO policies and the assessment capabilities. Pairs with Fault Injection Service for chaos engineering.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/resilience-hub/latest/userguide/what-is.html" class="doc-link" target="_blank">Resilience Hub User Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 16. Fault Injection Service -->
+        <!-- ============================================================ -->
+        <div class="card" id="fis">
+            <div class="card-header">
+                <h2>16. Fault Injection Service</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+            </div>
+            <div class="card-body">
+
+                <div class="info">
+                    <strong>Renamed</strong> from AWS Fault Injection <em>Simulator</em> to AWS Fault Injection <em>Service</em> (late 2023).
+                </div>
+
+                <h3 class="section-title">Experiment Targets</h3>
+                <ul>
+                    <li><strong>EC2:</strong> stop/terminate instances, stress CPU/memory/disk/network</li>
+                    <li><strong>ECS:</strong> stop tasks, drain containers, network fault injection (2025)</li>
+                    <li><strong>EKS:</strong> terminate pods, node drain, pod network faults</li>
+                    <li><strong>Lambda:</strong> fault injection via chaos extension (Oct 2024)</li>
+                    <li><strong>RDS:</strong> failover, reboot instances</li>
+                    <li><strong>Networking:</strong> disrupt connectivity between AZs, subnets, or to external services</li>
+                </ul>
+
+                <h3 class="section-title">Key Features</h3>
+                <ul>
+                    <li><strong>Scenario Library:</strong> pre-built experiment templates for common failure scenarios</li>
+                    <li><strong>Stop conditions:</strong> CloudWatch alarms that automatically halt experiments if thresholds are breached</li>
+                    <li><strong>IAM-controlled blast radius:</strong> scope experiments with precise resource targeting</li>
+                    <li>Integration with <strong>Resilience Hub</strong> for validating resilience assessments</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> FIS is the managed chaos engineering service. Know the supported targets and how stop conditions work. Pair with Resilience Hub for a complete resilience testing strategy.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/fis/latest/userguide/what-is.html" class="doc-link" target="_blank">Fault Injection Service User Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 17. AWS AppConfig (Feature Flags) -->
+        <!-- ============================================================ -->
+        <div class="card" id="appconfig">
+            <div class="card-header">
+                <h2>17. AWS AppConfig (Feature Flags)</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+            </div>
+            <div class="card-body">
+
+                <h3 class="section-title">Key Milestones</h3>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="timeline-date">Mar 2022 &mdash; Feature Flags GA</span>
+                        <p>Native feature flag support &mdash; AWS answer to LaunchDarkly. Define flags, target users, and roll out features safely.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Jul 2024 &mdash; Advanced Targeting</span>
+                        <p>A/B testing, user segment targeting, and variants. Fine-grained control over who sees which feature.</p>
+                    </div>
+                </div>
+
+                <h3 class="section-title">Architecture</h3>
+                <ul>
+                    <li>Part of <strong>AWS Systems Manager</strong></li>
+                    <li><strong>Configuration backends:</strong> hosted configuration store, S3, Parameter Store, or Secrets Manager</li>
+                    <li><strong>Deployment strategies:</strong> linear, exponential, all-at-once with automatic rollback</li>
+                    <li><strong>CloudWatch alarms integration</strong> for safe rollouts &mdash; automatic rollback on alarm breach</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> AppConfig Feature Flags = safe gradual rollout of features. &ldquo;Enable feature for 10% of users, monitor, then expand&rdquo; = AppConfig. Pairs with CloudWatch alarms for automated rollback. Key DevOps Pro topic for deployment strategies beyond blue/green and canary.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/appconfig/" class="doc-link" target="_blank">AppConfig Documentation</a>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 18. AWS Batch Updates -->
+        <!-- ============================================================ -->
+        <div class="card" id="batch">
+            <div class="card-header">
+                <h2>18. AWS Batch Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+            </div>
+            <div class="card-body">
+
+                <h3 class="section-title">Key Updates</h3>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="timeline-date">2022 &mdash; AWS Batch on EKS</span>
+                        <p>Run Batch jobs on existing EKS clusters &mdash; Kubernetes-native batch processing.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Feb 2024 &mdash; Multi-container Jobs</span>
+                        <p>Sidecar pattern support &mdash; run logging, monitoring containers alongside main job container.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Jul 2024 &mdash; Gang Scheduling on EKS</span>
+                        <p>Coordinate multiple pods for distributed ML training &mdash; all pods scheduled together or not at all.</p>
+                    </div>
+                </div>
+
+                <h3 class="section-title">Compute Environments</h3>
+                <ul>
+                    <li>Supports <strong>Fargate</strong> and <strong>EC2</strong> compute environments</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Batch = managed batch processing (HPC, rendering, simulations). Batch vs Step Functions: Batch for compute-heavy jobs with dependencies, Step Functions for workflow orchestration. Batch on EKS for Kubernetes-native batch.
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 19. Services Deprecated / Sunsetting -->
+        <!-- ============================================================ -->
+        <div class="card" id="deprecated">
+            <div class="card-header">
+                <h2>19. Services Deprecated / Sunsetting</h2>
+                <span class="badge badge-deprecated">Deprecated</span>
+            </div>
+            <div class="card-body">
+
+                <div class="warning">
+                    <strong>Review these carefully.</strong> Exam questions may still reference these services, but knowing their status is critical for selecting the correct answer.
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>AWS Proton</strong></td>
+                            <td><span class="badge badge-deprecated">End of Support</span></td>
+                            <td>Oct 7, 2026</td>
+                            <td>Platform engineering service &mdash; migrate to CodePipeline or CDK Pipelines</td>
+                        </tr>
+                        <tr>
+                            <td><strong>App Runner</strong></td>
+                            <td><span class="badge badge-deprecated">Closed to New</span></td>
+                            <td>Apr 30, 2026</td>
+                            <td>Simplified container deployment &mdash; use ECS Fargate or Lambda instead</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SSM Incident Manager</strong></td>
+                            <td><span class="badge badge-deprecated">Closed to New</span></td>
+                            <td>Nov 7, 2025</td>
+                            <td>Incident response &mdash; consider third-party tools (PagerDuty, Opsgenie)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SSM Change Manager</strong></td>
+                            <td><span class="badge badge-deprecated">Closed to New</span></td>
+                            <td>Nov 7, 2025</td>
+                            <td>Change management &mdash; use SSM Automation with approval gates</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CodeCatalyst</strong></td>
+                            <td><span class="badge badge-deprecated">Closed to New</span></td>
+                            <td>Already</td>
+                            <td>Unified DevOps platform &mdash; use traditional Code* services</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CDK v1</strong></td>
+                            <td><span class="badge badge-deprecated">End of Support</span></td>
+                            <td>Jun 1, 2023</td>
+                            <td>Migrate to CDK v2 (<code>aws-cdk-lib</code>)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CodeCommit</strong></td>
+                            <td><span class="badge badge-new">Restored to GA</span></td>
+                            <td>Nov 24, 2025</td>
+                            <td>Deprecation reversed &mdash; fully supported, Git LFS planned Q1 2026</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="concept">
+                    <strong>Pattern to note:</strong> AWS is consolidating its DevOps surface area. CodeCatalyst (all-in-one) is closing while individual Code* services (CodeCommit, CodeBuild, CodePipeline, CodeDeploy) remain active. App Runner is giving way to ECS Fargate. Proton is being replaced by CDK Pipelines and CodePipeline V2.
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>AWS Catch-Up Guide 2021&ndash;2026 &mdash; DevOps &amp; Infrastructure as Code &mdash; Last updated June 2026</p>
+    </footer>
+
+</body>
+</html>

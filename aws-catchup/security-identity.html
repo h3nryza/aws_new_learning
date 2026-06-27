@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security &amp; Identity - AWS Catch-Up Guide 2021-2026</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-inner">
+            <a href="index.html">Index</a>
+            <a href="security-identity.html" class="active">Security &amp; Identity</a>
+            <a href="ai-ml.html">AI &amp; ML</a>
+            <a href="devops-iac.html">DevOps &amp; IaC</a>
+            <a href="networking.html">Networking</a>
+            <a href="compute-storage-db.html">Compute/Storage/DB</a>
+            <a href="exam-guide.html">Exam Guide</a>
+            <a href="new-services.html">New Services</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1><strong>Security &amp; Identity</strong></h1>
+        <p class="subtitle">What changed since 2021</p>
+        <p class="meta">AWS Catch-Up Guide 2021&ndash;2026 &mdash; Last updated June 2026</p>
+    </header>
+
+    <main class="content">
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#iam-identity-center">1. IAM Identity Center (formerly AWS SSO)</a></li>
+                <li><a href="#control-tower">2. AWS Control Tower</a></li>
+                <li><a href="#organizations-policies">3. AWS Organizations &mdash; New Policy Types</a></li>
+                <li><a href="#iam-changes">4. IAM Changes</a></li>
+                <li><a href="#security-hub">5. AWS Security Hub</a></li>
+                <li><a href="#guardduty">6. Amazon GuardDuty</a></li>
+                <li><a href="#verified-access">7. AWS Verified Access</a></li>
+                <li><a href="#security-lake">8. Amazon Security Lake</a></li>
+                <li><a href="#cloudtrail-lake">9. CloudTrail Lake</a></li>
+                <li><a href="#kms-changes">10. AWS KMS Changes</a></li>
+                <li><a href="#private-ca">11. AWS Private CA</a></li>
+                <li><a href="#other-security">12. Other Security Updates</a></li>
+                <li><a href="#cognito">13. Amazon Cognito Updates</a></li>
+                <li><a href="#waf">14. AWS WAF Updates</a></li>
+                <li><a href="#shield">15. AWS Shield Advanced Updates</a></li>
+                <li><a href="#firewall-manager">16. AWS Firewall Manager Updates</a></li>
+                <li><a href="#inspector">17. Amazon Inspector v2 (Complete Redesign)</a></li>
+                <li><a href="#config">18. AWS Config Updates</a></li>
+                <li><a href="#cross-service-themes">19. Cross-Service Exam Themes</a></li>
+            </ul>
+        </div>
+
+        <!-- =================================================================
+             1. IAM Identity Center
+             ================================================================= -->
+        <div class="card" id="iam-identity-center">
+            <div class="card-header">
+                <h2>1. IAM Identity Center (formerly AWS SSO)</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+                <span class="badge badge-exam badge-security">Security</span>
+            </div>
+            <div class="card-body">
+
+                <div class="info">
+                    <strong>Rename:</strong> AWS SSO was renamed to <strong>IAM Identity Center</strong> on July 26, 2022. Despite the name change, API namespaces (<code>sso</code>, <code>identitystore</code>) did <strong>NOT</strong> change. CLI commands and SDKs still use <code>sso</code> prefixes.
+                </div>
+
+                <h3>Instance Types</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Organization Instance</th>
+                            <th>Account Instance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Scope</td>
+                            <td>Entire AWS Organization</td>
+                            <td>Single AWS account</td>
+                        </tr>
+                        <tr>
+                            <td>Best for</td>
+                            <td>Multi-account environments (best practice)</td>
+                            <td>Standalone account or isolated use cases</td>
+                        </tr>
+                        <tr>
+                            <td>Limit</td>
+                            <td>One per Organization</td>
+                            <td>One per account</td>
+                        </tr>
+                        <tr>
+                            <td>Recommendation</td>
+                            <td><strong>Always use this if you have Organizations</strong></td>
+                            <td>Only when Organization instance is not available</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Permission Sets</h3>
+                <ul>
+                    <li>Permission Sets are templates that define what access users/groups have</li>
+                    <li>When you assign a Permission Set to a user for an account, IAM Identity Center creates an <strong>IAM role</strong> in that target account</li>
+                    <li>The role name follows the pattern <code>AWSReservedSSO_&lt;PermissionSetName&gt;_&lt;UniqueId&gt;</code></li>
+                    <li>Permission sets can include AWS managed policies, customer managed policies, inline policies, and permission boundaries</li>
+                </ul>
+
+                <h3>Identity Sources</h3>
+                <ul>
+                    <li><strong>Built-in Identity Center directory</strong> &mdash; simple user/group management directly in IAM Identity Center</li>
+                    <li><strong>Active Directory</strong> &mdash; AWS Managed Microsoft AD or AD Connector for on-premises AD</li>
+                    <li><strong>External Identity Providers</strong> &mdash; Okta, Microsoft Entra ID (formerly Azure AD), Google Workspace, CyberArk, OneLogin, Ping Identity via SAML 2.0 and SCIM for automatic provisioning</li>
+                </ul>
+
+                <h3>Key New Features</h3>
+                <ul>
+                    <li><strong>Trusted Identity Propagation:</strong> Passes the actual end-user identity through to downstream AWS services (e.g., QuickSight &rarr; Redshift &rarr; S3). CloudTrail logs the actual user, not the assumed role. Uses OAuth 2.0 token exchange.</li>
+                    <li><strong>Multi-Region resilience:</strong> Replicate your Identity Center instance to additional AWS Regions for disaster recovery and lower latency</li>
+                    <li><strong>AWS Access Portal:</strong> The user-facing SSO portal where users sign in and see all assigned accounts and applications</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Know that AWS SSO was renamed to IAM Identity Center, but API namespaces (<code>sso</code>, <code>identitystore</code>) did not change. Understand Organization vs Account instances. Permission Sets become IAM roles in target accounts. Trusted Identity Propagation enables end-user identity to flow to downstream services.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html" target="_blank">AWS Docs: IAM Identity Center User Guide</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             2. AWS Control Tower
+             ================================================================= -->
+        <div class="card" id="control-tower">
+            <div class="card-header">
+                <h2>2. AWS Control Tower</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+                <span class="badge badge-exam badge-security">Security</span>
+            </div>
+            <div class="card-body">
+
+                <div class="info">
+                    <strong>Terminology change:</strong> "Guardrails" have been renamed to <strong>"Controls"</strong>. The terms are synonymous in AWS documentation and exams. Over 750 preconfigured controls are available.
+                </div>
+
+                <h3>Three Control Behaviors</h3>
+                <table class="vs-table">
+                    <thead>
+                        <tr>
+                            <th>Control Type</th>
+                            <th>Mechanism</th>
+                            <th>When It Acts</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Preventive</td>
+                            <td>Service Control Policies (SCPs)</td>
+                            <td>Before action &mdash; blocks disallowed API calls</td>
+                            <td>Prevent disabling CloudTrail in member accounts</td>
+                        </tr>
+                        <tr>
+                            <td>Detective</td>
+                            <td>AWS Config Rules</td>
+                            <td>After action &mdash; detects non-compliant resources</td>
+                            <td>Detect S3 buckets without encryption enabled</td>
+                        </tr>
+                        <tr>
+                            <td>Proactive</td>
+                            <td>CloudFormation Hooks <span class="badge badge-new">NEW</span></td>
+                            <td>Before provisioning &mdash; blocks non-compliant resources during CloudFormation deployment</td>
+                            <td>Block creation of an RDS instance without encryption before it is created</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Three Guidance Categories</h3>
+                <ul>
+                    <li><strong>Mandatory:</strong> Always enforced; cannot be disabled (e.g., disallow changes to IAM roles created by Control Tower)</li>
+                    <li><strong>Strongly recommended:</strong> Based on AWS best practices (e.g., enable encryption for EBS volumes)</li>
+                    <li><strong>Elective:</strong> Optional, commonly used for enterprise-specific needs</li>
+                </ul>
+
+                <h3>Account Factory for Terraform (AFT)</h3>
+                <ul>
+                    <li>Terraform-based account provisioning pipeline for Control Tower</li>
+                    <li>GitOps model: account requests submitted via Terraform, processed through a pipeline</li>
+                    <li>Requires a dedicated <strong>AFT management account</strong> (separate from the Organizations management account)</li>
+                    <li>Supports account customizations via custom Terraform modules</li>
+                    <li>Integrates with CodePipeline, CodeBuild, and Step Functions</li>
+                </ul>
+
+                <div class="concept">
+                    <strong>Management account exception:</strong> Root users and administrators in the management account can bypass Control Tower controls. This is by design &mdash; but it means the management account should have tightly restricted access and minimal workloads.
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Know all three control types and their underlying mechanisms. <strong>Proactive controls via CloudFormation Hooks is new and exam-critical</strong> &mdash; they prevent non-compliant resources from being provisioned in the first place, unlike detective controls which only detect after the fact. AFT is the Terraform-native account provisioning solution.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/controltower/latest/userguide/controls.html" target="_blank">AWS Docs: Control Tower Controls Reference</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             3. AWS Organizations - New Policy Types
+             ================================================================= -->
+        <div class="card" id="organizations-policies">
+            <div class="card-header">
+                <h2>3. AWS Organizations &mdash; New Policy Types</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-security">Security</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Policy Types Comparison</h3>
+                <table class="vs-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>SCPs (Existing)</th>
+                            <th>RCPs <span class="badge badge-new">NEW</span></th>
+                            <th>Declarative Policies <span class="badge badge-new">NEW</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>What they govern</td>
+                            <td><strong>Principals</strong> (IAM users, roles)</td>
+                            <td><strong>Resources</strong> (S3 buckets, SQS queues, KMS keys, etc.)</td>
+                            <td><strong>Service configurations</strong> (service-level settings)</td>
+                        </tr>
+                        <tr>
+                            <td>How they work</td>
+                            <td>Filter maximum permissions for principals in member accounts</td>
+                            <td>Restrict access to resources regardless of who is calling (including external principals)</td>
+                            <td>Enforced at the service control plane level, not the API level</td>
+                        </tr>
+                        <tr>
+                            <td>Can grant permissions?</td>
+                            <td>No &mdash; only restrict</td>
+                            <td>No &mdash; only restrict</td>
+                            <td>No &mdash; enforce configuration state</td>
+                        </tr>
+                        <tr>
+                            <td>Affect management account?</td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Affect service-linked roles?</td>
+                            <td>No</td>
+                            <td>Yes (resource-based evaluation)</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Key benefit</td>
+                            <td>Limit what principals can do</td>
+                            <td>Limit who can access resources (including cross-account)</td>
+                            <td>"Set once and forget" &mdash; persists even as services add new APIs</td>
+                        </tr>
+                        <tr>
+                            <td>Example</td>
+                            <td>Deny <code>s3:DeleteBucket</code> for all roles</td>
+                            <td>Only allow access to S3 from within the organization</td>
+                            <td>Enforce IMDSv2 on all EC2 instances, block public AMI sharing</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="concept">
+                    <strong>RCPs complement SCPs:</strong> SCPs restrict what <em>principals</em> can do. RCPs restrict access to <em>resources</em>. Together they provide comprehensive access control. RCPs are especially powerful for preventing external access to your resources &mdash; something SCPs alone cannot do.
+                </div>
+
+                <div class="concept">
+                    <strong>Declarative Policies are unique:</strong> They are enforced at the service control plane level, not the API level. This means they persist even as AWS adds new APIs or features. They can also govern service-linked roles, which SCPs and RCPs cannot fully control. Current supported services include EC2 (IMDSv2, AMI sharing, serial console), VPC (public IP assignment), and EBS (default encryption).
+                </div>
+
+                <h3>Other Organizations Updates</h3>
+                <ul>
+                    <li><strong>Delegated Administrator:</strong> Expanded to all major security services &mdash; Security Hub, GuardDuty, Detective, Macie, Inspector, IAM Access Analyzer, Firewall Manager, Config, CloudFormation StackSets, and more. Best practice: designate a dedicated security account as delegated admin.</li>
+                    <li><strong>Root Access Management:</strong> Centralized control of member account root credentials from the management account. Ability to remove root credentials from member accounts entirely, perform privileged root actions without signing in as root.</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> The distinction between SCPs, RCPs, and Declarative Policies is critical for both SA Pro and Security specialty. Remember: <strong>SCPs = principals, RCPs = resources, Declarative Policies = service configuration</strong>. Declarative Policies are the only type that affects the management account and can fully govern service-linked roles.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies.html" target="_blank">AWS Docs: Organizations Policy Types</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             4. IAM Changes
+             ================================================================= -->
+        <div class="card" id="iam-changes">
+            <div class="card-header">
+                <h2>4. IAM Changes</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-security">Security</span>
+            </div>
+            <div class="card-body">
+
+                <h3>IAM Roles Anywhere (July 2022)</h3>
+                <p>Provides temporary AWS credentials for workloads running <strong>outside of AWS</strong> using X.509 certificates. This eliminates the need for long-term access keys for on-premises, edge, or multi-cloud workloads.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Trust Anchor</strong></td>
+                            <td>Reference to a Certificate Authority (CA) &mdash; can be AWS Private CA or an external CA. Establishes trust.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Profile</strong></td>
+                            <td>Maps to an IAM role + optional session policy. Defines what permissions the external workload receives.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Credential Helper</strong></td>
+                            <td><code>aws_signing_helper</code> tool runs on the external workload. Presents the X.509 certificate and retrieves temporary credentials.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="concept">
+                    <strong>How it works:</strong> External workload presents its X.509 certificate &rarr; IAM Roles Anywhere validates against the Trust Anchor &rarr; creates temporary STS credentials mapped to the IAM role in the Profile &rarr; workload uses standard AWS SDK calls.
+                </div>
+
+                <h3>IAM Access Analyzer Expansions</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Analyzer Type</th>
+                            <th>What It Finds</th>
+                            <th>Scope</th>
+                            <th>Engine</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>External Access</strong></td>
+                            <td>Resources shared with external principals (other accounts, public access)</td>
+                            <td>Regional</td>
+                            <td>Zelkova (automated reasoning)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Internal Access</strong></td>
+                            <td>Cross-account access within your organization or account</td>
+                            <td>Regional</td>
+                            <td>Zelkova</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Unused Access</strong> (Nov 2023)</td>
+                            <td>Unused roles, permissions, passwords, and access keys</td>
+                            <td><strong>NOT regional</strong> (org-wide)</td>
+                            <td>Usage analysis</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Custom Policy Checks (Nov 2023)</h3>
+                <div class="info">
+                    <strong>Note:</strong> Custom Policy Checks is a <strong>paid feature</strong> priced per API call. It uses automated reasoning (Zelkova) to validate policies against your security standards.
+                </div>
+                <ul>
+                    <li><code>CheckNoNewAccess</code> &mdash; verifies a policy update doesn't grant new permissions compared to a reference policy</li>
+                    <li><code>CheckAccessNotGranted</code> &mdash; verifies a policy does not grant access to specified actions or resources</li>
+                    <li><code>CheckNoPublicAccess</code> &mdash; verifies a resource policy does not grant public access</li>
+                </ul>
+
+                <h3>Other IAM Updates</h3>
+                <ul>
+                    <li><strong>Policy Validation:</strong> Over 100 policy checks for syntax, security warnings, errors, and suggestions</li>
+                    <li><strong>Policy Generation:</strong> Generates least-privilege policies from CloudTrail activity (up to 90 days of history)</li>
+                    <li><strong>ABAC (Attribute-Based Access Control):</strong> Tag-based access control using <code>aws:PrincipalTag</code>, <code>aws:ResourceTag</code>, and <code>aws:RequestTag</code> conditions. Reduces policy count by using tags instead of per-resource ARN policies.</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> IAM Roles Anywhere is the answer for hybrid scenarios where on-prem workloads need AWS access without long-term keys. Know all three Access Analyzer types and that unused access analyzers are NOT regional. Custom Policy Checks are paid and integrate into CI/CD for policy validation.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/rolesanywhere/latest/userguide/introduction.html" target="_blank">AWS Docs: IAM Roles Anywhere</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html" target="_blank">AWS Docs: IAM Access Analyzer</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             5. AWS Security Hub
+             ================================================================= -->
+        <div class="card" id="security-hub">
+            <div class="card-header">
+                <h2>5. AWS Security Hub</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-security">Security</span>
+            </div>
+            <div class="card-body">
+
+                <div class="info">
+                    <strong>Branding update:</strong> AWS Security Hub is now positioned as <strong>"Security Hub CSPM"</strong> (Cloud Security Posture Management), reflecting its role as the central posture management service.
+                </div>
+
+                <h3>Cross-Region Aggregation</h3>
+                <ul>
+                    <li>Aggregate findings from multiple Regions to a single <strong>home Region</strong></li>
+                    <li>Bidirectional replication: findings and status updates flow both ways</li>
+                    <li>Simplifies compliance dashboards and centralized monitoring</li>
+                </ul>
+
+                <h3>Central Configuration (Major Update)</h3>
+                <p>The delegated administrator can now configure Security Hub across <strong>all accounts and Regions</strong> from a single home Region.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Configuration Policies</strong></td>
+                            <td>Define which security standards and controls are enabled. Up to 20 custom policies. Attached to OUs or accounts.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Centrally Managed</strong></td>
+                            <td>Account/OU is governed by the delegated admin's configuration policy. Local admins cannot override.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Self-Managed</strong></td>
+                            <td>Account/OU manages its own Security Hub configuration. Delegated admin designates it as self-managed.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Drift Prevention</strong></td>
+                            <td>Centrally managed accounts automatically revert if someone manually changes configuration.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Other Enhancements</h3>
+                <ul>
+                    <li><strong>ASFF (AWS Security Finding Format):</strong> Standardized JSON format for all findings &mdash; used by GuardDuty, Inspector, Macie, Firewall Manager, and third-party integrations</li>
+                    <li><strong>Consolidated control findings:</strong> Single control IDs across security standards (e.g., <code>EC2.19</code> instead of duplicate findings from CIS and PCI DSS)</li>
+                    <li><strong>Security scores:</strong> Overall and per-standard scores based on percentage of passed controls vs total enabled controls</li>
+                    <li><strong>Automations:</strong> Rules to automatically update, suppress, or route findings based on criteria</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Central Configuration is exam-critical. Understand the difference between <strong>centrally managed</strong> (delegated admin controls everything, drift prevention) vs <strong>self-managed</strong> (account controls its own settings). Know that Security Hub uses ASFF format, while Security Lake uses OCSF format.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/securityhub/latest/userguide/central-configuration-intro.html" target="_blank">AWS Docs: Security Hub Central Configuration</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             6. Amazon GuardDuty
+             ================================================================= -->
+        <div class="card" id="guardduty">
+            <div class="card-header">
+                <h2>6. Amazon GuardDuty</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-security">Security</span>
+            </div>
+            <div class="card-body">
+
+                <div class="info">
+                    <strong>API change (March 2023):</strong> The <code>dataSources</code> parameter was replaced by <code>features</code> in the API. GuardDuty capabilities are now referred to as <strong>protection plans</strong>.
+                </div>
+
+                <h3>Protection Plans</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Protection Plan</th>
+                            <th>Data Source</th>
+                            <th>What It Detects</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Foundational</strong></td>
+                            <td>CloudTrail management events, VPC Flow Logs, DNS query logs</td>
+                            <td>Account compromise, unauthorized access, reconnaissance</td>
+                            <td>Always on when GuardDuty is enabled. Uses independent log streams (no cost to you for the logs).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>S3 Protection</strong></td>
+                            <td>CloudTrail S3 data events</td>
+                            <td>Suspicious S3 access patterns, data exfiltration</td>
+                            <td>Monitors object-level API operations</td>
+                        </tr>
+                        <tr>
+                            <td><strong>EKS Protection</strong></td>
+                            <td>EKS audit logs</td>
+                            <td>Suspicious Kubernetes activity, compromised pods</td>
+                            <td>Control plane audit log analysis</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lambda Protection</strong></td>
+                            <td>Lambda network activity (VPC flow logs)</td>
+                            <td>Compromised Lambda functions, crypto mining, C&amp;C communication</td>
+                            <td>Monitors Lambda function networking behavior</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RDS Protection</strong></td>
+                            <td>RDS login activity</td>
+                            <td>Brute force attacks, suspicious logins to Aurora and RDS</td>
+                            <td>ML-based anomaly detection on database login behavior</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Malware Protection for EC2</strong></td>
+                            <td>EBS volume snapshots</td>
+                            <td>Malware, trojans, crypto miners on EC2 instances</td>
+                            <td>Creates snapshot of EBS volumes and scans in an isolated account. Does not impact running instances.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Malware Protection for S3</strong></td>
+                            <td>Newly uploaded S3 objects</td>
+                            <td>Malware in uploaded files</td>
+                            <td><strong>Can run independently</strong> without GuardDuty being enabled</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Runtime Monitoring</strong></td>
+                            <td>OS-level events (system calls, file access, network, process)</td>
+                            <td>Runtime threats on containers and instances: privilege escalation, reverse shells, file tampering</td>
+                            <td>Covers <strong>EKS, ECS (Fargate), and EC2</strong>. 30+ finding types. Uses a security agent.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS Backup Scanning</strong></td>
+                            <td>Backup vault recovery points</td>
+                            <td>Malware in backup data</td>
+                            <td>Scans recovery points before restore</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="concept">
+                    <strong>Malware Protection for S3 independence:</strong> Unlike all other protection plans, Malware Protection for S3 can operate <strong>independently</strong> without enabling the core GuardDuty service. This is significant for architectures that only need S3 object scanning.
+                </div>
+
+                <h3>Extended Threat Detection</h3>
+                <ul>
+                    <li>Detects <strong>multi-stage attack sequences</strong> across multiple data sources and time periods</li>
+                    <li>Correlates individual findings into comprehensive attack narratives</li>
+                    <li>Automatically enabled for all GuardDuty accounts &mdash; no additional cost</li>
+                    <li>Generates new finding type: <code>AttackSequence</code> with critical severity</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Know ALL protection plans and their data sources. Key facts: (1) Malware Protection for S3 can run independently. (2) Runtime Monitoring covers EKS + ECS Fargate + EC2. (3) Foundational sources (CloudTrail, VPC Flow Logs, DNS) are always on. (4) RDS Protection uses ML for login anomaly detection. (5) GuardDuty detects threats &mdash; it does NOT remediate them.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html" target="_blank">AWS Docs: Amazon GuardDuty User Guide</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             7. AWS Verified Access
+             ================================================================= -->
+        <div class="card" id="verified-access">
+            <div class="card-header">
+                <h2>7. AWS Verified Access</h2>
+                <span class="badge badge-new">NEW</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-security">Security</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+
+                <p>GA April 2023. Provides <strong>zero-trust network access</strong> to corporate applications without requiring a VPN.</p>
+
+                <h3>How It Works</h3>
+                <ul>
+                    <li>Evaluates <strong>every request</strong> against identity and device posture policies before granting access</li>
+                    <li>No VPN client required &mdash; users access applications directly through endpoints</li>
+                    <li>Per-application access control rather than broad network-level access</li>
+                </ul>
+
+                <h3>Key Components</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Verified Access Instance</strong></td>
+                            <td>The top-level container that holds trust providers and groups</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Trust Providers</strong></td>
+                            <td>Identity providers (IAM Identity Center, third-party OIDC IdPs) and device management providers (CrowdStrike, Jamf, etc.)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Access Groups</strong></td>
+                            <td>Collections of endpoints with shared policies</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Access Policies</strong></td>
+                            <td>Cedar language policies evaluated on each request</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Endpoints</strong></td>
+                            <td>Application entry points (ALB, network interface, or ENI)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Supported Protocols</h3>
+                <ul>
+                    <li>HTTP / HTTPS (original support)</li>
+                    <li>SSH, TCP, RDP (added for non-web workloads)</li>
+                </ul>
+
+                <h3>Integrations</h3>
+                <ul>
+                    <li><strong>WAF:</strong> Attach AWS WAF web ACLs for additional filtering</li>
+                    <li><strong>Signed identity context:</strong> Passes verified user identity to backend applications via signed HTTP headers</li>
+                    <li><strong>Logging:</strong> Access logs to CloudWatch, S3, or Kinesis Data Firehose</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> When you see "replace VPN with zero trust" or "application-level access without VPN" in an exam question, the answer is <strong>AWS Verified Access</strong>. It evaluates identity + device posture per request, unlike VPNs which grant broad network access.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/verified-access/latest/ug/what-is-verified-access.html" target="_blank">AWS Docs: AWS Verified Access User Guide</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             8. Amazon Security Lake
+             ================================================================= -->
+        <div class="card" id="security-lake">
+            <div class="card-header">
+                <h2>8. Amazon Security Lake</h2>
+                <span class="badge badge-new">NEW</span>
+                <span class="badge badge-exam badge-security">Security</span>
+            </div>
+            <div class="card-body">
+
+                <p>GA May 2023. Centralized security data lake that aggregates, normalizes, and stores security data in <strong>your own S3 buckets</strong>.</p>
+
+                <h3>Core Concepts</h3>
+                <ul>
+                    <li><strong>OCSF (Open Cybersecurity Schema Framework):</strong> All data is normalized to this open standard schema, enabling consistent querying across sources</li>
+                    <li><strong>Apache Parquet + Apache Iceberg:</strong> Data is stored in Parquet format using Iceberg tables for efficient querying</li>
+                    <li><strong>Your S3 buckets:</strong> Data stays in S3 buckets in YOUR account &mdash; you own the data and control access</li>
+                </ul>
+
+                <h3>Data Sources</h3>
+                <ul>
+                    <li>AWS CloudTrail management and data events</li>
+                    <li>Amazon VPC Flow Logs</li>
+                    <li>Amazon Route 53 Resolver query logs</li>
+                    <li>AWS Security Hub findings</li>
+                    <li>Amazon EKS audit logs</li>
+                    <li>AWS WAF logs</li>
+                    <li>50+ third-party integrations (Splunk, CrowdStrike, Palo Alto, etc.)</li>
+                    <li>Custom sources via OCSF-formatted data</li>
+                </ul>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Multi-account / Multi-region:</strong> Centralize via AWS Organizations with delegated admin</li>
+                    <li><strong>Subscriber access:</strong> Grant query access or data access to security tools (e.g., Splunk, Athena)</li>
+                    <li><strong>Detective integration:</strong> Amazon Detective can query Security Lake raw logs for deeper investigation</li>
+                    <li><strong>Lifecycle management:</strong> Automatic rollup regions and retention configuration</li>
+                </ul>
+
+                <div class="concept">
+                    <strong>Security Lake vs Security Hub:</strong>
+                    <br><strong>Security Lake</strong> = raw log data in <strong>OCSF format</strong> stored in S3. Think "data lake for security logs."
+                    <br><strong>Security Hub</strong> = aggregated findings in <strong>ASFF format</strong>. Think "findings dashboard and posture management."
+                    <br>They are complementary &mdash; Security Hub findings are one of the sources that feed into Security Lake.
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Know that Security Lake uses OCSF while Security Hub uses ASFF. Security Lake stores raw logs; Security Hub stores processed findings. If the question asks about a centralized security data lake with raw log analysis, the answer is Security Lake.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/security-lake/latest/userguide/what-is-security-lake.html" target="_blank">AWS Docs: Amazon Security Lake User Guide</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             9. CloudTrail Lake
+             ================================================================= -->
+        <div class="card" id="cloudtrail-lake">
+            <div class="card-header">
+                <h2>9. CloudTrail Lake</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-deprecated">Sunsetting</span>
+                <span class="badge badge-exam badge-security">Security</span>
+            </div>
+            <div class="card-body">
+
+                <p>Managed data lake for SQL-based querying of CloudTrail audit events, configuration items, and non-AWS event sources.</p>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Event data stores:</strong> Immutable, append-only storage with configurable retention (up to 3,653 days / ~10 years)</li>
+                    <li><strong>SQL querying:</strong> Use standard SQL to query events directly without needing Athena or Glue</li>
+                    <li><strong>Multi-source ingestion:</strong> AWS events (management, data, Insights, Config items) plus non-AWS events via integrations</li>
+                    <li><strong>Organization-wide:</strong> Aggregate events from all accounts in an Organization into a single event data store</li>
+                    <li><strong>Dashboards:</strong> Built-in visualization of query results</li>
+                </ul>
+
+                <div class="warning">
+                    <strong>SUNSETTING:</strong> CloudTrail Lake ends support for <strong>new customers on May 31, 2026</strong>. Existing customers can continue use, but AWS is directing customers toward CloudWatch-based capabilities for log querying and analysis. Plan migration accordingly.
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> CloudTrail Lake may still appear on exams taken before the sunset. Know that it provides SQL-based querying of audit events with immutable, configurable retention. For new architectures, consider CloudWatch or Security Lake alternatives.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-lake.html" target="_blank">AWS Docs: CloudTrail Lake</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             10. AWS KMS Changes
+             ================================================================= -->
+        <div class="card" id="kms-changes">
+            <div class="card-header">
+                <h2>10. AWS KMS Changes</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-security">Security</span>
+            </div>
+            <div class="card-body">
+
+                <h3>External Key Stores (XKS) &mdash; November 2022</h3>
+                <p>Store and use encryption keys <strong>outside of AWS</strong>, in your own external key manager or HSM.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>How it works</td>
+                            <td>XKS proxy (on-prem or in your data center) mediates between KMS and your external key manager</td>
+                        </tr>
+                        <tr>
+                            <td>Encryption model</td>
+                            <td><strong>Double encryption:</strong> data is encrypted by KMS AND by the external key manager</td>
+                        </tr>
+                        <tr>
+                            <td>Key types supported</td>
+                            <td>Symmetric encryption only (AES-256)</td>
+                        </tr>
+                        <tr>
+                            <td>Rotation</td>
+                            <td>Automatic rotation NOT supported</td>
+                        </tr>
+                        <tr>
+                            <td>Multi-Region</td>
+                            <td>NOT supported &mdash; XKS keys are single-Region</td>
+                        </tr>
+                        <tr>
+                            <td>Use case</td>
+                            <td>Regulatory requirements mandating keys remain outside AWS (sovereignty, compliance)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Multi-Region Keys &mdash; June 2021</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>How it works</td>
+                            <td>Same key ID and key material replicated across multiple Regions</td>
+                        </tr>
+                        <tr>
+                            <td>Architecture</td>
+                            <td>One <strong>primary key</strong> + one or more <strong>replica keys</strong> in other Regions</td>
+                        </tr>
+                        <tr>
+                            <td>Key types</td>
+                            <td>Symmetric, asymmetric, and HMAC keys</td>
+                        </tr>
+                        <tr>
+                            <td>Use case</td>
+                            <td>Cross-region encrypt/decrypt without re-encryption, cross-region DynamoDB global tables, disaster recovery</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Other KMS Updates</h3>
+                <ul>
+                    <li><strong>HMAC keys:</strong> Generate and verify HMAC tags using KMS-managed keys (HMAC_224, HMAC_256, HMAC_384, HMAC_512)</li>
+                    <li><strong>FIPS 140-3 Level 3 validation:</strong> Upgraded from FIPS 140-2 Level 2 (standard) / Level 3 (CloudHSM-backed), now all KMS HSMs are FIPS 140-3 Level 3 validated</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> XKS = "keys must remain outside AWS" (sovereignty/regulatory). Multi-Region keys = cross-region encrypt/decrypt without re-encryption. Remember XKS limitations: symmetric only, no rotation, no multi-region. Multi-Region keys support all key types.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/kms/latest/developerguide/keystore-external.html" target="_blank">AWS Docs: External Key Stores</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/kms/latest/developerguide/multi-region-keys-overview.html" target="_blank">AWS Docs: Multi-Region Keys</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             11. AWS Private CA
+             ================================================================= -->
+        <div class="card" id="private-ca">
+            <div class="card-header">
+                <h2>11. AWS Private CA</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-security">Security</span>
+            </div>
+            <div class="card-body">
+
+                <div class="info">
+                    <strong>Rename:</strong> ACM Private CA was renamed to <strong>AWS Private CA</strong> &mdash; it is now a standalone service, separate from AWS Certificate Manager (ACM).
+                </div>
+
+                <h3>Two Operating Modes</h3>
+                <table class="vs-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>General-Purpose Mode</th>
+                            <th>Short-Lived Mode</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Certificate validity</td>
+                            <td>Any validity period</td>
+                            <td>Maximum <strong>7 days</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Revocation (CRL/OCSP)</td>
+                            <td>Supported</td>
+                            <td>Not supported (certificates expire too quickly to need revocation)</td>
+                        </tr>
+                        <tr>
+                            <td>Cost</td>
+                            <td>Higher per-CA monthly fee</td>
+                            <td><strong>Lower cost</strong> per-CA monthly fee</td>
+                        </tr>
+                        <tr>
+                            <td>Use cases</td>
+                            <td>TLS, code signing, enterprise PKI</td>
+                            <td>IoT devices, ephemeral workloads, containers, microservices</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Post-quantum cryptography:</strong> Supports ML-DSA (Module-Lattice-Based Digital Signature Algorithm) for quantum-resistant certificates</li>
+                    <li><strong>IAM Roles Anywhere integration:</strong> Acts as the Trust Anchor for IAM Roles Anywhere, enabling external workloads to authenticate with X.509 certificates issued by your Private CA</li>
+                    <li><strong>Cross-account sharing:</strong> Share CAs across accounts using AWS RAM</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Short-lived mode is the answer for IoT and ephemeral workloads where certificates rotate frequently and revocation overhead is unnecessary. Remember the integration path: Private CA issues certificates &rarr; IAM Roles Anywhere uses them as trust anchors &rarr; external workloads get temporary AWS credentials.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/privateca/latest/userguide/PcaWelcome.html" target="_blank">AWS Docs: AWS Private CA User Guide</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             12. Other Security Updates
+             ================================================================= -->
+        <div class="card" id="other-security">
+            <div class="card-header">
+                <h2>12. Other Security Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+            </div>
+            <div class="card-body">
+
+                <!-- Amazon Detective -->
+                <h3>Amazon Detective</h3>
+                <span class="badge badge-exam badge-security">Security</span>
+                <ul>
+                    <li><strong>Finding groups:</strong> Automatically groups related findings into a single incident view, showing related entities and timelines</li>
+                    <li><strong>Automated investigation:</strong> One-click investigation that analyzes IAM entities and generates a summary of anomalous behavior</li>
+                    <li><strong>Generative AI summaries:</strong> Natural language summaries of finding groups to speed up investigation</li>
+                    <li><strong>Security Lake integration:</strong> Query raw security log data stored in Security Lake for deeper investigation beyond the 12-month Detective retention</li>
+                </ul>
+
+                <div class="concept">
+                    <strong>Detective vs GuardDuty vs Security Hub:</strong>
+                    <br><strong>GuardDuty</strong> = <em>Detection</em> (identifies threats and generates findings)
+                    <br><strong>Detective</strong> = <em>Investigation</em> (root cause analysis of findings)
+                    <br><strong>Security Hub</strong> = <em>Posture management</em> (aggregates findings, measures compliance, tracks security posture)
+                    <br>These three services are complementary and often deployed together.
+                </div>
+
+                <!-- Amazon Macie -->
+                <h3>Amazon Macie</h3>
+                <span class="badge badge-exam badge-security">Security</span>
+                <ul>
+                    <li>Automated sensitive data discovery for <strong>S3 only</strong></li>
+                    <li>Uses ML and pattern matching to identify PII, financial data, credentials, and custom data types</li>
+                    <li><strong>Custom data identifiers:</strong> Define your own regex patterns and keywords for organization-specific sensitive data</li>
+                    <li><strong>Automated discovery:</strong> Continuously samples and evaluates S3 buckets for sensitivity scoring without scanning every object</li>
+                    <li><strong>Allow lists:</strong> Exclude known safe patterns from findings (e.g., test data, public phone numbers)</li>
+                    <li>Multi-account support via Organizations</li>
+                </ul>
+
+                <div class="info">
+                    <strong>Scope limitation:</strong> Macie is <strong>S3 only</strong>. It does not scan RDS, DynamoDB, EFS, or any other data store. For database-level sensitive data, consider native database features or third-party tools.
+                </div>
+
+                <!-- AWS Audit Manager -->
+                <h3>AWS Audit Manager</h3>
+                <span class="badge badge-deprecated">Sunsetting</span>
+                <ul>
+                    <li>Automated evidence collection for compliance frameworks (SOC 2, PCI DSS, GDPR, HIPAA, etc.)</li>
+                    <li>Collects evidence from Config, CloudTrail, Security Hub, and manual sources</li>
+                    <li>Organizes evidence into assessments with controls mapped to compliance frameworks</li>
+                </ul>
+
+                <div class="warning">
+                    <strong>SUNSETTING:</strong> AWS Audit Manager is sunsetting on <strong>April 30, 2026</strong>. No new customers. Existing customers should plan migration to alternative compliance automation solutions.
+                </div>
+
+                <!-- AWS RAM -->
+                <h3>AWS Resource Access Manager (RAM)</h3>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <ul>
+                    <li>Share AWS resources across accounts without creating cross-account IAM roles or resource-based policies manually</li>
+                    <li><strong>Within Organizations:</strong> Resource sharing is automatically accepted &mdash; no invitation needed</li>
+                    <li><strong>Outside Organizations:</strong> Requires invitation acceptance</li>
+                    <li><strong>Managed permissions:</strong> AWS-defined permission sets that enforce least privilege for shared resources (e.g., read-only access to a Transit Gateway)</li>
+                    <li>Commonly shared resources: Transit Gateways, subnets, License Manager configurations, Route 53 Resolver rules, Private CA, Outpost resources</li>
+                </ul>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/detective/latest/userguide/what-is-detective.html" target="_blank">AWS Docs: Amazon Detective</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/macie/latest/user/what-is-macie.html" target="_blank">AWS Docs: Amazon Macie</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/ram/latest/userguide/what-is.html" target="_blank">AWS Docs: AWS RAM</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             13. Amazon Cognito Updates
+             ================================================================= -->
+        <div class="card" id="cognito">
+            <div class="card-header">
+                <h2>13. Amazon Cognito Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-security">Security</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Major Redesign (Nov 2024)</h3>
+                <p>New tiered pricing &mdash; <strong>Lite</strong>, <strong>Essentials</strong>, <strong>Plus</strong> tiers with different capability levels.</p>
+
+                <h3>Managed Login</h3>
+                <ul>
+                    <li>Fully customizable branded sign-in/sign-up pages with no-code designer</li>
+                    <li>Replaces old Hosted UI</li>
+                </ul>
+
+                <h3>Passwordless Authentication</h3>
+                <ul>
+                    <li>Passkeys (WebAuthn/FIDO2)</li>
+                    <li>Email OTP</li>
+                    <li>SMS OTP</li>
+                </ul>
+
+                <h3>Recent Enhancements</h3>
+                <ul>
+                    <li><strong>Access token customization for M2M</strong> (machine-to-machine) flows (Mar 2025)</li>
+                    <li><strong>WAF integration</strong> with Managed Login (Jun 2025)</li>
+                    <li><strong>Threat protection (Plus tier):</strong> compromised credentials detection, adaptive authentication, automated risk response</li>
+                </ul>
+
+                <h3>Core Concepts</h3>
+                <ul>
+                    <li><strong>User Pools</strong> = authentication (sign up, sign in, tokens)</li>
+                    <li><strong>Identity Pools</strong> = authorization (AWS credentials for accessing AWS services)</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Know the User Pools vs Identity Pools distinction. Passwordless auth (passkeys) is a new exam topic. The tiered pricing model (Lite/Essentials/Plus) determines which security features are available. Plus tier adds threat protection similar to what GuardDuty does for infrastructure.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/cognito/" target="_blank">AWS Docs: Amazon Cognito</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             14. AWS WAF Updates
+             ================================================================= -->
+        <div class="card" id="waf">
+            <div class="card-header">
+                <h2>14. AWS WAF Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-security">Security</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Account Takeover Prevention (ATP)</h3>
+                <ul>
+                    <li>Managed rule group that checks login attempts against stolen credentials database</li>
+                    <li>Monitors for brute force attacks</li>
+                </ul>
+
+                <h3>Account Creation Fraud Prevention (ACFP) &mdash; Jun 2023</h3>
+                <ul>
+                    <li>Protects sign-up pages via behavioral analysis and ML anomaly detection</li>
+                </ul>
+
+                <h3>Bot Control Enhancements (Sep 2024)</h3>
+                <ul>
+                    <li>Expanded bot detection including AI-driven bots</li>
+                    <li>Browser fingerprinting</li>
+                </ul>
+
+                <h3>Other Updates</h3>
+                <ul>
+                    <li><strong>Versioning</strong> for Bot &amp; Fraud Control rule groups (May 2024)</li>
+                    <li><strong>L7 DDoS protection rule group:</strong> works with Shield Advanced for automatic application-layer DDoS mitigation</li>
+                    <li><strong>CAPTCHA and Challenge actions</strong> for suspicious requests</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> ATP and ACFP are critical new Security Specialty topics. Know when to use WAF vs Shield vs Network Firewall: <strong>WAF = Layer 7 (HTTP/HTTPS)</strong>, <strong>Shield = DDoS</strong>, <strong>Network Firewall = Layer 3/4 + IDS/IPS</strong>. ATP is the answer for "protect against credential stuffing."
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/waf/" target="_blank">AWS Docs: AWS WAF</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             15. AWS Shield Advanced Updates
+             ================================================================= -->
+        <div class="card" id="shield">
+            <div class="card-header">
+                <h2>15. AWS Shield Advanced Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-security">Security</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Automatic Application Layer (L7) DDoS Mitigation:</strong> automatically creates, evaluates, and deploys WAF rules during attacks</li>
+                    <li><strong>Protection Groups:</strong> logically group protected resources for coordinated protection</li>
+                    <li><strong>Network Security Director:</strong> visualization and best-practice analysis</li>
+                    <li><strong>24/7 Shield Response Team (SRT) access</strong></li>
+                    <li><strong>DDoS cost protection:</strong> credits for scaling charges during attacks</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Shield Standard = free, automatic L3/L4 DDoS protection. Shield Advanced = paid ($3,000/mo), adds L7 auto-mitigation, SRT access, cost protection, and attack visibility. Shield Advanced + WAF = comprehensive DDoS defense.
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             16. AWS Firewall Manager Updates
+             ================================================================= -->
+        <div class="card" id="firewall-manager">
+            <div class="card-header">
+                <h2>16. AWS Firewall Manager Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-security">Security</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Key Updates</h3>
+                <ul>
+                    <li><strong>Multi-admin support (2023):</strong> multiple administrators can manage policies</li>
+                    <li><strong>Third-party firewall support:</strong> Fortigate CNF, Palo Alto Cloud NGFW</li>
+                    <li><strong>Import existing Network Firewalls</strong> into Firewall Manager policies</li>
+                    <li><strong>Centrally manage:</strong> WAF rules, Shield Advanced protections, Security Groups, Network Firewall, Route 53 Resolver DNS Firewall policies across all Organization accounts</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Firewall Manager is the centralized management plane for WAF + Shield + Network Firewall + Security Groups + DNS Firewall across an Organization. Security Hub = centralized findings. Firewall Manager = centralized firewall policies.
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             17. Amazon Inspector v2 (Complete Redesign)
+             ================================================================= -->
+        <div class="card" id="inspector">
+            <div class="card-header">
+                <h2>17. Amazon Inspector v2 (Complete Redesign)</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-security">Security</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <div class="info">
+                    <strong>Ground-up rebuild at re:Invent 2021.</strong> Completely different from v1.
+                </div>
+
+                <h3>Key Differences from v1</h3>
+                <ul>
+                    <li><strong>Continuous automated scanning</strong> (not manual scheduled assessments like v1)</li>
+                    <li><strong>Scope expanded:</strong> EC2 instances + ECR container images + Lambda functions + Lambda code (v1 only did EC2)</li>
+                </ul>
+
+                <h3>New Capabilities</h3>
+                <ul>
+                    <li><strong>Agentless EC2 scanning (Nov 2023):</strong> uses EBS snapshots, no SSM Agent needed</li>
+                    <li><strong>Lambda Code Scanning:</strong> analyzes Lambda function code for vulnerabilities using CodeGuru</li>
+                    <li><strong>SBOM (Software Bill of Materials) export (Jun 2023):</strong> CycloneDX and SPDX formats across entire org</li>
+                    <li><strong>CI/CD pipeline integration (Nov 2023):</strong> plugins for Jenkins, CodePipeline, GitHub Actions, TeamCity</li>
+                    <li><strong>Deep Inspection:</strong> custom paths on EC2 for additional package scanning</li>
+                </ul>
+
+                <h3>Integration</h3>
+                <ul>
+                    <li>Findings go to Security Hub, EventBridge for automated remediation</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Inspector v2 is fundamentally different from v1. Key distinctions: it's continuous (not scheduled), agentless option exists, covers EC2+ECR+Lambda (not just EC2). SBOM export is relevant for supply chain security questions. CI/CD integration makes it a DevOps Pro topic too.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/inspector/" target="_blank">AWS Docs: Amazon Inspector</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             18. AWS Config Updates
+             ================================================================= -->
+        <div class="card" id="config">
+            <div class="card-header">
+                <h2>18. AWS Config Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+                <span class="badge badge-exam badge-security">Security</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Key Updates</h3>
+                <ul>
+                    <li><strong>Proactive Rules (2022-2023):</strong> evaluate compliance BEFORE provisioning via CloudFormation hooks. Shift-left compliance.</li>
+                    <li><strong>Periodic Recording (Nov 2023):</strong> record configuration changes periodically instead of every change. Reduces costs significantly.</li>
+                    <li><strong>Service-Linked Recorders (Nov 2024):</strong> dedicated recorders for specific AWS services</li>
+                    <li><strong>Conformance Pack Scores (Jul 2022):</strong> numerical compliance scores for conformance packs</li>
+                    <li><strong>Advanced Queries:</strong> SQL-based querying across all recorded resources</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Proactive Rules = pre-deployment compliance (like Control Tower proactive controls but at the Config level). Periodic Recording is a cost optimization topic. Config rules evaluate compliance AFTER deployment. Proactive rules evaluate BEFORE deployment. CloudFormation Hooks enforce at template time. Know the timeline: Hooks (template) &rarr; Proactive Rules (pre-provision) &rarr; Config Rules (post-provision).
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/config/" target="_blank">AWS Docs: AWS Config</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             19. Cross-Service Exam Themes
+             ================================================================= -->
+        <div class="card" id="cross-service-themes">
+            <div class="card-header">
+                <h2>19. Cross-Service Exam Themes</h2>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+                <span class="badge badge-exam badge-security">Security</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Delegated Administrator Pattern</h3>
+                <div class="concept">
+                    <strong>Best practice:</strong> Designate a dedicated <strong>security tooling account</strong> (not the management account) as the delegated administrator for security services. The management account should have minimal workloads and tightly restricted access. Most security services now support delegated admin: Security Hub, GuardDuty, Detective, Macie, Inspector, Firewall Manager, IAM Access Analyzer, Config aggregator, and more.
+                </div>
+
+                <h3>Multi-Account Governance Stack</h3>
+                <p>The recommended layered approach for multi-account security governance:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Layer</th>
+                            <th>Service</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1. Account Structure</td>
+                            <td><strong>AWS Organizations</strong></td>
+                            <td>OU hierarchy, SCPs, RCPs, Declarative Policies</td>
+                        </tr>
+                        <tr>
+                            <td>2. Account Governance</td>
+                            <td><strong>AWS Control Tower</strong></td>
+                            <td>Landing zone, preventive/detective/proactive controls, account factory</td>
+                        </tr>
+                        <tr>
+                            <td>3. Identity</td>
+                            <td><strong>IAM Identity Center</strong></td>
+                            <td>Centralized SSO, permission sets, identity federation</td>
+                        </tr>
+                        <tr>
+                            <td>4. Posture Management</td>
+                            <td><strong>Security Hub</strong></td>
+                            <td>Aggregated findings, compliance scoring, central configuration</td>
+                        </tr>
+                        <tr>
+                            <td>5. Threat Detection</td>
+                            <td><strong>GuardDuty</strong></td>
+                            <td>Continuous threat monitoring across all protection plans</td>
+                        </tr>
+                        <tr>
+                            <td>6. Investigation</td>
+                            <td><strong>Detective</strong></td>
+                            <td>Root cause analysis of security findings</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Three Policy Types at a Glance</h3>
+                <table class="vs-table">
+                    <thead>
+                        <tr>
+                            <th>Policy Type</th>
+                            <th>Governs</th>
+                            <th>Mechanism</th>
+                            <th>Exam Keyword</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>SCPs</strong></td>
+                            <td>Principals (IAM users/roles)</td>
+                            <td>IAM policy evaluation</td>
+                            <td>"Restrict what users/roles can do"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RCPs</strong></td>
+                            <td>Resources (S3, SQS, KMS, etc.)</td>
+                            <td>Resource policy evaluation</td>
+                            <td>"Restrict who can access resources"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Declarative Policies</strong></td>
+                            <td>Service configuration</td>
+                            <td>Service control plane</td>
+                            <td>"Enforce service settings org-wide"</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Detection vs Investigation vs Posture</h3>
+                <table class="vs-table">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Role</th>
+                            <th>Scope</th>
+                            <th>Key Distinction</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>GuardDuty</strong></td>
+                            <td>Threat detection</td>
+                            <td>Multi-service (CloudTrail, VPC, DNS, S3, EKS, Lambda, RDS, EC2, ECS)</td>
+                            <td>Finds threats; does not remediate or investigate</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Detective</strong></td>
+                            <td>Investigation</td>
+                            <td>Ingests GuardDuty, CloudTrail, VPC Flow, EKS, Security Lake</td>
+                            <td>Root cause analysis; answers "what happened and why"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Security Hub</strong></td>
+                            <td>Posture management</td>
+                            <td>Aggregates findings from all security services</td>
+                            <td>Compliance scoring; centralized findings; ASFF format</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Macie</strong></td>
+                            <td>Data classification</td>
+                            <td>S3 only</td>
+                            <td>Finds sensitive data; S3-specific</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Inspector</strong></td>
+                            <td>Vulnerability management</td>
+                            <td>EC2, ECR images, Lambda functions</td>
+                            <td>Software vulnerabilities and unintended network exposure</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Zero Trust Architecture</h3>
+                <div class="concept">
+                    <strong>AWS Verified Access</strong> is the primary service for zero-trust network access. It replaces traditional VPN-based access with per-request evaluation of identity and device posture. Combine with: IAM Identity Center (identity), third-party device trust providers (device posture), WAF (request filtering), and CloudWatch (logging).
+                </div>
+
+                <h3>Hybrid Key Management &amp; Identity</h3>
+                <div class="concept">
+                    <strong>The hybrid trifecta:</strong>
+                    <br><strong>IAM Roles Anywhere</strong> &mdash; temporary AWS credentials for on-prem workloads via X.509 certificates
+                    <br><strong>KMS External Key Stores (XKS)</strong> &mdash; encryption keys stored outside AWS for sovereignty requirements
+                    <br><strong>AWS Private CA</strong> &mdash; managed certificate authority that issues certificates for Roles Anywhere and internal PKI
+                    <br>Together these enable secure hybrid operations with no long-term AWS access keys and full key sovereignty.
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> These cross-service themes appear frequently in scenario-based questions. Practice mapping requirements to the correct combination of services: "centralized governance" = Organizations + Control Tower + Identity Center. "Detect + investigate + remediate" = GuardDuty + Detective + Security Hub + EventBridge + Lambda/Step Functions. "Hybrid identity and keys" = Roles Anywhere + XKS + Private CA.
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer style="text-align: center; padding: 30px 20px; color: var(--text-light); font-size: 0.85rem;">
+        <p>AWS Catch-Up Guide 2021&ndash;2026 &mdash; Security &amp; Identity &mdash; Last updated June 2026</p>
+    </footer>
+
+</body>
+</html>

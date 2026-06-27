@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New, Renamed &amp; Deprecated Services - AWS Catch-Up Guide 2021-2026</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-inner">
+            <a href="index.html">Index</a>
+            <a href="security-identity.html">Security &amp; Identity</a>
+            <a href="ai-ml.html">AI &amp; ML</a>
+            <a href="devops-iac.html">DevOps &amp; IaC</a>
+            <a href="networking.html">Networking</a>
+            <a href="compute-storage-db.html">Compute/Storage/DB</a>
+            <a href="exam-guide.html">Exam Guide</a>
+            <a href="new-services.html" class="active">New Services</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1><strong>New, Renamed &amp; Deprecated Services</strong></h1>
+        <p class="subtitle">Complete reference of every AWS service change since 2021</p>
+        <p class="meta">AWS Catch-Up Guide 2021&ndash;2026 &mdash; Last updated June 2026</p>
+    </header>
+
+    <main class="content">
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3>On This Page</h3>
+            <ul>
+                <li><a href="#new-services">1. New Services (launched since 2021)</a></li>
+                <li><a href="#renamed-services">2. Renamed Services</a></li>
+                <li><a href="#deprecated-services">3. Deprecated / Retired Services</a></li>
+                <li><a href="#s3-defaults">4. S3 Default Changes</a></li>
+                <li><a href="#pricing-changes">5. Pricing Changes to Know</a></li>
+            </ul>
+        </div>
+
+        <!-- Stats Bar -->
+        <section class="stats-bar">
+            <div class="stat-item">
+                <div class="number">50+</div>
+                <div class="label">New Services</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">13</div>
+                <div class="label">Renamed</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">19</div>
+                <div class="label">Deprecated / Retired</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">4</div>
+                <div class="label">S3 Default Changes</div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 1: NEW SERVICES -->
+        <!-- ============================================================ -->
+        <h2 class="section-title" id="new-services">1. New Services (Launched Since 2021)</h2>
+
+        <!-- AI/ML & GenAI -->
+        <div class="card">
+            <div class="card-header">
+                <h3>AI/ML &amp; GenAI</h3>
+                <span class="badge badge-new">New Category</span>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Launched</th>
+                            <th>What It Does</th>
+                            <th>Exam Relevance</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Amazon Bedrock</strong></td>
+                            <td>GA Sep 2023</td>
+                            <td>Managed GenAI platform with foundation models via API</td>
+                            <td>
+                                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                                <span class="badge badge-exam badge-ml">ML</span>
+                                <span class="badge badge-exam badge-ai-prac">AI Prac</span>
+                            </td>
+                            <td><span class="badge badge-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon Q Developer</strong></td>
+                            <td>GA Apr 2024</td>
+                            <td>AI coding assistant (replaced CodeWhisperer)</td>
+                            <td><span class="badge badge-exam badge-devops">DevOps</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon Q Business</strong></td>
+                            <td>GA Apr 2024</td>
+                            <td>Enterprise AI knowledge assistant</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon Q in QuickSight</strong></td>
+                            <td>2024</td>
+                            <td>Natural language BI</td>
+                            <td>&mdash;</td>
+                            <td><span class="badge badge-low">LOW</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon Q in Connect</strong></td>
+                            <td>2024</td>
+                            <td>Contact center AI assist</td>
+                            <td>&mdash;</td>
+                            <td><span class="badge badge-low">LOW</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon Nova Models</strong></td>
+                            <td>Dec 2024</td>
+                            <td>AWS's own foundation models on Bedrock</td>
+                            <td>&mdash;</td>
+                            <td><span class="badge badge-low">LOW</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon SageMaker Unified Studio</strong></td>
+                            <td>2024</td>
+                            <td>Consolidated ML+data+analytics IDE</td>
+                            <td><span class="badge badge-exam badge-ml">ML</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>PartyRock</strong></td>
+                            <td>Nov 2023</td>
+                            <td>Free no-code GenAI playground (powered by Bedrock)</td>
+                            <td><span class="badge badge-exam badge-ai-prac">AI Prac</span></td>
+                            <td><span class="badge badge-low">LOW</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Security -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Security</h3>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Launched</th>
+                            <th>What It Does</th>
+                            <th>Exam Relevance</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Amazon Security Lake</strong></td>
+                            <td>GA May 2023</td>
+                            <td>Centralized security data lake in OCSF format</td>
+                            <td><span class="badge badge-exam badge-security">Security</span></td>
+                            <td><span class="badge badge-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS Verified Access</strong></td>
+                            <td>GA Apr 2023</td>
+                            <td>Zero-trust access without VPN</td>
+                            <td>
+                                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                                <span class="badge badge-exam badge-security">Security</span>
+                                <span class="badge badge-exam badge-networking">Networking</span>
+                            </td>
+                            <td><span class="badge badge-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon Verified Permissions</strong></td>
+                            <td>GA Jun 2023</td>
+                            <td>Managed authorization service with Cedar policy language</td>
+                            <td><span class="badge badge-exam badge-security">Security</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon Inspector v2</strong></td>
+                            <td>Relaunched Nov 2021</td>
+                            <td>Automated vulnerability scanning (EC2, ECR, Lambda)</td>
+                            <td>
+                                <span class="badge badge-exam badge-security">Security</span>
+                                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                            </td>
+                            <td><span class="badge badge-high">HIGH</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Networking -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Networking</h3>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Launched</th>
+                            <th>What It Does</th>
+                            <th>Exam Relevance</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Amazon VPC Lattice</strong></td>
+                            <td>GA Mar 2023</td>
+                            <td>Service-to-service connectivity across VPCs/accounts</td>
+                            <td>
+                                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                                <span class="badge badge-exam badge-networking">Networking</span>
+                            </td>
+                            <td><span class="badge badge-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS Cloud WAN</strong></td>
+                            <td>GA Jul 2022</td>
+                            <td>Managed global WAN with policy-based orchestration</td>
+                            <td>
+                                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                                <span class="badge badge-exam badge-networking">Networking</span>
+                            </td>
+                            <td><span class="badge badge-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>VPC IPAM</strong></td>
+                            <td>Dec 2021</td>
+                            <td>Centralized IP address management</td>
+                            <td>
+                                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                                <span class="badge badge-exam badge-networking">Networking</span>
+                            </td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Route 53 Profiles</strong></td>
+                            <td>Apr 2024</td>
+                            <td>Bundle DNS configs for cross-VPC/account consistency</td>
+                            <td><span class="badge badge-exam badge-networking">Networking</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Compute & Containers -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Compute &amp; Containers</h3>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Launched</th>
+                            <th>What It Does</th>
+                            <th>Exam Relevance</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>AWS App Runner</strong></td>
+                            <td>GA May 2021</td>
+                            <td>Managed container app service <span class="badge badge-deprecated">CLOSING APR 2026</span></td>
+                            <td>&mdash;</td>
+                            <td><span class="badge badge-low">SKIP</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>ECS Service Connect</strong></td>
+                            <td>Nov 2022</td>
+                            <td>Built-in service-to-service communication for ECS</td>
+                            <td>
+                                <span class="badge badge-exam badge-devops">DevOps</span>
+                                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                            </td>
+                            <td><span class="badge badge-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EKS Pod Identity</strong></td>
+                            <td>Nov 2023</td>
+                            <td>Simplified IAM for EKS pods (replaces IRSA complexity)</td>
+                            <td>
+                                <span class="badge badge-exam badge-devops">DevOps</span>
+                                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                            </td>
+                            <td><span class="badge badge-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EKS Auto Mode</strong></td>
+                            <td>Dec 2024</td>
+                            <td>Fully automated EKS compute/storage/networking</td>
+                            <td><span class="badge badge-exam badge-devops">DevOps</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lambda SnapStart</strong></td>
+                            <td>Nov 2022</td>
+                            <td>Cold start reduction via memory snapshots</td>
+                            <td>
+                                <span class="badge badge-exam badge-devops">DevOps</span>
+                                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                            </td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lambda Function URLs</strong></td>
+                            <td>Apr 2022</td>
+                            <td>Built-in HTTPS endpoints for Lambda</td>
+                            <td><span class="badge badge-exam badge-devops">DevOps</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS Batch on EKS</strong></td>
+                            <td>2022</td>
+                            <td>Run Batch jobs on EKS clusters</td>
+                            <td>
+                                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                                <span class="badge badge-exam badge-devops">DevOps</span>
+                            </td>
+                            <td><span class="badge badge-low">LOW</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Databases -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Databases</h3>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Launched</th>
+                            <th>What It Does</th>
+                            <th>Exam Relevance</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Amazon MemoryDB</strong></td>
+                            <td>GA Aug 2021</td>
+                            <td>Durable in-memory database (Redis/Valkey)</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aurora Serverless v2</strong></td>
+                            <td>GA Apr 2022</td>
+                            <td>Fine-grained auto-scaling Aurora</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aurora I/O-Optimized</strong></td>
+                            <td>GA May 2023</td>
+                            <td>Storage config eliminating per-I/O charges</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aurora Limitless Database</strong></td>
+                            <td>GA 2024</td>
+                            <td>Horizontal sharding for Aurora PostgreSQL</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>ElastiCache Serverless</strong></td>
+                            <td>GA Nov 2023</td>
+                            <td>Auto-scaling cache, no capacity planning</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>DocumentDB Elastic Clusters</strong></td>
+                            <td>GA Nov 2022</td>
+                            <td>Horizontal sharding for DocumentDB</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-low">LOW</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Neptune Analytics</strong></td>
+                            <td>GA Dec 2023</td>
+                            <td>Graph + vector DB for analytics</td>
+                            <td>&mdash;</td>
+                            <td><span class="badge badge-low">LOW</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Timestream for InfluxDB</strong></td>
+                            <td>GA Mar 2024</td>
+                            <td>Managed InfluxDB (replaces Timestream LiveAnalytics)</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-low">LOW</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Storage -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Storage</h3>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Launched</th>
+                            <th>What It Does</th>
+                            <th>Exam Relevance</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>S3 Express One Zone</strong></td>
+                            <td>GA Nov 2023</td>
+                            <td>Single-digit ms latency S3 storage class</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>S3 Access Grants</strong></td>
+                            <td>GA Nov 2023</td>
+                            <td>Map corporate identities to S3 permissions</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mountpoint for Amazon S3</strong></td>
+                            <td>GA Aug 2023</td>
+                            <td>Mount S3 as Linux filesystem</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS Backup Logically Air-Gapped Vault</strong></td>
+                            <td>GA Aug 2024</td>
+                            <td>Logical isolation for ransomware protection</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Analytics & Data -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Analytics &amp; Data</h3>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Launched</th>
+                            <th>What It Does</th>
+                            <th>Exam Relevance</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>AWS Clean Rooms</strong></td>
+                            <td>GA Jan 2023</td>
+                            <td>Collaborative data analysis without sharing data</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon DataZone</strong></td>
+                            <td>GA Oct 2023</td>
+                            <td>Data governance and cataloging across orgs</td>
+                            <td>&mdash;</td>
+                            <td><span class="badge badge-low">LOW</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS Entity Resolution</strong></td>
+                            <td>GA Aug 2023</td>
+                            <td>ML-powered record matching/deduplication</td>
+                            <td>&mdash;</td>
+                            <td><span class="badge badge-low">LOW</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon OpenSearch Serverless</strong></td>
+                            <td>GA Jan 2023</td>
+                            <td>Serverless OpenSearch deployment</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon Redshift Serverless</strong></td>
+                            <td>GA Jul 2022</td>
+                            <td>No-cluster analytics, pay-per-use, AI-driven scaling</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon EMR Serverless</strong></td>
+                            <td>GA Jun 2022</td>
+                            <td>Run Spark/Hive/Presto without clusters</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-high">HIGH</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon MSK Serverless</strong></td>
+                            <td>GA Apr 2022</td>
+                            <td>Fully managed auto-scaling Apache Kafka</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon MSK Express Brokers</strong></td>
+                            <td>2024</td>
+                            <td>90% faster recovery, 3x throughput, no ZooKeeper</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon OpenSearch Ingestion</strong></td>
+                            <td>2023</td>
+                            <td>Managed data pipeline for OpenSearch</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-low">LOW</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS Glue Data Quality</strong></td>
+                            <td>2023</td>
+                            <td>Data quality rules engine with DQDL</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Observability -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Observability</h3>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Launched</th>
+                            <th>What It Does</th>
+                            <th>Exam Relevance</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Amazon Managed Grafana</strong></td>
+                            <td>GA Feb 2022</td>
+                            <td>Managed Grafana dashboards</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon Managed Prometheus (AMP)</strong></td>
+                            <td>GA Sep 2021</td>
+                            <td>Managed Prometheus for containers</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CloudWatch Application Signals</strong></td>
+                            <td>GA 2024</td>
+                            <td>AWS-native APM with SLOs</td>
+                            <td><span class="badge badge-exam badge-devops">DevOps</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CloudWatch Internet Monitor</strong></td>
+                            <td>2023</td>
+                            <td>Internet-facing app performance monitoring</td>
+                            <td>&mdash;</td>
+                            <td><span class="badge badge-low">LOW</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS Distro for OpenTelemetry (ADOT)</strong></td>
+                            <td>GA 2021</td>
+                            <td>AWS OpenTelemetry distribution</td>
+                            <td><span class="badge badge-exam badge-devops">DevOps</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- DevOps & IaC -->
+        <div class="card">
+            <div class="card-header">
+                <h3>DevOps &amp; IaC</h3>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Launched</th>
+                            <th>What It Does</th>
+                            <th>Exam Relevance</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>AWS Infrastructure Composer</strong></td>
+                            <td>GA 2023</td>
+                            <td>Visual IaC designer (was Application Composer)</td>
+                            <td>&mdash;</td>
+                            <td><span class="badge badge-low">LOW</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CloudFormation IaC Generator</strong></td>
+                            <td>GA Feb 2024</td>
+                            <td>Generate templates from existing resources</td>
+                            <td><span class="badge badge-exam badge-devops">DevOps</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CloudFormation Stack Refactoring</strong></td>
+                            <td>Feb 2025</td>
+                            <td>Move resources between stacks</td>
+                            <td><span class="badge badge-exam badge-devops">DevOps</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EventBridge Pipes</strong></td>
+                            <td>GA Dec 2022</td>
+                            <td>Point-to-point integrations without glue code</td>
+                            <td>
+                                <span class="badge badge-exam badge-devops">DevOps</span>
+                                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                            </td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EventBridge Scheduler</strong></td>
+                            <td>Nov 2022</td>
+                            <td>Scheduled event delivery at scale</td>
+                            <td><span class="badge badge-exam badge-devops">DevOps</span></td>
+                            <td><span class="badge badge-low">LOW</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS Resilience Hub</strong></td>
+                            <td>Nov 2021</td>
+                            <td>Resilience assessment with RTO/RPO tracking</td>
+                            <td>
+                                <span class="badge badge-exam badge-devops">DevOps</span>
+                                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                            </td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS AppConfig Feature Flags</strong></td>
+                            <td>GA Mar 2022</td>
+                            <td>Native feature flags with targeting</td>
+                            <td><span class="badge badge-exam badge-devops">DevOps</span></td>
+                            <td><span class="badge badge-medium">MEDIUM</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Migration -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Migration</h3>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Launched</th>
+                            <th>What It Does</th>
+                            <th>Exam Relevance</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Application Migration Service (MGN)</strong></td>
+                            <td>GA Apr 2021</td>
+                            <td>Lift-and-shift migration (replaced CloudEndure/SMS)</td>
+                            <td><span class="badge badge-exam badge-sa-pro">SA Pro</span></td>
+                            <td><span class="badge badge-high">HIGH</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Other -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Other</h3>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Launched</th>
+                            <th>What It Does</th>
+                            <th>Exam Relevance</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>AWS Wickr</strong></td>
+                            <td>GA 2023</td>
+                            <td>End-to-end encrypted enterprise messaging</td>
+                            <td>&mdash;</td>
+                            <td><span class="badge badge-low">LOW</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS HealthImaging</strong></td>
+                            <td>GA Jul 2023</td>
+                            <td>HIPAA-eligible DICOM medical image storage</td>
+                            <td>&mdash;</td>
+                            <td><span class="badge badge-low">VERY LOW</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS HealthOmics</strong></td>
+                            <td>GA 2022</td>
+                            <td>Managed bioinformatics/genomics</td>
+                            <td>&mdash;</td>
+                            <td><span class="badge badge-low">VERY LOW</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS Amplify Gen 2</strong></td>
+                            <td>GA May 2024</td>
+                            <td>TypeScript-first full-stack framework</td>
+                            <td>&mdash;</td>
+                            <td><span class="badge badge-low">LOW</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 2: RENAMED SERVICES -->
+        <!-- ============================================================ -->
+        <h2 class="section-title" id="renamed-services">2. Renamed Services</h2>
+
+        <div class="info">
+            <strong>Why this matters:</strong> Exam questions use current names. If you studied under old names, you may not recognise the service being described. The API namespaces sometimes lag behind the brand rename.
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Service Name Changes (2021&ndash;2025)</h2>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Old Name</th>
+                            <th>New Name</th>
+                            <th>When</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Amazon Elasticsearch Service</td>
+                            <td><strong>Amazon OpenSearch Service</strong></td>
+                            <td>Sep 2021</td>
+                            <td>Full rebrand</td>
+                        </tr>
+                        <tr>
+                            <td>AWS Single Sign-On (SSO)</td>
+                            <td><strong>AWS IAM Identity Center</strong></td>
+                            <td>Jul 2022</td>
+                            <td>API namespaces unchanged</td>
+                        </tr>
+                        <tr>
+                            <td>Amazon Kinesis Data Firehose</td>
+                            <td><strong>Amazon Data Firehose</strong></td>
+                            <td>Feb 2024</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Kinesis Data Analytics for Apache Flink</td>
+                            <td><strong>Amazon Managed Service for Apache Flink</strong></td>
+                            <td>Aug 2023</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>AWS Application Composer</td>
+                            <td><strong>AWS Infrastructure Composer</strong></td>
+                            <td>2024</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Amazon Omics</td>
+                            <td><strong>AWS HealthOmics</strong></td>
+                            <td>2024</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>AWS Application Migration Service</td>
+                            <td><strong>AWS Transform MGN</strong></td>
+                            <td>2025</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Amazon CodeWhisperer</td>
+                            <td><strong>Amazon Q Developer</strong></td>
+                            <td>Apr 2024</td>
+                            <td>Folded into Q</td>
+                        </tr>
+                        <tr>
+                            <td>Personal Health Dashboard</td>
+                            <td><strong>AWS Health Dashboard</strong></td>
+                            <td>~2022</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Amazon SageMaker Studio</td>
+                            <td><strong>Amazon SageMaker Unified Studio</strong></td>
+                            <td>2024</td>
+                            <td>Expanded scope</td>
+                        </tr>
+                        <tr>
+                            <td>AWS SysOps Administrator</td>
+                            <td><strong>AWS CloudOps Engineer</strong></td>
+                            <td>Sep 2025</td>
+                            <td>Exam rename SOA-C02 to SOA-C03</td>
+                        </tr>
+                        <tr>
+                            <td>AWS Fault Injection Simulator</td>
+                            <td><strong>AWS Fault Injection Service</strong></td>
+                            <td>Late 2023</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>ACM Private CA</td>
+                            <td><strong>AWS Private CA</strong></td>
+                            <td>~2022</td>
+                            <td>Became standalone</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 3: DEPRECATED / RETIRED SERVICES -->
+        <!-- ============================================================ -->
+        <h2 class="section-title" id="deprecated-services">3. Deprecated / Retired Services</h2>
+
+        <div class="warning">
+            <strong>Exam impact:</strong> Deprecated services will be removed from exams over time, but you may still see them as <em>wrong</em> answer choices. Knowing the replacement is critical &mdash; exams often test whether you pick the deprecated vs. current option.
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Services Being Retired or Deprecated</h2>
+                <span class="badge badge-deprecated">Action Required</span>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Replacement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Amazon QLDB</strong></td>
+                            <td><span class="badge badge-deprecated">End of Support</span></td>
+                            <td>Jul 31, 2025</td>
+                            <td>Aurora PostgreSQL (loses crypto verify)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon Forecast</strong></td>
+                            <td><span class="badge badge-deprecated">Closed to New Customers</span></td>
+                            <td>Already</td>
+                            <td>SageMaker Canvas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon Timestream LiveAnalytics</strong></td>
+                            <td><span class="badge badge-deprecated">Closed to New Customers</span></td>
+                            <td>Jun 2025</td>
+                            <td>Timestream for InfluxDB</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS SimSpace Weaver</strong></td>
+                            <td><span class="badge badge-deprecated">Ended</span></td>
+                            <td>Mar 2025</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS Proton</strong></td>
+                            <td><span class="badge badge-deprecated">End of Support</span></td>
+                            <td>Oct 7, 2026</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS App Runner</strong></td>
+                            <td><span class="badge badge-deprecated">Closed to New Customers</span></td>
+                            <td>Apr 30, 2026</td>
+                            <td>Amazon ECS</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SSM Incident Manager</strong></td>
+                            <td><span class="badge badge-deprecated">Closed to New Customers</span></td>
+                            <td>Nov 7, 2025</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SSM Change Manager</strong></td>
+                            <td><span class="badge badge-deprecated">Closed to New Customers</span></td>
+                            <td>Nov 7, 2025</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon CodeCatalyst</strong></td>
+                            <td><span class="badge badge-deprecated">Closed to New Customers</span></td>
+                            <td>Already</td>
+                            <td>Code* services</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CloudTrail Lake</strong></td>
+                            <td><span class="badge badge-deprecated">Closed to New Customers</span></td>
+                            <td>May 31, 2026</td>
+                            <td>CloudWatch</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS Audit Manager</strong></td>
+                            <td><span class="badge badge-deprecated">Closed to New Customers</span></td>
+                            <td>Apr 30, 2026</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aurora Serverless v1</strong></td>
+                            <td><span class="badge badge-deprecated">Deprecated</span></td>
+                            <td>Already</td>
+                            <td>Aurora Serverless v2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CDK v1</strong></td>
+                            <td><span class="badge badge-deprecated">End of Support</span></td>
+                            <td>Jun 1, 2023</td>
+                            <td>CDK v2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS Database Specialty exam</strong></td>
+                            <td><span class="badge badge-deprecated">Retired</span></td>
+                            <td>Already</td>
+                            <td>Data Engineer Associate</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS ML Specialty exam</strong></td>
+                            <td><span class="badge badge-deprecated">Retired</span></td>
+                            <td>Mar 31, 2026</td>
+                            <td>ML Engineer Associate</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Advanced Networking Specialty</strong></td>
+                            <td><span class="badge badge-deprecated">Retiring</span></td>
+                            <td>Aug 25, 2026</td>
+                            <td>None announced</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Migration Hub Refactor Spaces</strong></td>
+                            <td><span class="badge badge-deprecated">Closing</span></td>
+                            <td>Nov 2025</td>
+                            <td>AWS Transform</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS Mainframe Modernization (managed)</strong></td>
+                            <td><span class="badge badge-deprecated">Closed to New Customers</span></td>
+                            <td>Nov 2025</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CloudEndure Migration</strong></td>
+                            <td><span class="badge badge-deprecated">Closed</span></td>
+                            <td>Already</td>
+                            <td>Application Migration Service</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS Server Migration Service (SMS)</strong></td>
+                            <td><span class="badge badge-deprecated">Deprecated</span></td>
+                            <td>Already</td>
+                            <td>Application Migration Service</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS App Mesh</strong></td>
+                            <td><span class="badge badge-deprecated">Deprecated, discontinuing</span></td>
+                            <td>Sep 30, 2026</td>
+                            <td>VPC Lattice, ECS Service Connect</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS Snowcone</strong></td>
+                            <td><span class="badge badge-deprecated">Discontinued</span></td>
+                            <td>Nov 2024</td>
+                            <td>DataSync, Data Transfer Terminal</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Legacy Snowball Edge</strong></td>
+                            <td><span class="badge badge-deprecated">Discontinued</span></td>
+                            <td>Nov 2024</td>
+                            <td>Current Snowball Edge models</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lake Formation Governed Tables</strong></td>
+                            <td><span class="badge badge-deprecated">Deprecated</span></td>
+                            <td>Dec 2024</td>
+                            <td>Apache Iceberg/Hudi/Delta Lake</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 4: S3 DEFAULT CHANGES -->
+        <!-- ============================================================ -->
+        <h2 class="section-title" id="s3-defaults">4. S3 Default Changes</h2>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Silent but Critical S3 Defaults</h2>
+                <span class="badge badge-updated">Behavioral Changes</span>
+            </div>
+            <div class="card-body">
+                <div class="warning">
+                    <strong>These defaults changed without fanfare but fundamentally affect how S3 behaves.</strong> Exam questions now assume these are in effect. If you learned S3 before 2023, your mental model may be wrong.
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>When</th>
+                            <th>Change</th>
+                            <th>Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Jan 2023</strong></td>
+                            <td>All new objects auto-encrypted with <strong>SSE-S3</strong></td>
+                            <td>No action needed for encryption at rest &mdash; it is now always on. SSE-KMS is only needed for CMK control, key rotation policies, or cross-account access patterns.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Apr 2023</strong></td>
+                            <td><strong>Block Public Access</strong> enabled by default on new buckets</td>
+                            <td>New buckets cannot be made public unless you explicitly disable this. Intentionally public buckets (static sites) require manual override.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Apr 2023</strong></td>
+                            <td><strong>ACLs disabled</strong> by default (bucket owner enforced)</td>
+                            <td>Object ownership is always the bucket owner. Cross-account uploads no longer need <code>bucket-owner-full-control</code> ACL &mdash; the bucket owner automatically gets ownership.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2023</strong></td>
+                            <td><strong>Bucket Keys</strong> enabled by default for SSE-KMS</td>
+                            <td>Reduces KMS API call costs by up to 99%. Each bucket gets a short-lived key instead of calling KMS per object.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>Exam tip:</strong> If a question mentions creating a "new S3 bucket" without specifying configuration, assume all four of these defaults are active. Questions about making a bucket public will require explicitly disabling Block Public Access.
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 5: PRICING CHANGES -->
+        <!-- ============================================================ -->
+        <h2 class="section-title" id="pricing-changes">5. Pricing Changes to Know</h2>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Key Pricing Changes (2021&ndash;2026)</h2>
+                <span class="badge badge-updated">Cost Impact</span>
+            </div>
+            <div class="card-body">
+                <div class="warning">
+                    <strong>Public IPv4 now costs money.</strong> As of February 2024, every public IPv4 address incurs a charge of <strong>$0.005/hour ($3.60/month each)</strong>. This applies to EC2, RDS, ELB, NAT Gateway, and any other service with a public IPv4. Use IPv6, Elastic IPs you actually need, or NAT Gateways strategically.
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Change</th>
+                            <th>Detail</th>
+                            <th>Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Public IPv4 Charging</strong></td>
+                            <td>$0.005/hour per public IPv4 (Feb 2024)</td>
+                            <td>$3.60/month per address. Audit unused EIPs, consider IPv6, use VPC endpoints for private communication.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ElastiCache Valkey</strong></td>
+                            <td>20% cheaper than Redis, 33% cheaper Serverless</td>
+                            <td>Valkey (open-source Redis fork) is the cost-optimized choice for new cache deployments.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>EBS gp3 Baseline</strong></td>
+                            <td>3,000 IOPS + 125 MB/s included (no extra charge vs gp2)</td>
+                            <td>gp3 is almost always cheaper than gp2 for the same performance. Migrate existing gp2 volumes.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aurora I/O-Optimized</strong></td>
+                            <td>Eliminates per-I/O charges</td>
+                            <td>Up to 40% savings for I/O-heavy workloads. Predictable pricing without I/O surprises.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Terraform/HCP Pricing</strong></td>
+                            <td>Legacy free tier ended Mar 2026; new Free plan covers 500 resources</td>
+                            <td>Small teams may need to evaluate HCP costs vs. self-hosted Terraform or OpenTofu.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kinesis On-Demand Advantage Mode</strong></td>
+                            <td>60%+ cost discount vs standard on-demand (2025)</td>
+                            <td>Significant savings for Kinesis Data Streams workloads. Evaluate switching existing streams.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Redshift Serverless</strong></td>
+                            <td>Pay only for compute used (RPU-hours), no idle costs</td>
+                            <td>Eliminates over-provisioning costs. Ideal for intermittent or unpredictable analytics workloads.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>Exam tip:</strong> Cost optimization questions now frequently involve IPv4 charges and choosing the right storage tier (gp3 vs gp2, Aurora I/O-Optimized vs Standard). Know when each pricing model is advantageous.
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer style="text-align: center; padding: 30px 20px; color: var(--text-light); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 40px;">
+        <p>AWS Catch-Up Guide 2021&ndash;2026 &mdash; Last updated June 2026</p>
+    </footer>
+
+</body>
+</html>

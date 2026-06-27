@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI &amp; Machine Learning - AWS Catch-Up Guide 2021-2026</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-inner">
+            <a href="index.html">Index</a>
+            <a href="security-identity.html">Security &amp; Identity</a>
+            <a href="ai-ml.html" class="active">AI &amp; ML</a>
+            <a href="devops-iac.html">DevOps &amp; IaC</a>
+            <a href="networking.html">Networking</a>
+            <a href="compute-storage-db.html">Compute/Storage/DB</a>
+            <a href="exam-guide.html">Exam Guide</a>
+            <a href="new-services.html">New Services</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1><strong>AI &amp; Machine Learning</strong></h1>
+        <p class="subtitle">The biggest area of AWS growth since 2021</p>
+        <p class="meta">AWS Catch-Up Guide 2021&ndash;2026 &mdash; Last updated June 2026</p>
+    </header>
+
+    <main class="content">
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#bedrock">1. Amazon Bedrock</a></li>
+                <li><a href="#amazon-q">2. Amazon Q</a></li>
+                <li><a href="#sagemaker">3. Amazon SageMaker</a></li>
+                <li><a href="#trainium-inferentia">4. AWS Trainium &amp; Inferentia</a></li>
+                <li><a href="#nova">5. Amazon Nova Models</a></li>
+                <li><a href="#ai-ml-service-updates">6. AI/ML Service Updates</a></li>
+                <li><a href="#responsible-ai">7. Responsible AI</a></li>
+                <li><a href="#architectural-patterns">8. Key Architectural Patterns</a></li>
+                <li><a href="#certification-landscape">9. AI/ML Certification Landscape</a></li>
+            </ul>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 1. Amazon Bedrock -->
+        <!-- ============================================================ -->
+        <h2 class="section-title" id="bedrock">1. Amazon Bedrock</h2>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Amazon Bedrock</h2>
+                <span class="badge badge-new">NEW - GA Sep 2023</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-ml">ML</span>
+                <span class="badge badge-exam badge-ai-prac">AI Practitioner</span>
+            </div>
+            <div class="card-body">
+                <p><strong>Fully managed generative AI platform</strong> &mdash; access foundation models (FMs) from multiple providers via a single API. No infrastructure management required. Build, customize, and deploy GenAI applications at scale.</p>
+
+                <div class="concept">
+                    <strong>Core Concept:</strong> Bedrock is the serverless, API-based gateway to foundation models. You do not manage any underlying infrastructure. Think of it as the "Lambda of GenAI" &mdash; you call it, you pay per token, AWS handles the rest.
+                </div>
+
+                <h3>Foundation Models Available</h3>
+                <ul>
+                    <li><strong>Anthropic Claude</strong> &mdash; Claude 3.5 Sonnet, Claude 3 Opus, Claude 3 Haiku, Claude 4 family</li>
+                    <li><strong>Meta Llama</strong> &mdash; Llama 3.1, Llama 3.2, Llama 4 family</li>
+                    <li><strong>Amazon Nova</strong> &mdash; Micro, Lite, Pro, Premier, Canvas, Reel (AWS first-party models)</li>
+                    <li><strong>Stability AI</strong> &mdash; Stable Diffusion for image generation</li>
+                    <li><strong>Cohere</strong> &mdash; Command, Embed models for text and embeddings</li>
+                    <li><strong>AI21 Labs</strong> &mdash; Jamba models</li>
+                    <li><strong>Mistral AI</strong> &mdash; Mistral Large, Mixtral models</li>
+                    <li><strong>OpenAI GPT</strong> &mdash; Added 2025/2026, GPT-4o and related models</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html" class="doc-link" target="_blank">Docs: Supported foundation models in Bedrock</a>
+            </div>
+        </div>
+
+        <!-- Bedrock: Agents & AgentCore -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Bedrock &mdash; Agents &amp; AgentCore</h3>
+            </div>
+            <div class="card-body">
+                <p>Build autonomous AI agents that can break down complex tasks, call APIs, and take multi-step actions on behalf of users.</p>
+                <ul>
+                    <li><strong>Multi-step task automation</strong> &mdash; agent decomposes user requests into a sequence of actions</li>
+                    <li><strong>API invocation</strong> &mdash; agents call external APIs via action groups (backed by Lambda or OpenAPI schemas)</li>
+                    <li><strong>Memory</strong> &mdash; persistent session context across conversations for continuity</li>
+                    <li><strong>Code interpretation</strong> &mdash; agent can write and execute code to solve data analysis tasks</li>
+                    <li><strong>Multi-agent collaboration</strong> &mdash; orchestrate multiple specialized agents working together</li>
+                    <li><strong>AgentCore</strong> &mdash; managed infrastructure layer for deploying agents at scale with built-in observability</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html" class="doc-link" target="_blank">Docs: Agents for Amazon Bedrock</a>
+            </div>
+        </div>
+
+        <!-- Bedrock: Knowledge Bases -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Bedrock &mdash; Knowledge Bases (RAG)</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>Managed Retrieval-Augmented Generation (RAG) service.</strong> Connect your data sources, automatically chunk/embed/index content into a vector store, and retrieve relevant context at query time to ground FM responses in your data.</p>
+                <ul>
+                    <li><strong>Data source connectors:</strong> Amazon S3, SharePoint, Confluence, Google Drive, Web Crawler</li>
+                    <li><strong>Vector stores:</strong> Managed (Amazon OpenSearch Serverless) or custom (Pinecone, Redis, Aurora PostgreSQL with pgvector, MongoDB Atlas)</li>
+                    <li><strong>Smart parsing:</strong> Automatic chunking strategies (fixed-size, semantic, hierarchical) with metadata extraction</li>
+                    <li><strong>Agentic Retrieval:</strong> Knowledge base can be used as a tool by Bedrock Agents for dynamic, context-aware retrieval</li>
+                    <li><strong>Pricing:</strong> Flat per-query pricing &mdash; predictable costs regardless of document volume</li>
+                </ul>
+
+                <div class="concept">
+                    <strong>RAG Architecture:</strong> Data sources &rarr; Chunking &amp; Embedding &rarr; Vector Store &rarr; Query: user prompt + retrieved context &rarr; FM generates grounded response. This is the key pattern for reducing hallucination and incorporating private data.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html" class="doc-link" target="_blank">Docs: Knowledge bases for Amazon Bedrock</a>
+            </div>
+        </div>
+
+        <!-- Bedrock: Guardrails -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Bedrock &mdash; Guardrails</h3>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-ai-prac">AI Practitioner</span>
+            </div>
+            <div class="card-body">
+                <p><strong>Configurable safeguards for responsible AI.</strong> Apply content filtering, topic restrictions, and safety policies to any FM &mdash; including third-party and self-hosted models. Blocks 88% of harmful content.</p>
+
+                <h4>Six Safeguard Policies</h4>
+                <ol>
+                    <li><strong>Content Filters</strong> &mdash; filter harmful content across categories (hate, insults, sexual, violence, misconduct) with configurable strength levels</li>
+                    <li><strong>Prompt Attack Detection</strong> &mdash; detect and block prompt injection and jailbreak attempts</li>
+                    <li><strong>Denied Topics</strong> &mdash; define topics the model must refuse to engage with (e.g., competitor advice, investment recommendations)</li>
+                    <li><strong>PII Redaction</strong> &mdash; automatically detect and redact/mask personally identifiable information in inputs and outputs</li>
+                    <li><strong>Contextual Grounding</strong> &mdash; detect hallucinations by checking FM responses against source context and relevance thresholds</li>
+                    <li><strong>Automated Reasoning</strong> &mdash; uses formal mathematical logic to validate FM outputs against policy rules. <strong>99% accuracy</strong> (deterministic, not probabilistic). This is unique to AWS.</li>
+                </ol>
+
+                <div class="tip">
+                    <strong>Key Feature:</strong> Guardrails work with <strong>ANY</strong> foundation model &mdash; not just Bedrock-hosted models. You can apply them to third-party FM APIs and self-hosted models. Also supports cross-account deployment via AWS Organizations.
+                </div>
+
+                <div class="concept">
+                    <strong>EXAM TIP:</strong> Guardrails is the primary answer for any question about responsible AI at runtime, content moderation for GenAI, or preventing hallucination. Automated Reasoning is a key differentiator &mdash; it uses <em>formal logic</em> (deterministic), not AI-based detection (probabilistic).
+                </div>
+
+                <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html" class="doc-link" target="_blank">Docs: Guardrails for Amazon Bedrock</a>
+            </div>
+        </div>
+
+        <!-- Bedrock: Model Evaluation -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Bedrock &mdash; Model Evaluation</h3>
+            </div>
+            <div class="card-body">
+                <p>Compare foundation models to select the best one for your use case using automatic and human evaluation methods.</p>
+                <ul>
+                    <li><strong>Automatic evaluation metrics:</strong> BERT-Score (semantic similarity), ROUGE (summarization quality), F1 Score (classification accuracy), Exact Match</li>
+                    <li><strong>Human evaluation:</strong> Set up human review workflows with custom criteria and rating scales</li>
+                    <li><strong>Side-by-side comparison:</strong> Evaluate multiple models on the same dataset simultaneously</li>
+                    <li><strong>Custom metrics:</strong> Define domain-specific evaluation criteria</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation.html" class="doc-link" target="_blank">Docs: Model evaluation in Amazon Bedrock</a>
+            </div>
+        </div>
+
+        <!-- Bedrock: Fine-Tuning & Custom Models -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Bedrock &mdash; Fine-Tuning &amp; Custom Models</h3>
+            </div>
+            <div class="card-body">
+                <p>Customize foundation models with your own data for domain-specific performance improvements.</p>
+                <ul>
+                    <li><strong>Continued Pre-training:</strong> Train a model on large volumes of unlabeled domain data to improve domain knowledge</li>
+                    <li><strong>Fine-tuning:</strong> Train on labeled prompt-response pairs to improve performance on specific tasks</li>
+                    <li><strong>Model Import:</strong> Bring your own custom-trained models (e.g., from SageMaker or Hugging Face) into Bedrock for serverless deployment</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/custom-models.html" class="doc-link" target="_blank">Docs: Custom models in Amazon Bedrock</a>
+            </div>
+        </div>
+
+        <!-- Bedrock: Model Distillation -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Bedrock &mdash; Model Distillation</h3>
+                <span class="badge badge-new">NEW</span>
+            </div>
+            <div class="card-body">
+                <p><strong>Teacher-student model optimization.</strong> Use a large, capable model (teacher) to train a smaller, faster model (student) that mimics the teacher's performance for your specific use case.</p>
+                <ul>
+                    <li>Up to <strong>500% faster</strong> inference compared to the teacher model</li>
+                    <li>Up to <strong>75% cheaper</strong> per request</li>
+                    <li>Less than <strong>2% accuracy loss</strong> vs. the teacher model on target tasks</li>
+                    <li>Automated process &mdash; provide sample prompts, Bedrock handles the rest</li>
+                </ul>
+
+                <div class="concept">
+                    <strong>EXAM TIP:</strong> Distillation is a cost optimization strategy. When the exam asks about reducing GenAI costs while maintaining quality, distillation is a key answer alongside prompt routing and caching.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-distillation.html" class="doc-link" target="_blank">Docs: Model distillation in Amazon Bedrock</a>
+            </div>
+        </div>
+
+        <!-- Bedrock: Intelligent Prompt Routing -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Bedrock &mdash; Intelligent Prompt Routing</h3>
+                <span class="badge badge-new">NEW</span>
+            </div>
+            <div class="card-body">
+                <p>Automatically routes each prompt to the optimal model within a model family based on complexity. Simple prompts go to smaller/cheaper models; complex prompts go to larger/more capable models.</p>
+                <ul>
+                    <li>Up to <strong>30% cost reduction</strong> with no quality degradation</li>
+                    <li>Works within a model family (e.g., Claude Haiku vs. Claude Sonnet)</li>
+                    <li>No code changes required &mdash; configure the routing profile and call the endpoint</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-routing.html" class="doc-link" target="_blank">Docs: Intelligent prompt routing</a>
+            </div>
+        </div>
+
+        <!-- Bedrock: Prompt Caching -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Bedrock &mdash; Prompt Caching</h3>
+                <span class="badge badge-new">NEW</span>
+            </div>
+            <div class="card-body">
+                <p>Cache frequently used prompt prefixes (system prompts, few-shot examples, long context documents) to avoid reprocessing them on every request.</p>
+                <ul>
+                    <li>Up to <strong>90% cost reduction</strong> on cached tokens</li>
+                    <li>Up to <strong>85% latency reduction</strong> on cache hits</li>
+                    <li>Ideal for applications with shared system prompts or repeated context across requests</li>
+                    <li>Configurable cache TTL</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-caching.html" class="doc-link" target="_blank">Docs: Prompt caching in Amazon Bedrock</a>
+            </div>
+        </div>
+
+        <!-- Bedrock: Pricing -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Bedrock &mdash; Pricing Model</h3>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pricing Tier</th>
+                            <th>How It Works</th>
+                            <th>Best For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>On-Demand</strong></td>
+                            <td>Pay per input/output token, no commitment</td>
+                            <td>Variable workloads, experimentation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Batch</strong></td>
+                            <td>Submit batch jobs, 50% lower cost than on-demand</td>
+                            <td>Non-real-time processing, bulk analysis</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Provisioned Throughput</strong></td>
+                            <td>Reserved model units for guaranteed capacity</td>
+                            <td>Predictable, high-volume production workloads</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Service Tiers (for on-demand)</h4>
+                <ul>
+                    <li><strong>Standard</strong> &mdash; default tier, best-effort throughput</li>
+                    <li><strong>Flex</strong> &mdash; lower cost, variable latency (queued processing)</li>
+                    <li><strong>Priority</strong> &mdash; higher throughput guarantees during peak demand</li>
+                    <li><strong>Reserved</strong> &mdash; committed throughput with term discounts</li>
+                </ul>
+
+                <div class="concept">
+                    <strong>EXAM TIP &mdash; Cost Optimization Trio:</strong> Know the three Bedrock cost optimization features: <strong>Model Distillation</strong> (smaller model, same quality), <strong>Intelligent Prompt Routing</strong> (right-size per request), and <strong>Prompt Caching</strong> (avoid reprocessing). Exam loves asking about cost-optimized GenAI architectures.
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ============================================================ -->
+        <!-- 2. Amazon Q -->
+        <!-- ============================================================ -->
+        <h2 class="section-title" id="amazon-q">2. Amazon Q</h2>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Amazon Q</h2>
+                <span class="badge badge-new">NEW - GA April 2024</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+            </div>
+            <div class="card-body">
+                <p><strong>AWS's AI-powered assistant family.</strong> Amazon Q comes in four variants, each purpose-built for a different audience. This is a critical service to understand &mdash; the exam expects you to know which variant to recommend for each scenario.</p>
+
+                <h3>Q Developer</h3>
+                <ul>
+                    <li>AI-powered code generation, completion, and debugging in IDEs (VS Code, JetBrains, CLI)</li>
+                    <li>Security scanning &mdash; identifies vulnerabilities in generated and existing code</li>
+                    <li><strong>.NET and Java modernization</strong> &mdash; automated code transformation to modern frameworks (e.g., .NET Framework to .NET Core, Java 8 to Java 17)</li>
+                    <li>AWS console expert &mdash; ask questions about AWS services and get contextual answers</li>
+                    <li><strong>Replaced Amazon CodeWhisperer</strong> (CodeWhisperer was rebranded to Q Developer)</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/what-is.html" class="doc-link" target="_blank">Docs: Amazon Q Developer</a>
+
+                <h3>Q Business</h3>
+                <ul>
+                    <li>Enterprise knowledge assistant &mdash; connects to your organization's data and provides answers grounded in internal content</li>
+                    <li><strong>50+ built-in actions</strong> &mdash; integrates with Jira, Salesforce, ServiceNow, Slack, Microsoft Teams, and more</li>
+                    <li><strong>Q Apps</strong> &mdash; no-code app builder powered by natural language; create lightweight internal tools from conversation</li>
+                    <li>Accessible from browser, Slack, and Microsoft Teams</li>
+                    <li>IAM Identity Center integration for user management and access control</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/what-is.html" class="doc-link" target="_blank">Docs: Amazon Q Business</a>
+
+                <h3>Q in QuickSight</h3>
+                <ul>
+                    <li>Natural language to dashboards and visualizations</li>
+                    <li>Ask questions in plain English, get charts, graphs, and insights</li>
+                    <li>Integrated directly into Amazon QuickSight BI platform</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/quicksight/latest/user/working-with-quicksight-q.html" class="doc-link" target="_blank">Docs: Q in QuickSight</a>
+
+                <h3>Q in Connect</h3>
+                <ul>
+                    <li>Contact center agent assist for Amazon Connect</li>
+                    <li>Real-time recommendations and answers during customer calls</li>
+                    <li>Surfaces knowledge base articles, suggested responses, and next-best-action guidance</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html" class="doc-link" target="_blank">Docs: Q in Connect</a>
+
+                <div class="concept">
+                    <strong>EXAM TIP:</strong> Know all 4 variants. <strong>Q Developer</strong> = code + modernization scenarios (.NET/Java). <strong>Q Business</strong> = enterprise search / internal knowledge assistant. <strong>Q in QuickSight</strong> = BI/analytics. <strong>Q in Connect</strong> = contact center. When the exam says "AI-powered code transformation," the answer is Q Developer, not CodeWhisperer.
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ============================================================ -->
+        <!-- 3. Amazon SageMaker -->
+        <!-- ============================================================ -->
+        <h2 class="section-title" id="sagemaker">3. Amazon SageMaker</h2>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Amazon SageMaker</h2>
+                <span class="badge badge-updated">MAJOR UPDATE</span>
+                <span class="badge badge-exam badge-ml">ML</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+                <p><strong>Full lifecycle ML platform</strong> that has undergone massive restructuring since 2021. SageMaker is now an umbrella covering everything from no-code ML to distributed training at scale.</p>
+            </div>
+        </div>
+
+        <!-- SageMaker Unified Studio -->
+        <div class="card">
+            <div class="card-header">
+                <h3>SageMaker Unified Studio</h3>
+                <span class="badge badge-new">NEW - re:Invent 2024</span>
+            </div>
+            <div class="card-body">
+                <p>A single interface that combines ML, data engineering, and analytics workflows. Previously these were separate tools (SageMaker Studio, DataZone, EMR Studio, Athena, etc.).</p>
+                <ul>
+                    <li>Built on <strong>Amazon DataZone</strong> for data governance and cataloging</li>
+                    <li>Integrated IDEs: <strong>JupyterLab</strong>, <strong>Code Editor</strong> (VS Code-based), <strong>RStudio</strong></li>
+                    <li><strong>SageMaker Catalog</strong> &mdash; unified governance layer for discovering and managing ML models, datasets, and features across teams</li>
+                    <li>Combines previously siloed SageMaker Studio, SageMaker Domain, and DataZone into one experience</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/studio.html" class="doc-link" target="_blank">Docs: SageMaker Unified Studio</a>
+            </div>
+        </div>
+
+        <!-- SageMaker JumpStart -->
+        <div class="card">
+            <div class="card-header">
+                <h3>SageMaker JumpStart</h3>
+                <span class="badge badge-updated">UPDATED</span>
+            </div>
+            <div class="card-body">
+                <p><strong>ML hub with foundation models, pre-trained models, and solution templates</strong> from multiple providers. More than just GenAI &mdash; includes traditional ML models, computer vision, NLP, and tabular models.</p>
+                <ul>
+                    <li>Access FMs from Hugging Face, Meta, Stability AI, and others &mdash; deploy to SageMaker endpoints</li>
+                    <li>Fine-tune models within SageMaker with full control over training infrastructure</li>
+                    <li>Pre-built solution templates for common ML use cases</li>
+                    <li>Full infrastructure control &mdash; choose instance types, configure autoscaling, set up A/B testing</li>
+                </ul>
+
+                <div class="info">
+                    <strong>JumpStart vs. Bedrock &mdash; Key Distinction:</strong><br>
+                    <strong>SageMaker JumpStart</strong> = broader ML hub with full infrastructure control. You manage endpoints, scaling, and deployment. Supports both GenAI and traditional ML.<br>
+                    <strong>Amazon Bedrock</strong> = serverless, API-based FM access. No infrastructure to manage. GenAI only.<br>
+                    <em>When the exam asks about "more control over model deployment" or "custom inference endpoints," the answer is JumpStart. When it asks about "simplest way to access FMs" or "fully managed GenAI," the answer is Bedrock.</em>
+                </div>
+
+                <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/studio-jumpstart.html" class="doc-link" target="_blank">Docs: SageMaker JumpStart</a>
+            </div>
+        </div>
+
+        <!-- SageMaker Canvas -->
+        <div class="card">
+            <div class="card-header">
+                <h3>SageMaker Canvas</h3>
+                <span class="badge badge-updated">UPDATED</span>
+            </div>
+            <div class="card-body">
+                <p><strong>No-code ML for business analysts.</strong> Build, train, and deploy ML models using a visual, point-and-click interface &mdash; no coding or ML expertise required.</p>
+                <ul>
+                    <li><strong>AutoML</strong> &mdash; automatically selects algorithms, tunes hyperparameters, and trains models</li>
+                    <li>Connects to <strong>50+ data sources</strong> including S3, Redshift, Snowflake, SaaS applications</li>
+                    <li>Supports <strong>300+ built-in analyses</strong> for classification, regression, forecasting, NLP, and computer vision</li>
+                    <li><strong>Replaces Amazon Forecast</strong> for time-series forecasting use cases (Forecast is deprecated)</li>
+                    <li>Chat-based model building with natural language</li>
+                </ul>
+
+                <div class="warning">
+                    <strong>Amazon Forecast is DEPRECATED.</strong> It is no longer available to new customers. SageMaker Canvas is the recommended replacement for all time-series forecasting use cases. Existing Forecast users should migrate.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/canvas.html" class="doc-link" target="_blank">Docs: SageMaker Canvas</a>
+            </div>
+        </div>
+
+        <!-- SageMaker HyperPod -->
+        <div class="card">
+            <div class="card-header">
+                <h3>SageMaker HyperPod</h3>
+                <span class="badge badge-new">NEW</span>
+                <span class="badge badge-exam badge-ml">ML</span>
+            </div>
+            <div class="card-body">
+                <p><strong>Managed distributed training infrastructure</strong> purpose-built for training large foundation models at scale. Handles the hard parts of distributed training automatically.</p>
+                <ul>
+                    <li><strong>Checkpointless training</strong> &mdash; innovative approach that reduces checkpoint overhead for long-running training jobs</li>
+                    <li><strong>Automatic fault detection and repair</strong> &mdash; detects hardware failures and automatically replaces faulty nodes without restarting the entire training job</li>
+                    <li>Up to <strong>40% reduction</strong> in training cost and time compared to self-managed distributed training</li>
+                    <li>Supports Slurm and Amazon EKS orchestrators</li>
+                    <li>Integrates with AWS Trainium and NVIDIA GPU instances</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-hyperpod.html" class="doc-link" target="_blank">Docs: SageMaker HyperPod</a>
+            </div>
+        </div>
+
+        <!-- SageMaker Clarify -->
+        <div class="card">
+            <div class="card-header">
+                <h3>SageMaker Clarify</h3>
+                <span class="badge badge-updated">UPDATED</span>
+                <span class="badge badge-exam badge-ml">ML</span>
+                <span class="badge badge-exam badge-ai-prac">AI Practitioner</span>
+            </div>
+            <div class="card-body">
+                <p><strong>Bias detection and model explainability</strong> for both traditional ML models and foundation models.</p>
+                <ul>
+                    <li><strong>Pre-training bias detection</strong> &mdash; analyze training data for imbalances before training</li>
+                    <li><strong>Post-training bias detection</strong> &mdash; evaluate model predictions for disparate impact across groups</li>
+                    <li><strong>FM stereotype evaluation</strong> &mdash; test foundation models for stereotypical associations and biases</li>
+                    <li><strong>Explainability</strong> &mdash; SHAP-based feature attribution for model predictions</li>
+                    <li>Supports <strong>ISO 42001</strong> (AI management system) compliance documentation</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-configure-processing-jobs.html" class="doc-link" target="_blank">Docs: SageMaker Clarify</a>
+            </div>
+        </div>
+
+        <!-- SageMaker EXAM TIP -->
+        <div class="card">
+            <div class="card-header">
+                <h3>SageMaker &mdash; Exam Decision Matrix</h3>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Scenario</th>
+                            <th>Answer</th>
+                            <th>Why</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Data scientist needs full control over training</td>
+                            <td>SageMaker Studio / SageMaker AI</td>
+                            <td>Code-based, full ML lifecycle</td>
+                        </tr>
+                        <tr>
+                            <td>Business analyst needs ML predictions</td>
+                            <td>SageMaker Canvas</td>
+                            <td>No-code, visual interface</td>
+                        </tr>
+                        <tr>
+                            <td>Deploy FM with custom infrastructure</td>
+                            <td>SageMaker JumpStart</td>
+                            <td>Infrastructure control over endpoints</td>
+                        </tr>
+                        <tr>
+                            <td>Simplest FM access, no infra management</td>
+                            <td>Amazon Bedrock</td>
+                            <td>Serverless API, per-token pricing</td>
+                        </tr>
+                        <tr>
+                            <td>Training a massive FM from scratch</td>
+                            <td>SageMaker HyperPod</td>
+                            <td>Distributed training, fault tolerance</td>
+                        </tr>
+                        <tr>
+                            <td>Time-series forecasting</td>
+                            <td>SageMaker Canvas</td>
+                            <td>Replaces deprecated Amazon Forecast</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <!-- ============================================================ -->
+        <!-- 4. AWS Trainium & Inferentia -->
+        <!-- ============================================================ -->
+        <h2 class="section-title" id="trainium-inferentia">4. AWS Trainium &amp; Inferentia</h2>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>AWS Trainium &amp; Inferentia</h2>
+                <span class="badge badge-new">NEW/UPDATED</span>
+                <span class="badge badge-exam badge-ml">ML</span>
+            </div>
+            <div class="card-body">
+                <p>AWS-designed custom silicon for ML workloads. Cost-optimized alternatives to NVIDIA GPUs for training and inference.</p>
+
+                <h3>Trainium (Training)</h3>
+                <p>Purpose-built chips for training ML models at scale.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Generation</th>
+                            <th>Instance</th>
+                            <th>Key Specs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Trainium (Gen1)</td>
+                            <td>Trn1</td>
+                            <td>First generation, up to 16 chips per instance</td>
+                        </tr>
+                        <tr>
+                            <td>Trainium2 (Gen2)</td>
+                            <td>Trn2</td>
+                            <td>4x training performance vs. Trn1, improved networking</td>
+                        </tr>
+                        <tr>
+                            <td>Trainium3 (Latest)</td>
+                            <td>TBD</td>
+                            <td>8 NeuronCore engines, 144GB HBM3e memory per chip</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>UltraServers:</strong> Aggregated configurations with up to 144 Trainium chips for extremely large training jobs.</p>
+
+                <h3>Inferentia (Inference)</h3>
+                <p>Purpose-built chips for running ML inference at low cost and high throughput.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Generation</th>
+                            <th>Instance</th>
+                            <th>Key Specs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Inferentia (Gen1)</td>
+                            <td>Inf1</td>
+                            <td>4 NeuronCores per chip, cost-effective baseline inference</td>
+                        </tr>
+                        <tr>
+                            <td>Inferentia2 (Gen2)</td>
+                            <td>Inf2</td>
+                            <td>32GB HBM per chip, 4x throughput, 10x lower latency vs. Inf1</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>AWS Neuron SDK</h3>
+                <p>Unified SDK for both Trainium and Inferentia. Provides compiler, runtime, profiling, and framework integration (PyTorch, TensorFlow, JAX).</p>
+
+                <div class="concept">
+                    <strong>Key Concept:</strong> <strong>Trainium = training</strong>, <strong>Inferentia = inference</strong>. Both are cost-optimization strategies vs. GPU instances (p4d, p5, g5, etc.). The exam tests whether you know which chip is for which workload, and when to recommend custom silicon over GPUs.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-instance-type-specifications.html" class="doc-link" target="_blank">Docs: EC2 Instance Types (Trn/Inf families)</a>
+                <br>
+                <a href="https://awsdocs-neuron.readthedocs-hosted.com/en/latest/" class="doc-link" target="_blank">Docs: AWS Neuron SDK</a>
+            </div>
+        </div>
+
+
+        <!-- ============================================================ -->
+        <!-- 5. Amazon Nova Models -->
+        <!-- ============================================================ -->
+        <h2 class="section-title" id="nova">5. Amazon Nova Models</h2>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Amazon Nova Models</h2>
+                <span class="badge badge-new">NEW - Dec 2024</span>
+            </div>
+            <div class="card-body">
+                <p><strong>AWS's own first-party foundation models</strong>, available through Amazon Bedrock. Positioned as cost-effective alternatives with tight AWS service integration.</p>
+
+                <h3>Nova Generation 1 (Dec 2024)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Nova Micro</strong></td>
+                            <td>Text only</td>
+                            <td>Fastest, lowest cost. Text-only input/output. Ideal for simple tasks.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nova Lite</strong></td>
+                            <td>Multimodal</td>
+                            <td>Low-cost multimodal. Processes text, images, and video. Best price-performance.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nova Pro</strong></td>
+                            <td>Multimodal</td>
+                            <td>Highly capable multimodal. Best accuracy-cost balance for complex tasks.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nova Premier</strong></td>
+                            <td>Multimodal</td>
+                            <td>Most capable Nova model. Best for complex reasoning and agentic workflows.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nova Canvas</strong></td>
+                            <td>Image generation</td>
+                            <td>Text-to-image and image editing. Watermark detection built in.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nova Reel</strong></td>
+                            <td>Video generation</td>
+                            <td>Text-to-video and image-to-video generation.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Nova Generation 2 &amp; Beyond (2025&ndash;2026)</h3>
+                <ul>
+                    <li><strong>Nova 2 Lite</strong> &mdash; improved Gen2 version of the lightweight multimodal model</li>
+                    <li><strong>Nova 2 Sonic</strong> &mdash; speech-to-speech model for real-time voice interactions</li>
+                    <li><strong>Nova Forge</strong> &mdash; build your own custom Nova model with proprietary data</li>
+                    <li><strong>Nova Act</strong> &mdash; browser automation agent, can navigate and interact with web applications</li>
+                </ul>
+
+                <div class="info">
+                    <strong>Positioning:</strong> Nova models are designed as cost-effective alternatives to third-party models, with deep integration into AWS services (Knowledge Bases, Agents, Guardrails). They are not necessarily the most capable models in Bedrock, but they offer the best price-performance for many use cases and have no licensing restrictions on training data.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/nova/latest/userguide/what-is-nova.html" class="doc-link" target="_blank">Docs: Amazon Nova</a>
+            </div>
+        </div>
+
+
+        <!-- ============================================================ -->
+        <!-- 6. AI/ML Service Updates -->
+        <!-- ============================================================ -->
+        <h2 class="section-title" id="ai-ml-service-updates">6. AI/ML Service Updates</h2>
+
+        <!-- Lex V2 -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Amazon Lex V2</h3>
+                <span class="badge badge-updated">MAJOR UPDATE</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+                <p>Conversational AI service for building chatbots and voice bots. V2 is a complete redesign.</p>
+                <ul>
+                    <li><strong>Redesigned API</strong> &mdash; not backward compatible with V1. Separate console, SDK calls, and resource model</li>
+                    <li><strong>Assisted NLU using LLMs</strong> &mdash; leverage large language models to improve intent recognition and slot filling without extensive training data</li>
+                    <li><strong>Conditional branching</strong> &mdash; build complex conversation flows directly in Lex without needing Lambda functions for routing logic</li>
+                    <li><strong>Multi-region replication</strong> &mdash; replicate bots across regions for DR and low-latency global deployment</li>
+                    <li><strong>Visual conversation builder</strong> &mdash; drag-and-drop UI for designing conversation flows</li>
+                    <li><strong>GenAI-powered bot generation</strong> &mdash; describe your bot in natural language, Lex generates the intents and slots</li>
+                </ul>
+
+                <div class="warning">
+                    <strong>Lex V1 is deprecated.</strong> All new development should use Lex V2. The APIs are not interchangeable. Exam questions about Lex will be V2-focused.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html" class="doc-link" target="_blank">Docs: Amazon Lex V2</a>
+            </div>
+        </div>
+
+        <!-- Rekognition -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Amazon Rekognition</h3>
+                <span class="badge badge-updated">UPDATED</span>
+            </div>
+            <div class="card-body">
+                <p>Image and video analysis service with pre-trained and customizable computer vision capabilities.</p>
+                <ul>
+                    <li><strong>Face Liveness Detection</strong> (new) &mdash; verify that a user in front of a camera is a real person, not a photo/video/mask. Critical for identity verification workflows.</li>
+                    <li><strong>Custom Labels</strong> &mdash; AutoML-based custom object/scene detection. Train custom models with as few as 10 images.</li>
+                    <li><strong>PPE Detection</strong> &mdash; detect personal protective equipment (hard hats, face covers, gloves) in images for workplace safety compliance.</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/rekognition/latest/dg/what-is.html" class="doc-link" target="_blank">Docs: Amazon Rekognition</a>
+            </div>
+        </div>
+
+        <!-- Comprehend -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Amazon Comprehend</h3>
+                <span class="badge badge-updated">UPDATED</span>
+            </div>
+            <div class="card-body">
+                <p>Natural language processing (NLP) service for extracting insights from text.</p>
+                <ul>
+                    <li><strong>PII Detection &amp; Redaction</strong> &mdash; enhanced with more entity types, real-time API for streaming redaction</li>
+                    <li><strong>Custom classification</strong> &mdash; train custom text classifiers with your own labeled data for domain-specific categorization</li>
+                    <li>Sentiment analysis, entity recognition, key phrase extraction, language detection, topic modeling</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/comprehend/latest/dg/what-is.html" class="doc-link" target="_blank">Docs: Amazon Comprehend</a>
+            </div>
+        </div>
+
+        <!-- Textract -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Amazon Textract</h3>
+                <span class="badge badge-updated">UPDATED</span>
+            </div>
+            <div class="card-body">
+                <p>ML-powered document text and data extraction. Goes beyond OCR to understand document structure.</p>
+                <ul>
+                    <li><strong>Lending Analysis</strong> &mdash; pre-trained for mortgage and lending documents. Automatically classifies and extracts fields from loan applications, tax forms, pay stubs.</li>
+                    <li><strong>Expense Analysis</strong> &mdash; specialized extraction for invoices and receipts. Understands line items, totals, vendor information.</li>
+                    <li><strong>Custom Queries</strong> &mdash; ask natural-language questions about a document, Textract extracts the specific answer (e.g., "What is the patient's date of birth?")</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/textract/latest/dg/what-is.html" class="doc-link" target="_blank">Docs: Amazon Textract</a>
+            </div>
+        </div>
+
+        <!-- Transcribe -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Amazon Transcribe</h3>
+                <span class="badge badge-updated">UPDATED</span>
+            </div>
+            <div class="card-body">
+                <p>Automatic speech recognition (ASR) service that converts audio to text.</p>
+                <ul>
+                    <li><strong>Call Analytics with GenAI summaries</strong> &mdash; automatically generate structured summaries of customer calls, including action items, sentiment, and issues discussed</li>
+                    <li><strong>Toxicity Detection</strong> (new) &mdash; detect toxic content in audio transcriptions across 7 categories</li>
+                    <li><strong>Amazon Transcribe Medical</strong> &mdash; HIPAA-eligible medical transcription with specialized medical vocabularies</li>
+                    <li>Custom vocabulary, automatic language detection, speaker diarization, real-time streaming transcription</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/transcribe/latest/dg/what-is.html" class="doc-link" target="_blank">Docs: Amazon Transcribe</a>
+            </div>
+        </div>
+
+        <!-- Polly -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Amazon Polly</h3>
+                <span class="badge badge-updated">UPDATED</span>
+            </div>
+            <div class="card-body">
+                <p>Text-to-speech (TTS) service that converts text into lifelike speech.</p>
+                <ul>
+                    <li><strong>Neural TTS</strong> &mdash; higher quality, more natural-sounding voices using deep learning</li>
+                    <li><strong>Generative AI voices</strong> &mdash; newest voice engine with the most natural and expressive speech</li>
+                    <li><strong>SSML support</strong> &mdash; Speech Synthesis Markup Language for fine-grained control over pronunciation, pauses, emphasis</li>
+                    <li><strong>Speech duration control</strong> &mdash; target specific audio duration for dubbing/localization use cases</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/polly/latest/dg/what-is.html" class="doc-link" target="_blank">Docs: Amazon Polly</a>
+            </div>
+        </div>
+
+        <!-- Personalize -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Amazon Personalize</h3>
+                <span class="badge badge-updated">UPDATED</span>
+            </div>
+            <div class="card-body">
+                <p>ML-powered real-time personalization and recommendation service.</p>
+                <ul>
+                    <li><strong>Real-time recommendations</strong> &mdash; sub-100ms latency for user-facing recommendation APIs</li>
+                    <li><strong>Bedrock integration</strong> &mdash; combine personalization signals with generative AI for personalized content generation</li>
+                    <li>Pre-built recipes for user personalization, related items, and user segmentation</li>
+                </ul>
+                <a href="https://docs.aws.amazon.com/personalize/latest/dg/what-is-personalize.html" class="doc-link" target="_blank">Docs: Amazon Personalize</a>
+            </div>
+        </div>
+
+        <!-- Forecast -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Amazon Forecast</h3>
+                <span class="badge badge-deprecated">DEPRECATED</span>
+            </div>
+            <div class="card-body">
+                <div class="warning">
+                    <strong>Amazon Forecast is no longer available to new customers.</strong> Existing customers can continue using the service, but no new features are being added. AWS recommends migrating to <strong>SageMaker Canvas</strong> for time-series forecasting use cases. SageMaker Canvas provides AutoML-based forecasting with a no-code interface.
+                </div>
+                <a href="https://docs.aws.amazon.com/forecast/latest/dg/what-is-forecast.html" class="doc-link" target="_blank">Docs: Amazon Forecast (legacy)</a>
+            </div>
+        </div>
+
+        <!-- Kendra -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Amazon Kendra</h3>
+                <span class="badge badge-updated">UPDATED</span>
+            </div>
+            <div class="card-body">
+                <p><strong>Intelligent enterprise search</strong> powered by ML. Still available as a standalone service.</p>
+                <ul>
+                    <li>Underpins <strong>Amazon Q Business</strong> as the core search and retrieval engine</li>
+                    <li>Used for <strong>enterprise search and RAG</strong> use cases where fine-grained access control on search results is required</li>
+                    <li>Rich set of data source connectors (S3, SharePoint, Salesforce, databases, and more)</li>
+                    <li>Access control list (ACL) support for document-level security</li>
+                </ul>
+
+                <div class="info">
+                    <strong>Kendra vs. Bedrock Knowledge Bases:</strong> Both can power RAG. Kendra excels at enterprise search with document-level security (ACLs). Bedrock Knowledge Bases is simpler for pure RAG use cases and integrates natively with Bedrock Agents. If the exam mentions "enterprise search with access control," think Kendra.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/kendra/latest/dg/what-is-kendra.html" class="doc-link" target="_blank">Docs: Amazon Kendra</a>
+            </div>
+        </div>
+
+
+        <!-- PartyRock -->
+        <div class="card">
+            <div class="card-header">
+                <h3>PartyRock</h3>
+                <span class="badge badge-new">NEW</span>
+                <span class="badge badge-exam badge-ai-prac">AI Practitioner</span>
+            </div>
+            <div class="card-body">
+                <p><strong>Launched November 16, 2023.</strong> A free, code-free playground for building generative AI applications, powered by Amazon Bedrock.</p>
+                <ul>
+                    <li><strong>Web-based</strong> &mdash; separate from the AWS Console, accessible at <a href="https://partyrock.aws/" class="doc-link" target="_blank">partyrock.aws</a></li>
+                    <li><strong>No AWS account required</strong> &mdash; no credit card, no sign-up. Completely free access.</li>
+                    <li><strong>Build apps by describing them</strong> in natural language &mdash; PartyRock generates widgets (chatbot, text generation, image generation) and wires them together</li>
+                    <li><strong>Share apps</strong> via link or social media &mdash; anyone can remix and modify shared apps</li>
+                    <li><strong>Prompt chaining</strong> &mdash; output of one widget feeds into another, teaching the concept of multi-step AI workflows</li>
+                </ul>
+
+                <h4>Educational Value</h4>
+                <ul>
+                    <li>Learn <strong>prompt engineering</strong> techniques hands-on</li>
+                    <li>Experiment with different <strong>foundation models</strong> and compare outputs</li>
+                    <li>Understand <strong>prompt chaining</strong> and multi-step AI application design</li>
+                    <li>Zero infrastructure concerns &mdash; focus purely on AI concepts</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> PartyRock is the free playground for Bedrock. It&rsquo;s a learning and experimentation tool, <strong>not for production use</strong>. Good for understanding prompt engineering concepts for the AI Practitioner exam. Know that it requires no AWS account.
+                </div>
+
+                <a href="https://partyrock.aws/" class="doc-link" target="_blank">PartyRock</a>
+            </div>
+        </div>
+
+
+        <!-- ============================================================ -->
+        <!-- 7. Responsible AI -->
+        <!-- ============================================================ -->
+        <h2 class="section-title" id="responsible-ai">7. Responsible AI</h2>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Responsible AI</h2>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-ml">ML</span>
+                <span class="badge badge-exam badge-ai-prac">AI Practitioner</span>
+            </div>
+            <div class="card-body">
+                <p><strong>AWS Responsible AI Framework</strong> &mdash; a structured approach to building trustworthy AI systems. This is a major exam topic, especially for the AI Practitioner certification.</p>
+
+                <h3>Eight Dimensions of Responsible AI</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dimension</th>
+                            <th>Description</th>
+                            <th>Key AWS Tool</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1. Fairness</strong></td>
+                            <td>Ensure AI does not discriminate against groups; equitable outcomes</td>
+                            <td>SageMaker Clarify</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2. Explainability</strong></td>
+                            <td>Understand why a model made a particular decision</td>
+                            <td>SageMaker Clarify (SHAP)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3. Privacy &amp; Security</strong></td>
+                            <td>Protect data and model access; comply with regulations</td>
+                            <td>Guardrails (PII), IAM, KMS</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Safety</strong></td>
+                            <td>Prevent harmful outputs and unintended consequences</td>
+                            <td>Bedrock Guardrails</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5. Controllability</strong></td>
+                            <td>Human oversight and ability to intervene in AI decisions</td>
+                            <td>Guardrails, Ground Truth</td>
+                        </tr>
+                        <tr>
+                            <td><strong>6. Veracity &amp; Robustness</strong></td>
+                            <td>Accurate, reliable outputs; resilience to adversarial inputs</td>
+                            <td>Guardrails (Automated Reasoning, Contextual Grounding)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>7. Governance</strong></td>
+                            <td>Organizational policies, processes, and accountability for AI</td>
+                            <td>SageMaker Model Cards, SageMaker Model Registry</td>
+                        </tr>
+                        <tr>
+                            <td><strong>8. Transparency</strong></td>
+                            <td>Clear communication about AI capabilities and limitations to users</td>
+                            <td>SageMaker Model Cards, documentation</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Key AWS Tools for Responsible AI</h3>
+                <ul>
+                    <li><strong>Bedrock Guardrails</strong> &mdash; runtime safety: content filtering, PII redaction, prompt attack detection, hallucination detection, Automated Reasoning</li>
+                    <li><strong>SageMaker Clarify</strong> &mdash; pre/post-training bias detection, SHAP-based explainability, FM stereotype evaluation</li>
+                    <li><strong>SageMaker Model Cards</strong> &mdash; structured documentation of model purpose, training data, performance, limitations, and intended use</li>
+                    <li><strong>SageMaker Model Monitor</strong> &mdash; production monitoring for data drift, model quality degradation, bias drift, and feature attribution drift</li>
+                    <li><strong>SageMaker Ground Truth</strong> &mdash; human-in-the-loop labeling and review; enables human feedback loops for model improvement</li>
+                </ul>
+
+                <div class="concept">
+                    <strong>EXAM TIP (AI Practitioner):</strong> This topic is <strong>VERY HIGH priority</strong> for AIF-C01. Know all 8 dimensions and which AWS tool maps to each. Key distinction: <strong>Automated Reasoning</strong> in Guardrails uses <em>formal mathematical logic</em> (deterministic, provably correct) &mdash; it is NOT an AI/ML-based approach. This is different from Contextual Grounding, which uses the FM itself to check factuality. Automated Reasoning achieves 99% accuracy because it is logic-based, not probabilistic.
+                </div>
+
+                <a href="https://aws.amazon.com/ai/responsible-ai/" class="doc-link" target="_blank">Docs: AWS Responsible AI</a>
+                <br>
+                <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html" class="doc-link" target="_blank">Docs: SageMaker Model Monitor</a>
+            </div>
+        </div>
+
+
+        <!-- ============================================================ -->
+        <!-- 8. Key Architectural Patterns -->
+        <!-- ============================================================ -->
+        <h2 class="section-title" id="architectural-patterns">8. Key Architectural Patterns</h2>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Key AI/ML Architectural Patterns</h2>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-ml">ML</span>
+            </div>
+            <div class="card-body">
+                <p>Common architecture patterns that appear in exam scenarios. Know the components, data flow, and when to use each pattern.</p>
+
+                <h3>1. Retrieval-Augmented Generation (RAG)</h3>
+                <div class="concept">
+                    <strong>Pattern:</strong> S3 / data sources &rarr; Bedrock Knowledge Bases (or Kendra) &rarr; chunking &amp; embedding &rarr; vector store &rarr; user query + retrieved context &rarr; FM generates grounded response
+                </div>
+                <p><strong>When to use:</strong> Ground FM responses in private/current data. Reduce hallucination. No model retraining needed.</p>
+
+                <h3>2. Contact Center AI</h3>
+                <div class="concept">
+                    <strong>Pattern:</strong> Amazon Connect &rarr; Lex V2 (conversation) &rarr; Q in Connect (agent assist) &rarr; Transcribe Call Analytics (post-call analysis)
+                </div>
+                <p><strong>When to use:</strong> Intelligent contact center with real-time agent assistance and automated post-call insights.</p>
+
+                <h3>3. Document Processing Pipeline</h3>
+                <div class="concept">
+                    <strong>Pattern:</strong> S3 (document upload) &rarr; Textract (text/data extraction) &rarr; Comprehend (entity/PII detection) &rarr; Lambda (business logic) &rarr; DynamoDB (structured storage)
+                </div>
+                <p><strong>When to use:</strong> Automated processing of invoices, forms, medical records, legal documents at scale.</p>
+
+                <h3>4. Content Moderation Pipeline</h3>
+                <div class="concept">
+                    <strong>Pattern:</strong> Content upload &rarr; Rekognition (image/video moderation) + Comprehend (text moderation) + Bedrock Guardrails (GenAI content moderation)
+                </div>
+                <p><strong>When to use:</strong> User-generated content platforms, social media, marketplace listings.</p>
+
+                <h3>5. ML Training at Scale</h3>
+                <div class="concept">
+                    <strong>Pattern:</strong> SageMaker HyperPod + Trainium instances (training) &rarr; trained model &rarr; Inferentia instances (inference deployment)
+                </div>
+                <p><strong>When to use:</strong> Training large custom models or fine-tuning FMs. Cost optimization over GPU instances.</p>
+
+                <h3>6. No-Code ML</h3>
+                <div class="concept">
+                    <strong>Pattern:</strong> Business data &rarr; SageMaker Canvas (AutoML, visual interface) &rarr; predictions / forecasts
+                </div>
+                <p><strong>When to use:</strong> Business analysts needing ML predictions without data science expertise. Replaces Amazon Forecast for time-series.</p>
+
+                <h3>7. Cost-Optimized GenAI</h3>
+                <div class="concept">
+                    <strong>Pattern:</strong> Amazon Bedrock + Model Distillation (smaller student model) + Intelligent Prompt Routing (right-size per request) + Prompt Caching (avoid reprocessing)
+                </div>
+                <p><strong>When to use:</strong> Production GenAI workloads where cost optimization is critical without sacrificing quality.</p>
+
+                <h3>8. Enterprise GenAI Assistant</h3>
+                <div class="concept">
+                    <strong>Pattern:</strong> Amazon Q Business + Kendra (or Bedrock Knowledge Bases) + data connectors (SharePoint, Confluence, S3) &rarr; enterprise knowledge assistant
+                </div>
+                <p><strong>When to use:</strong> Internal enterprise search and Q&amp;A over organizational knowledge bases with access control.</p>
+
+                <h3>9. Responsible AI Pipeline</h3>
+                <div class="concept">
+                    <strong>Pattern:</strong> SageMaker Clarify (pre-training bias check) &rarr; model training &rarr; Clarify (post-training bias check) &rarr; Bedrock Guardrails (runtime safety) &rarr; SageMaker Model Monitor (production drift detection)
+                </div>
+                <p><strong>When to use:</strong> Any regulated or high-stakes AI deployment requiring fairness, explainability, and ongoing monitoring.</p>
+            </div>
+        </div>
+
+
+        <!-- ============================================================ -->
+        <!-- 9. AI/ML Certification Landscape -->
+        <!-- ============================================================ -->
+        <h2 class="section-title" id="certification-landscape">9. AI/ML Certification Landscape</h2>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>AI/ML Certification Landscape</h2>
+            </div>
+            <div class="card-body">
+                <p>The AI/ML certification path has changed significantly. The old ML Specialty has been retired and replaced by newer exams.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Certification</th>
+                            <th>Level</th>
+                            <th>Status</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>AI Practitioner</strong><br><code>AIF-C01</code></td>
+                            <td>Foundational</td>
+                            <td><span class="badge badge-new">Active</span></td>
+                            <td><strong>NEW.</strong> $100 USD, 90 minutes. Designed for non-builders &mdash; covers AI/ML concepts, responsible AI, generative AI fundamentals, and AWS AI services at a conceptual level. No coding required.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ML Engineer</strong><br><code>MLA-C01</code></td>
+                            <td>Associate</td>
+                            <td><span class="badge badge-new">Active</span></td>
+                            <td><strong>NEW.</strong> $150 USD, 130 minutes. MLOps focus &mdash; covers building, training, deploying, and monitoring ML solutions. Emphasizes SageMaker, Bedrock, ML pipelines, and operational best practices.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ML Specialty</strong><br><code>MLS-C01</code></td>
+                            <td>Specialty</td>
+                            <td><span class="badge badge-deprecated">Retired Mar 31, 2026</span></td>
+                            <td>Certification remains valid for 3 years from date earned. Replaced by the combination of <strong>MLA-C01</strong> (ML Engineer Associate) + <strong>DEA-C01</strong> (Data Engineer Associate). No longer available to take.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>Study Path:</strong> If you are targeting AI/ML certifications: start with <strong>AIF-C01</strong> (AI Practitioner) for foundational concepts, then pursue <strong>MLA-C01</strong> (ML Engineer) for hands-on implementation knowledge. These two together cover more ground than the retired MLS-C01 did.
+                </div>
+
+                <a href="https://aws.amazon.com/certification/" class="doc-link" target="_blank">Docs: AWS Certification Overview</a>
+            </div>
+        </div>
+
+    </main>
+
+    <footer style="text-align: center; padding: 30px 20px; color: var(--text-light); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 40px;">
+        <p>AWS Catch-Up Guide 2021&ndash;2026 &mdash; Last updated June 2026</p>
+    </footer>
+
+</body>
+</html>

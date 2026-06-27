@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Networking - AWS Catch-Up Guide 2021-2026</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-inner">
+            <a href="index.html">Index</a>
+            <a href="security-identity.html">Security &amp; Identity</a>
+            <a href="ai-ml.html">AI &amp; ML</a>
+            <a href="devops-iac.html">DevOps &amp; IaC</a>
+            <a href="networking.html" class="active">Networking</a>
+            <a href="compute-storage-db.html">Compute/Storage/DB</a>
+            <a href="exam-guide.html">Exam Guide</a>
+            <a href="new-services.html">New Services</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1><strong>Networking</strong></h1>
+        <p class="subtitle">VPC Lattice, Cloud WAN, CloudFront, Route 53, and more</p>
+        <p class="meta">AWS Catch-Up Guide 2021&ndash;2026 &mdash; Networking Deep Dive</p>
+    </header>
+
+    <main class="content">
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#vpc-lattice">1. VPC Lattice</a></li>
+                <li><a href="#cloud-wan">2. AWS Cloud WAN</a></li>
+                <li><a href="#verified-access">3. AWS Verified Access</a></li>
+                <li><a href="#vpc-ipam">4. VPC IPAM</a></li>
+                <li><a href="#route53">5. Route 53 Updates</a></li>
+                <li><a href="#cloudfront">6. CloudFront Updates</a></li>
+                <li><a href="#global-accelerator">7. Global Accelerator</a></li>
+                <li><a href="#tgw">8. Transit Gateway Updates</a></li>
+                <li><a href="#network-firewall">9. Network Firewall</a></li>
+                <li><a href="#privatelink">10. PrivateLink Updates</a></li>
+                <li><a href="#elb">11. Elastic Load Balancing</a></li>
+                <li><a href="#api-gateway">12. Amazon API Gateway Updates</a></li>
+                <li><a href="#cloud-map">13. AWS Cloud Map</a></li>
+                <li><a href="#app-mesh">14. AWS App Mesh &mdash; DEPRECATED</a></li>
+                <li><a href="#direct-connect">15. Direct Connect Updates</a></li>
+                <li><a href="#ipv6">16. IPv6 Updates</a></li>
+                <li><a href="#network-manager">17. Network Manager</a></li>
+                <li><a href="#local-zones">18. AWS Local Zones &amp; Wavelength</a></li>
+                <li><a href="#ans-exam">19. Advanced Networking Specialty Exam</a></li>
+            </ul>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 1. VPC Lattice -->
+        <!-- ============================== -->
+        <div class="card" id="vpc-lattice">
+            <div class="card-header">
+                <h2>1. VPC Lattice</h2>
+                <span class="badge badge-new">NEW &mdash; GA March 2023</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+                <p>Service-to-service communication across VPCs and accounts <strong>without</strong> VPC peering, Transit Gateway, or PrivateLink. Application-layer networking that abstracts away the underlying network topology.</p>
+
+                <div class="concept">
+                    <strong>Key Concepts</strong>
+                    <ul>
+                        <li><strong>Service Network</strong> &mdash; logical boundary that multiple VPCs can join. Controls which services are accessible to which consumers.</li>
+                        <li><strong>Services</strong> &mdash; application units, each with an auto-generated DNS name. Represent workloads you want to expose.</li>
+                        <li><strong>Target Groups</strong> &mdash; EC2 instances, IP addresses, Lambda functions, ECS tasks, EKS pods, or ALBs behind a service.</li>
+                    </ul>
+                </div>
+
+                <h3>Auth Model</h3>
+                <ul>
+                    <li><strong>IAM auth policies (SigV4)</strong> &mdash; similar to resource-based policies, attached to the service network or individual services</li>
+                    <li>Fine-grained control: who can call which service, from which VPC, with what identity</li>
+                </ul>
+
+                <h3>Protocols</h3>
+                <ul>
+                    <li>HTTP, HTTPS, gRPC, TCP</li>
+                </ul>
+
+                <h3>Key Benefits</h3>
+                <ul>
+                    <li><strong>Solves overlapping CIDR problems</strong> &mdash; operates at Layer 7, does not require non-overlapping IP ranges</li>
+                    <li><strong>No inter-AZ data transfer charges</strong> within Lattice</li>
+                    <li>Replaces App Mesh for many service-mesh use cases</li>
+                    <li><strong>Weighted routing</strong> for blue/green and canary deployments</li>
+                </ul>
+
+                <div class="info">
+                    <strong>Architecture Pattern:</strong> Central networking account owns the service network. Spoke accounts register their services. Consumer VPCs associate with the service network to discover and call services.
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> "Service-to-service communication across VPCs and accounts" = VPC Lattice. This is distinct from ALB/NLB (which operate within a VPC). Lattice works across VPCs, accounts, and compute types without peering or TGW.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/vpc-lattice/latest/ug/what-is-vpc-lattice.html" target="_blank" class="doc-link">AWS Docs: VPC Lattice User Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 2. AWS Cloud WAN -->
+        <!-- ============================== -->
+        <div class="card" id="cloud-wan">
+            <div class="card-header">
+                <h2>2. AWS Cloud WAN</h2>
+                <span class="badge badge-new">NEW &mdash; GA July 2022</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+                <p>Managed global WAN service that uses the AWS backbone to build and operate a unified global network with a centralized, declarative policy document.</p>
+
+                <div class="concept">
+                    <strong>Key Concepts</strong>
+                    <ul>
+                        <li><strong>Global Network</strong> &mdash; top-level container for your entire WAN</li>
+                        <li><strong>Core Network</strong> &mdash; the AWS backbone that interconnects your attachments</li>
+                        <li><strong>Segments</strong> &mdash; isolation domains (e.g., <code>prod</code>, <code>dev</code>, <code>shared-services</code>). Traffic is isolated between segments unless explicitly shared.</li>
+                        <li><strong>Attachments</strong> &mdash; VPCs, VPN connections, Transit Gateways, Direct Connect Gateways connected to the core network</li>
+                        <li><strong>Core Network Policy</strong> &mdash; declarative JSON/YAML document that defines segments, routing, and attachment rules</li>
+                    </ul>
+                </div>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li>Attach existing Transit Gateways for <strong>incremental migration</strong> from TGW-based architectures</li>
+                    <li><strong>Service Insertion (2023&ndash;2024)</strong> &mdash; steer traffic through firewalls, IDS/IPS, or other security appliances</li>
+                    <li><strong>Routing Policy (2024)</strong> &mdash; BGP attribute manipulation, route filtering, and preference control</li>
+                </ul>
+
+                <div class="info">
+                    <strong>TGW vs Cloud WAN:</strong> Transit Gateway = single-Region hub-and-spoke. Cloud WAN = multi-Region global orchestration with centralized, intent-driven policy.
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Cloud WAN is policy-based, intent-driven networking. Know how segments provide isolation and when to use Cloud WAN vs TGW. Cloud WAN for multi-Region; TGW for single-Region hub-spoke.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/network-manager/latest/cloudwan/what-is-cloudwan.html" target="_blank" class="doc-link">AWS Docs: Cloud WAN User Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 3. AWS Verified Access -->
+        <!-- ============================== -->
+        <div class="card" id="verified-access">
+            <div class="card-header">
+                <h2>3. AWS Verified Access</h2>
+                <span class="badge badge-new">NEW &mdash; GA April 2023</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+                <span class="badge badge-exam badge-security">Security</span>
+            </div>
+            <div class="card-body">
+                <p>Zero-trust access to corporate applications <strong>without a VPN</strong>. Evaluates identity and device posture on every request before granting access.</p>
+
+                <h3>How It Works</h3>
+                <ul>
+                    <li>Each request is evaluated against access policies &mdash; no implicit trust based on network location</li>
+                    <li>Uses <strong>Cedar policy language</strong> (same engine as Verified Permissions)</li>
+                    <li>Supports <strong>HTTP/HTTPS</strong> and <strong>TCP/SSH/RDP</strong> (Dec 2024 preview)</li>
+                </ul>
+
+                <h3>Integrations</h3>
+                <ul>
+                    <li><strong>Identity Providers:</strong> IAM Identity Center, Okta, CyberArk, and other OIDC/SAML providers</li>
+                    <li><strong>Device Management:</strong> CrowdStrike, Jamf &mdash; assess device posture (patched, compliant, managed)</li>
+                    <li><strong>WAF:</strong> attach AWS WAF web ACLs for additional Layer 7 protection</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> "Replace VPN for corporate app access" or "zero-trust access" = AWS Verified Access. Combines identity + device posture for per-request authorization.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/verified-access/latest/ug/what-is-verified-access.html" target="_blank" class="doc-link">AWS Docs: Verified Access User Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 4. VPC IPAM -->
+        <!-- ============================== -->
+        <div class="card" id="vpc-ipam">
+            <div class="card-header">
+                <h2>4. VPC IPAM</h2>
+                <span class="badge badge-new">NEW &mdash; Dec 2021</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+                <p>Centralized IP address management across AWS accounts and Regions. Plan, track, and monitor IP addresses at scale.</p>
+
+                <h3>Key Capabilities</h3>
+                <ul>
+                    <li>Organize IP addresses into <strong>hierarchical pools</strong> with business rules (e.g., per-Region, per-environment)</li>
+                    <li><strong>Auto-discover</strong> used IP addresses across your organization</li>
+                    <li>Supports <strong>IPv4 and IPv6</strong> (including ULA <code>fd00::/8</code> and GUA)</li>
+                    <li><strong>BYOIP management</strong> &mdash; onboard and manage your own IP ranges</li>
+                    <li><strong>Sequential Elastic IP allocation</strong> &mdash; allocate EIPs from specific IPAM pools</li>
+                    <li><strong>Organizations integration</strong> &mdash; enforce IP allocation policies across member accounts</li>
+                </ul>
+
+                <div class="concept">
+                    <strong>Why It Matters:</strong> Before IPAM, IP planning was typically done in spreadsheets, leading to overlaps and conflicts. IPAM provides automated, enforceable IP governance at scale.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/vpc/latest/ipam/what-it-is-ipam.html" target="_blank" class="doc-link">AWS Docs: VPC IPAM User Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 5. Route 53 Updates -->
+        <!-- ============================== -->
+        <div class="card" id="route53">
+            <div class="card-header">
+                <h2>5. Route 53 Updates</h2>
+                <span class="badge badge-updated">UPDATED</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+                <h3>Route 53 Profiles (April 2024)</h3>
+                <ul>
+                    <li>Bundle DNS configurations into a single, shareable <strong>Profile</strong>:
+                        <ul>
+                            <li>Resolver rules</li>
+                            <li>DNS Firewall rule group associations</li>
+                            <li>Private hosted zone associations</li>
+                        </ul>
+                    </li>
+                    <li>Apply a Profile to multiple VPCs at once &mdash; eliminates per-VPC manual configuration</li>
+                    <li>Share Profiles across accounts via <strong>AWS RAM</strong></li>
+                </ul>
+
+                <h3>DNS Firewall</h3>
+                <ul>
+                    <li><strong>Launched March 2021</strong> &mdash; filter and block outbound DNS queries to malicious domains</li>
+                    <li>AWS-managed domain lists (malware, botnet C&amp;C) &mdash; no extra cost for the managed lists</li>
+                    <li><strong>DNS Firewall Advanced (2023)</strong> &mdash; detects DNS tunneling and Domain Generation Algorithm (DGA) patterns</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Route 53 Profiles are the answer for multi-account DNS management at scale. One Profile, many VPCs, shared via RAM.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-resources.html" target="_blank" class="doc-link">AWS Docs: Route 53 Developer Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 6. CloudFront Updates -->
+        <!-- ============================== -->
+        <div class="card" id="cloudfront">
+            <div class="card-header">
+                <h2>6. CloudFront Updates</h2>
+                <span class="badge badge-updated">UPDATED</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+
+                <h3>CloudFront Functions (May 2021)</h3>
+                <ul>
+                    <li>Lightweight <strong>JavaScript-only</strong> functions running at 400+ edge locations</li>
+                    <li>Sub-millisecond execution time</li>
+                    <li><strong>Viewer request/response only</strong> (cannot trigger on origin events)</li>
+                    <li>Use cases: URL rewrites, header manipulation, redirects, simple A/B testing</li>
+                    <li>Approximately <strong>1/6 the price</strong> of Lambda@Edge</li>
+                </ul>
+
+                <h3>CloudFront Functions vs Lambda@Edge</h3>
+                <table class="vs-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>CloudFront Functions</th>
+                            <th>Lambda@Edge</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Runtime</td>
+                            <td>JavaScript only</td>
+                            <td>Node.js, Python</td>
+                        </tr>
+                        <tr>
+                            <td>Location</td>
+                            <td>Edge locations (400+)</td>
+                            <td>Regional edge caches (13)</td>
+                        </tr>
+                        <tr>
+                            <td>Triggers</td>
+                            <td>Viewer request/response only</td>
+                            <td>All 4 events (viewer + origin)</td>
+                        </tr>
+                        <tr>
+                            <td>Max execution time</td>
+                            <td>&lt;1 ms</td>
+                            <td>5s (viewer) / 30s (origin)</td>
+                        </tr>
+                        <tr>
+                            <td>Memory</td>
+                            <td>2 MB</td>
+                            <td>128&ndash;10,240 MB</td>
+                        </tr>
+                        <tr>
+                            <td>Network access</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Cost</td>
+                            <td>~1/6 of Lambda@Edge</td>
+                            <td>Higher</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Origin Access Control (OAC) &mdash; August 2022</h3>
+                <ul>
+                    <li><strong>Replaces Origin Access Identity (OAI)</strong> &mdash; OAI still works but is considered legacy</li>
+                    <li>Supports <strong>SSE-KMS</strong> encrypted objects (OAI does not)</li>
+                    <li>Works in <strong>all Regions</strong>, including opt-in Regions</li>
+                    <li>Supports <strong>PUT/DELETE</strong> requests to S3 (not just GET)</li>
+                    <li>Uses <strong>SigV4</strong> for authentication</li>
+                </ul>
+
+                <h3>CloudFront KeyValueStore (November 2023)</h3>
+                <ul>
+                    <li>Global, low-latency <strong>key-value data store</strong> accessible from CloudFront Functions</li>
+                    <li>Use cases: URL redirect maps, feature flags, A/B test config, geo-targeting rules</li>
+                    <li>Eliminates hardcoding lookup data into function code</li>
+                </ul>
+
+                <h3>Continuous Deployment (November 2022)</h3>
+                <ul>
+                    <li>Create a <strong>staging distribution</strong> linked to your production distribution</li>
+                    <li><strong>Percentage-based traffic split</strong> or <strong>header-based routing</strong> to the staging config</li>
+                    <li>Validate changes on real traffic before promoting to production</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Know the CloudFront Functions vs Lambda@Edge decision matrix (see table above). OAC is replacing OAI &mdash; if a question mentions SSE-KMS + CloudFront, the answer is OAC. KeyValueStore enables dynamic edge configuration without redeploying functions.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html" target="_blank" class="doc-link">AWS Docs: CloudFront Developer Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 7. Global Accelerator -->
+        <!-- ============================== -->
+        <div class="card" id="global-accelerator">
+            <div class="card-header">
+                <h2>7. Global Accelerator</h2>
+                <span class="badge badge-updated">UPDATED</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+                <p>AWS Global Accelerator uses the AWS global backbone to route traffic to optimal endpoints, improving availability and performance.</p>
+
+                <h3>Current State</h3>
+                <ul>
+                    <li><strong>130+ Points of Presence</strong> in 95 cities across 53 countries</li>
+                    <li><strong>Static anycast IPs</strong> &mdash; two static IPs per accelerator from <strong>independent network zones</strong> for fault tolerance. Anycast-routed to nearest PoP.</li>
+                    <li><strong>BYOIP support</strong> &mdash; bring up to two /24 IP ranges for use with Global Accelerator</li>
+                    <li><strong>TCP termination at edge</strong> &mdash; TCP connections terminate at the nearest edge location and are proxied over the AWS backbone, reducing latency and improving throughput</li>
+                </ul>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Standard Accelerators</strong> &mdash; route traffic to optimal healthy endpoints based on health checks, client location, and configured routing policies (weighted, endpoint groups)</li>
+                    <li><strong>Custom Routing Accelerators</strong> &mdash; <strong>deterministic routing</strong> to specific EC2 instances rather than health-check-based selection. Designed for use cases where each user must connect to a specific instance:
+                        <ul>
+                            <li>Multiplayer gaming (connect player to specific game server)</li>
+                            <li>VoIP / WebRTC (session affinity to media server)</li>
+                            <li>Real-time collaboration (route to specific compute instance)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Traffic dial</strong> &mdash; percentage-based controls for gradual regional traffic shifting between endpoint groups. Use for blue/green deployments, failover testing, or regional migration.</li>
+                    <li><strong>Endpoint weights</strong> &mdash; control traffic distribution among endpoints within an endpoint group</li>
+                    <li><strong>Cross-region failover</strong> &mdash; automatic failover to healthy endpoints in other Regions based on health checks</li>
+                </ul>
+
+                <div class="concept">
+                    <strong>Global Accelerator vs CloudFront:</strong> CloudFront is a CDN for HTTP/HTTPS content delivery with caching. Global Accelerator is a <strong>network-layer (TCP/UDP) accelerator</strong> with no caching &mdash; use it for non-HTTP protocols, gaming, IoT, VoIP, or when you need static anycast IP addresses.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/what-is-global-accelerator.html" target="_blank" class="doc-link">AWS Docs: Global Accelerator Developer Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 8. Transit Gateway Updates -->
+        <!-- ============================== -->
+        <div class="card" id="tgw">
+            <div class="card-header">
+                <h2>8. Transit Gateway Updates</h2>
+                <span class="badge badge-updated">UPDATED</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Major New Features</h3>
+                <ul>
+                    <li><strong>Security Group Referencing (Sep 2024)</strong> &mdash; reference security groups across VPCs attached to the same TGW. Massive simplification vs. maintaining CIDR-based rules. Update SGs, not route tables.</li>
+                    <li><strong>Flow Logs (Jul 2022)</strong> &mdash; capture and publish TGW traffic metadata to CloudWatch Logs, S3, or Kinesis Data Firehose</li>
+                    <li><strong>Connect Attachments (2021)</strong> &mdash; enable SD-WAN and third-party network appliance integration:
+                        <ul>
+                            <li>Use <strong>GRE tunnels</strong> with <strong>BGP</strong> for dynamic routing between appliances and TGW</li>
+                            <li>Up to <strong>5 Gbps per Connect attachment</strong>, and <strong>20 Gbps with ECMP</strong> (Equal-Cost Multi-Path) &mdash; significantly higher throughput than IPsec VPN (1.25 Gbps per tunnel)</li>
+                            <li>Use case: connecting SD-WAN appliances (Cisco, VMware SD-WAN, Aruba) to Transit Gateway at higher throughput than Site-to-Site VPN</li>
+                            <li>Explicitly listed in the <strong>ANS-C01 exam guide</strong> under Task Statement 1.5 (hybrid routing solutions)</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3>Recent Enhancements</h3>
+                <ul>
+                    <li><strong>Path MTU Discovery (Nov 2024)</strong> &mdash; improved handling of large packets across TGW</li>
+                    <li><strong>Per-AZ CloudWatch metrics (Nov 2024)</strong> &mdash; monitor traffic per Availability Zone for granular troubleshooting</li>
+                    <li><strong>Multicast support</strong> &mdash; matured since 2019, supports IGMP and static multicast groups</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Security Group Referencing is a huge simplification for multi-VPC architectures &mdash; know this well. Connect Attachments are the answer for SD-WAN integration. Understand when to use TGW (single-Region hub-spoke) vs Cloud WAN (multi-Region) vs VPC Lattice (service-to-service Layer 7).
+                </div>
+
+                <a href="https://docs.aws.amazon.com/vpc/latest/tgw/what-is-transit-gateway.html" target="_blank" class="doc-link">AWS Docs: Transit Gateway Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 9. Network Firewall -->
+        <!-- ============================== -->
+        <div class="card" id="network-firewall">
+            <div class="card-header">
+                <h2>9. Network Firewall</h2>
+                <span class="badge badge-updated">UPDATED</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+                <span class="badge badge-exam badge-security">Security</span>
+            </div>
+            <div class="card-body">
+                <p>Managed, stateful network firewall and IDS/IPS service using a <strong>Suricata-compatible</strong> rule engine.</p>
+
+                <h3>Key Capabilities</h3>
+                <ul>
+                    <li><strong>AWS-managed threat signature rule groups</strong> &mdash; curated by AWS Threat Intelligence, no extra cost</li>
+                    <li><strong>TLS inspection</strong> &mdash; decrypt, inspect, and re-encrypt traffic in both directions (inbound and outbound)</li>
+                    <li><strong>Geographic IP filtering</strong> &mdash; block or allow traffic by country</li>
+                    <li><strong>Forward proxy</strong> for outbound traffic &mdash; domain-based filtering with SNI inspection</li>
+                    <li><strong>Transit Gateway integration</strong> for East-West traffic inspection between VPCs</li>
+                    <li><strong>Firewall Manager</strong> for centralized, cross-account firewall policy management</li>
+                </ul>
+
+                <div class="concept">
+                    <strong>When to use what:</strong>
+                    <ul>
+                        <li><strong>Security Groups</strong> &mdash; instance-level stateful rules (Layer 4)</li>
+                        <li><strong>NACLs</strong> &mdash; subnet-level stateless rules (Layer 4)</li>
+                        <li><strong>AWS WAF</strong> &mdash; Layer 7 (HTTP/HTTPS) protection at CloudFront, ALB, API Gateway</li>
+                        <li><strong>Network Firewall</strong> &mdash; VPC-level IDS/IPS, deep packet inspection, TLS inspection, domain filtering</li>
+                    </ul>
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Know when to use Network Firewall vs WAF vs Security Groups vs NACLs. Network Firewall is for deep packet inspection, IDS/IPS, and TLS decryption. WAF is for Layer 7 web application protection.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/network-firewall/latest/developerguide/what-is-aws-network-firewall.html" target="_blank" class="doc-link">AWS Docs: Network Firewall Developer Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 10. PrivateLink Updates -->
+        <!-- ============================== -->
+        <div class="card" id="privatelink">
+            <div class="card-header">
+                <h2>10. PrivateLink Updates</h2>
+                <span class="badge badge-updated">UPDATED</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+                <p>AWS PrivateLink provides private connectivity between VPCs, supported AWS services, and on-premises networks without exposing traffic to the public internet.</p>
+
+                <h3>Endpoint Types</h3>
+                <ul>
+                    <li><strong>Interface VPC Endpoints</strong> &mdash; ENI-based endpoints to connect to AWS services (e.g., S3, DynamoDB, STS) and partner/custom services via NLB</li>
+                    <li><strong>Gateway Load Balancer Endpoints</strong> &mdash; route traffic through third-party security appliances (firewalls, IDS/IPS) transparently</li>
+                    <li><strong>Resource VPC Endpoints (NEW)</strong> &mdash; access specific VPC resources (e.g., RDS databases) in other accounts <strong>without requiring NLBs</strong>. Simplifies cross-account database connectivity.</li>
+                    <li><strong>Service Network VPC Endpoints (NEW)</strong> &mdash; connect a VPC to a VPC Lattice service network via PrivateLink, bridging the two networking models</li>
+                </ul>
+
+                <div class="info">
+                    <strong>Resource VPC Endpoints</strong> are a significant addition &mdash; previously, exposing RDS or other resources via PrivateLink required an NLB in front. Resource endpoints remove that requirement.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html" target="_blank" class="doc-link">AWS Docs: PrivateLink Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 11. Elastic Load Balancing -->
+        <!-- ============================== -->
+        <div class="card" id="elb">
+            <div class="card-header">
+                <h2>11. Elastic Load Balancing</h2>
+                <span class="badge badge-updated">UPDATED</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+                <h3>Application Load Balancer (ALB)</h3>
+                <ul>
+                    <li><strong>mTLS support</strong> &mdash; mutual TLS authentication at the load balancer</li>
+                    <li><strong>Weighted target groups</strong> &mdash; percentage-based traffic distribution across target groups for canary/blue-green</li>
+                    <li><strong>gRPC support</strong> &mdash; native HTTP/2 and gRPC routing</li>
+                    <li><strong>AWS Load Balancer Controller</strong> &mdash; Kubernetes-native controller for provisioning ALBs and NLBs from Ingress and Service resources</li>
+                </ul>
+
+                <h3>Network Load Balancer (NLB)</h3>
+                <ul>
+                    <li><strong>Security Group support (NEW &mdash; 2023)</strong> &mdash; NLB now supports security groups. Previously, NLBs did not support SGs, requiring CIDR-based rules on targets. Major simplification.</li>
+                    <li>TLS/SNI improvements for multi-domain termination</li>
+                </ul>
+
+                <h3>Gateway Load Balancer (GWLB)</h3>
+                <ul>
+                    <li><strong>GENEVE encapsulation</strong> &mdash; preserves original packet metadata through security appliances</li>
+                    <li>Deploy third-party firewalls, IDS/IPS, and security appliances transparently</li>
+                    <li>Integrates with PrivateLink for cross-account deployment</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> NLB security group support is new and important &mdash; questions about simplifying NLB security rules should point to SG support. GWLB + GENEVE is the pattern for inline security appliance inspection.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html" target="_blank" class="doc-link">AWS Docs: Elastic Load Balancing Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 12. Amazon API Gateway Updates -->
+        <!-- ============================== -->
+        <div class="card" id="api-gateway">
+            <div class="card-header">
+                <h2>12. Amazon API Gateway Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Recent Updates</h3>
+                <ul>
+                    <li><strong>REST API Response Streaming (Nov 2025):</strong> streaming responses for LLM/GenAI use cases</li>
+                    <li><strong>Private Integration with ALB (Nov 2025):</strong> direct ALB integration eliminates NLB intermediary requirement for private APIs</li>
+                    <li><strong>TLS 1.3 support</strong></li>
+                </ul>
+
+                <h3>API Types Comparison</h3>
+                <table class="vs-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Key Features</th>
+                            <th>Pricing</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>HTTP APIs</strong></td>
+                            <td>Simpler, JWT authorizers, OIDC. No usage plans or API keys.</td>
+                            <td>$1.00/million requests</td>
+                        </tr>
+                        <tr>
+                            <td><strong>REST APIs</strong></td>
+                            <td>Full-featured: usage plans, API keys, request/response transformation, caching, WAF integration</td>
+                            <td>$3.50/million requests</td>
+                        </tr>
+                        <tr>
+                            <td><strong>WebSocket APIs</strong></td>
+                            <td>Real-time bidirectional communication</td>
+                            <td>$1.00/million messages</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> HTTP APIs vs REST APIs: HTTP = simpler + cheaper (use when possible). REST = full features (use when you need caching, WAF, transformations, usage plans). Response streaming is key for GenAI architectures. The ALB private integration removes a common NLB workaround.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html" target="_blank" class="doc-link">AWS Docs: API Gateway Developer Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 13. AWS Cloud Map -->
+        <!-- ============================== -->
+        <div class="card" id="cloud-map">
+            <div class="card-header">
+                <h2>13. AWS Cloud Map</h2>
+                <span class="badge badge-exam badge-networking">Networking</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+                <p>Cloud resource discovery service that lets applications discover services and their locations via DNS or API.</p>
+
+                <h3>Discovery Modes</h3>
+                <ul>
+                    <li><strong>DNS-based discovery</strong> &mdash; registers services in Route 53 private hosted zones. Clients use standard DNS resolution.</li>
+                    <li><strong>API-based discovery</strong> &mdash; clients call the Cloud Map API or SDK to discover instances. Supports richer attributes beyond host/port.</li>
+                </ul>
+
+                <h3>Integrations</h3>
+                <ul>
+                    <li><strong>ECS Service Connect</strong> &mdash; uses Cloud Map under the hood for service-to-service communication within ECS</li>
+                    <li><strong>EKS</strong> &mdash; Kubernetes service discovery can integrate with Cloud Map for cross-platform lookups</li>
+                </ul>
+
+                <div class="concept">
+                    <strong>Use Case:</strong> Dynamic service discovery in containerized architectures where IP addresses and ports change frequently due to scaling, deployments, or task replacements.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/cloud-map/latest/dg/what-is-cloud-map.html" target="_blank" class="doc-link">AWS Docs: Cloud Map Developer Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 14. AWS App Mesh - DEPRECATED -->
+        <!-- ============================== -->
+        <div class="card" id="app-mesh">
+            <div class="card-header">
+                <h2>14. AWS App Mesh &mdash; DEPRECATED</h2>
+                <span class="badge badge-deprecated">Deprecated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+
+                <div class="warning">
+                    <strong>Officially deprecated.</strong> Discontinuation date <strong>September 30, 2026</strong>. New customers have been unable to onboard since September 24, 2024.
+                </div>
+
+                <h3>What It Was</h3>
+                <ul>
+                    <li>Service mesh using <strong>Envoy sidecar proxies</strong> for service-to-service communication</li>
+                    <li>Traffic management, observability, and security across microservices</li>
+                </ul>
+
+                <h3>Replacements</h3>
+                <ul>
+                    <li><strong>VPC Lattice</strong> &mdash; for EKS and cross-VPC service-to-service communication</li>
+                    <li><strong>ECS Service Connect</strong> &mdash; for ECS-specific service-to-service communication</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> If an exam question describes a service mesh pattern, the modern answer is VPC Lattice (not App Mesh). For ECS-specific service-to-service, ECS Service Connect is preferred. App Mesh may still appear as a distractor.
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 15. Direct Connect Updates -->
+        <!-- ============================== -->
+        <div class="card" id="direct-connect">
+            <div class="card-header">
+                <h2>15. Direct Connect Updates</h2>
+                <span class="badge badge-updated">UPDATED</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+                <h3>SiteLink (2021)</h3>
+                <ul>
+                    <li>Create a <strong>private network-to-network connection</strong> between Direct Connect locations via the AWS backbone</li>
+                    <li>Connect global offices directly to each other <strong>without routing through a VPC</strong></li>
+                    <li>Low-latency, private backbone connectivity between on-premises sites</li>
+                </ul>
+
+                <h3>MACsec (802.1AE)</h3>
+                <ul>
+                    <li><strong>Layer 2 encryption</strong> on dedicated Direct Connect connections</li>
+                    <li>Supports <strong>10 Gbps, 100 Gbps, and 400 Gbps</strong> connections</li>
+                    <li><strong>Line-rate encryption</strong> &mdash; no performance penalty</li>
+                    <li>Encrypts frames on the wire between your router and the AWS device</li>
+                </ul>
+
+                <h3>400 Gbps Connections</h3>
+                <ul>
+                    <li>Available at select Direct Connect locations for highest-bandwidth requirements</li>
+                </ul>
+
+                <a href="https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html" target="_blank" class="doc-link">AWS Docs: Direct Connect User Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 16. IPv6 Updates -->
+        <!-- ============================== -->
+        <div class="card" id="ipv6">
+            <div class="card-header">
+                <h2>16. IPv6 Updates</h2>
+                <span class="badge badge-updated">UPDATED</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+                <h3>IPv6 Capabilities</h3>
+                <ul>
+                    <li><strong>IPv6-only subnets</strong> &mdash; create subnets with no IPv4 CIDR at all</li>
+                    <li><strong>Private IPv6:</strong>
+                        <ul>
+                            <li><strong>ULA (Unique Local Addresses)</strong> &mdash; <code>fd00::/8</code> for internal-only communication</li>
+                            <li><strong>Private GUA (Global Unicast Addresses)</strong> &mdash; use your own globally routable addresses privately</li>
+                        </ul>
+                    </li>
+                    <li><strong>IPAM management</strong> for both public and private IPv6 pools</li>
+                    <li>Most AWS services now support <strong>dual-stack or IPv6-only</strong> operation</li>
+                </ul>
+
+                <div class="warning">
+                    <strong>Public IPv4 Charging (February 2024):</strong> AWS now charges <strong>$0.005/hour per public IPv4 address</strong> (~$3.60/month). This applies to all public IPv4 addresses whether attached or idle. This creates a significant financial incentive to migrate to IPv6.
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Understand IPv6-only subnets, ULA vs GUA, and the public IPv4 cost implications. Questions about cost optimization may now include IPv6 migration as a valid answer.
+                </div>
+
+                <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-ipv6.html" target="_blank" class="doc-link">AWS Docs: IPv6 in VPC</a>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 17. Network Manager -->
+        <!-- ============================== -->
+        <div class="card" id="network-manager">
+            <div class="card-header">
+                <h2>17. Network Manager</h2>
+                <span class="badge badge-updated">UPDATED</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+                <p>Central management and monitoring console for your global network, including Transit Gateway and Cloud WAN resources.</p>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Route Analyzer</strong> &mdash; analyze Transit Gateway route tables and verify that routes exist between source and destination</li>
+                    <li><strong>Network topology visualization</strong> &mdash; graphical view of your global network, VPCs, Transit Gateways, VPNs, and Direct Connect</li>
+                    <li><strong>Cloud WAN console</strong> &mdash; Network Manager serves as the management interface for Cloud WAN</li>
+                    <li><strong>SD-WAN integration</strong> &mdash; register and monitor SD-WAN devices from supported partners</li>
+                </ul>
+
+                <a href="https://docs.aws.amazon.com/network-manager/latest/tgwnm/what-are-global-networks.html" target="_blank" class="doc-link">AWS Docs: Network Manager Guide</a>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 18. AWS Local Zones & Wavelength -->
+        <!-- ============================== -->
+        <div class="card" id="local-zones">
+            <div class="card-header">
+                <h2>18. AWS Local Zones &amp; Wavelength</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Edge Compute Options</h3>
+                <ul>
+                    <li><strong>Local Zones:</strong> 33 locations. AWS infrastructure in metro areas for single-digit ms latency. Supports EC2, EBS, ECS, EKS, VPC.</li>
+                    <li><strong>Wavelength:</strong> 30 zones in 31 cities. AWS compute inside telecom 5G networks for ultra-low latency mobile/edge applications.</li>
+                    <li><strong>Outposts:</strong> YOUR data center. For data residency, local processing.</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Decision matrix: CloudFront = CDN caching (static/dynamic content). Local Zones = full AWS services at metro-level latency. Wavelength = 5G edge (mobile apps). Outposts = on-premises (data residency/sovereignty). Global Accelerator = network-layer acceleration without caching.
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 19. ANS Exam -->
+        <!-- ============================== -->
+        <div class="card" id="ans-exam">
+            <div class="card-header">
+                <h2>19. Advanced Networking Specialty Exam</h2>
+                <span class="badge badge-exam badge-networking">Networking</span>
+            </div>
+            <div class="card-body">
+                <div class="warning">
+                    <strong>ANS-C01 RETIRING August 25, 2026</strong> &mdash; Schedule and pass before this date if you plan to earn this certification.
+                </div>
+
+                <h3>Exam Domains</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Domain</th>
+                            <th>Weight</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Domain 1: Network Design</td>
+                            <td>30%</td>
+                        </tr>
+                        <tr>
+                            <td>Domain 2: Network Implementation</td>
+                            <td>26%</td>
+                        </tr>
+                        <tr>
+                            <td>Domain 3: Network Management and Operations</td>
+                            <td>20%</td>
+                        </tr>
+                        <tr>
+                            <td>Domain 4: Network Security, Compliance, and Governance</td>
+                            <td>24%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Study Priority List</h3>
+
+                <div class="concept">
+                    <strong>Must-Know (high exam frequency)</strong>
+                    <ul>
+                        <li>Transit Gateway (hub-spoke, route tables, peering, Connect)</li>
+                        <li>Direct Connect (dedicated, hosted, DX Gateway, LAG, MACsec)</li>
+                        <li>VPN (Site-to-Site, Client VPN, accelerated VPN)</li>
+                        <li>Route 53 (routing policies, Resolver, DNS Firewall, health checks)</li>
+                        <li>CloudFront (Functions vs Lambda@Edge, OAC, caching, SSL/TLS)</li>
+                        <li>Elastic Load Balancing (ALB, NLB, GWLB, cross-zone, sticky sessions)</li>
+                        <li>Network Firewall (Suricata rules, TLS inspection, deployment models)</li>
+                        <li>VPC fundamentals &amp; IPAM (subnets, NACLs, SGs, flow logs, IP management)</li>
+                        <li>PrivateLink (interface endpoints, gateway endpoints, endpoint services)</li>
+                        <li>Global Accelerator (anycast IPs, custom routing, health checks)</li>
+                    </ul>
+                </div>
+
+                <div class="info">
+                    <strong>Should-Know (medium exam frequency)</strong>
+                    <ul>
+                        <li>VPC Lattice (service networks, service-to-service, auth policies)</li>
+                        <li>Cloud WAN (segments, policy document, attachments, service insertion)</li>
+                        <li>Verified Access (zero-trust, Cedar policies, device posture)</li>
+                        <li>Cloud Map (DNS and API discovery, ECS integration)</li>
+                        <li>WAF &amp; Shield (web ACLs, rate limiting, Shield Advanced, DDoS protection)</li>
+                        <li>AWS RAM (resource sharing across accounts/OUs)</li>
+                    </ul>
+                </div>
+
+                <div class="concept">
+                    <strong>Good to Understand (lower frequency, but may appear)</strong>
+                    <ul>
+                        <li>Route 53 Profiles (multi-account DNS bundling)</li>
+                        <li>Network Manager (Route Analyzer, topology, Cloud WAN console)</li>
+                        <li>App Mesh (service mesh &mdash; being superseded by VPC Lattice for many use cases)</li>
+                    </ul>
+                </div>
+
+                <a href="https://aws.amazon.com/certification/certified-advanced-networking-specialty/" target="_blank" class="doc-link">AWS: Advanced Networking Specialty Certification Page</a>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>AWS Catch-Up Guide 2021&ndash;2026 &mdash; Networking &mdash; Last updated June 2026</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compute, Storage &amp; Databases - AWS Catch-Up Guide 2021-2026</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-inner">
+            <a href="index.html">Index</a>
+            <a href="security-identity.html">Security &amp; Identity</a>
+            <a href="ai-ml.html">AI &amp; ML</a>
+            <a href="devops-iac.html">DevOps &amp; IaC</a>
+            <a href="networking.html">Networking</a>
+            <a href="compute-storage-db.html" class="active">Compute/Storage/DB</a>
+            <a href="exam-guide.html">Exam Guide</a>
+            <a href="new-services.html">New Services</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1><strong>Compute, Storage &amp; Databases</strong></h1>
+        <p class="subtitle">Graviton, S3 Express, Aurora Serverless v2, and more</p>
+        <p class="meta">AWS Catch-Up Guide 2021&ndash;2026 &mdash; Last updated June 2026</p>
+    </header>
+
+    <main class="content">
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><strong>Compute</strong></li>
+                <li><a href="#graviton">1. EC2 Graviton Processors</a></li>
+                <li><a href="#auto-scaling">2. Auto Scaling Updates</a></li>
+                <li><a href="#compute-optimizer">3. Compute Optimizer</a></li>
+                <li><strong>Storage</strong></li>
+                <li><a href="#s3-updates">4. S3 Updates</a></li>
+                <li><a href="#ebs-updates">5. EBS Updates</a></li>
+                <li><a href="#efs-updates">6. EFS Updates</a></li>
+                <li><a href="#fsx-updates">7. FSx Updates</a></li>
+                <li><strong>Databases</strong></li>
+                <li><a href="#aurora-updates">8. Aurora Updates</a></li>
+                <li><a href="#dynamodb-updates">9. DynamoDB Updates</a></li>
+                <li><a href="#elasticache-updates">10. ElastiCache Updates</a></li>
+                <li><a href="#memorydb">11. MemoryDB</a></li>
+                <li><a href="#rds-updates">12. RDS Updates</a></li>
+                <li><a href="#other-db-updates">13. Other Database Updates</a></li>
+                <li><strong>Analytics &amp; Data Services</strong></li>
+                <li><a href="#redshift-updates">14. Amazon Redshift Updates</a></li>
+                <li><a href="#glue-updates">15. AWS Glue Updates</a></li>
+                <li><a href="#emr-updates">16. Amazon EMR Updates</a></li>
+                <li><a href="#msk-updates">17. Amazon MSK Updates</a></li>
+                <li><a href="#kinesis-updates">18. Amazon Kinesis Data Streams Updates</a></li>
+                <li><a href="#opensearch-updates">19. Amazon OpenSearch Service Updates</a></li>
+                <li><a href="#lake-formation-updates">20. AWS Lake Formation Updates</a></li>
+                <li><strong>Data Transfer &amp; Hybrid</strong></li>
+                <li><a href="#snow-family">21. AWS Snow Family</a></li>
+                <li><a href="#datasync-updates">22. AWS DataSync Updates</a></li>
+                <li><a href="#transfer-family-updates">23. AWS Transfer Family Updates</a></li>
+                <li><strong>Backup &amp; Operations</strong></li>
+                <li><a href="#aws-backup">24. AWS Backup</a></li>
+                <li><a href="#well-architected">25. Well-Architected Framework</a></li>
+                <li><a href="#migration-tools">26. Migration Tools</a></li>
+            </ul>
+        </div>
+
+        <!-- =================================================================
+             COMPUTE SECTION
+             ================================================================= -->
+        <h2 class="section-title">Compute</h2>
+
+        <!-- =================================================================
+             1. EC2 Graviton Processors
+             ================================================================= -->
+        <div class="card" id="graviton">
+            <div class="card-header">
+                <h2>1. EC2 Graviton Processors</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <div class="info">
+                    <strong>Why Graviton matters:</strong> AWS-designed Arm-based processors delivering 20&ndash;40% better price-performance than comparable x86 instances. Three generations have launched since 2021, with Graviton5 arriving in 2026.
+                </div>
+
+                <h3>Graviton Generation Timeline</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">May 2022 &mdash; Graviton3 (GA)</div>
+                        <p>25% better compute performance vs Graviton2. <strong>2x faster</strong> floating-point and cryptographic workloads. Instance families: <code>C7g</code>, <code>M7g</code>, <code>R7g</code>.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">July 2024 &mdash; Graviton4 (R8g GA)</div>
+                        <p>96 cores, Arm Neoverse V2 architecture. <strong>30% better</strong> compute vs Graviton3. <strong>40% faster</strong> database workloads. <strong>45% faster</strong> Java applications. Instance families: <code>R8g</code>, <code>M8g</code>, <code>C8g</code>.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">June 2026 &mdash; Graviton5 (M9g GA)</div>
+                        <p><strong>192 cores</strong>, 3nm process, 3.3 GHz clock speed, PCIe Gen 6 support. Introduces the <strong>Nitro Isolation Engine</strong> with formal verification for workload isolation.</p>
+                    </div>
+                </div>
+
+                <h3>Instance Family Mapping</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Generation</th>
+                            <th>Compute (C)</th>
+                            <th>General (M)</th>
+                            <th>Memory (R)</th>
+                            <th>Key Improvement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Graviton3</strong></td>
+                            <td>C7g</td>
+                            <td>M7g</td>
+                            <td>R7g</td>
+                            <td>2x floating-point/crypto</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Graviton4</strong></td>
+                            <td>C8g</td>
+                            <td>M8g</td>
+                            <td>R8g</td>
+                            <td>40% faster DB, 45% faster Java</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Graviton5</strong></td>
+                            <td>&mdash;</td>
+                            <td>M9g</td>
+                            <td>&mdash;</td>
+                            <td>192 cores, 3nm, Nitro Isolation Engine</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Graviton instances deliver <strong>20&ndash;40% better price-performance</strong> than x86. When a question asks about cost optimization for compute-heavy workloads, Graviton is almost always the answer. Remember the <code>g</code> suffix in instance family names indicates Graviton (e.g., <code>M7g</code>, <code>R8g</code>).
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-instance-type-names.html" target="_blank">AWS Docs: EC2 Instance Types</a>
+                <br>
+                <a class="doc-link" href="https://aws.amazon.com/ec2/graviton/" target="_blank">AWS: EC2 Graviton Processors</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             2. Auto Scaling Updates
+             ================================================================= -->
+        <div class="card" id="auto-scaling">
+            <div class="card-header">
+                <h2>2. Auto Scaling Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Predictive Scaling Enhancements</h3>
+                <ul>
+                    <li><strong>Backfill forecasts (May 2022):</strong> Predictive Scaling can now backfill forecast data, enabling accurate predictions even when first enabled on an existing Auto Scaling group</li>
+                    <li><strong>More frequent forecasting (Jan 2023):</strong> Forecast intervals shortened for more responsive capacity planning</li>
+                </ul>
+
+                <h3>Warm Pools</h3>
+                <div class="concept">
+                    <strong>What are Warm Pools?</strong> Pre-initialized EC2 instances kept in a stopped or hibernated state, ready to join the Auto Scaling group on demand. Eliminates cold start delays for applications with long initialization times.
+                </div>
+                <ul>
+                    <li><strong>Hibernation support (Feb 2022):</strong> Warm pool instances can hibernate, preserving in-memory state for even faster launch</li>
+                    <li><strong>Return to pool on scale-in:</strong> Instead of terminating instances during scale-in, return them to the warm pool for reuse</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Classic exam pattern: <em>"Application takes 10 minutes to initialize. How do you reduce scaling time?"</em> The answer is <strong>warm pools</strong>. Instances are pre-initialized (stopped or hibernated) and can join the group in seconds rather than minutes.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-warm-pools.html" target="_blank">AWS Docs: Warm Pools for Auto Scaling</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-predictive-scaling.html" target="_blank">AWS Docs: Predictive Scaling</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             3. Compute Optimizer
+             ================================================================= -->
+        <div class="card" id="compute-optimizer">
+            <div class="card-header">
+                <h2>3. Compute Optimizer</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Expanded Coverage</h3>
+                <p>Compute Optimizer now provides ML-based rightsizing recommendations for a growing set of AWS resource types:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Resource Type</th>
+                            <th>Status</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>EC2 Instances</td>
+                            <td>Original</td>
+                            <td>Memory-based rightsizing added <strong>Mar 2024</strong></td>
+                        </tr>
+                        <tr>
+                            <td>EBS Volumes</td>
+                            <td>Original</td>
+                            <td>Volume type + size recommendations</td>
+                        </tr>
+                        <tr>
+                            <td>Lambda Functions</td>
+                            <td>Original</td>
+                            <td>Memory size optimization</td>
+                        </tr>
+                        <tr>
+                            <td>ECS on Fargate</td>
+                            <td>Added</td>
+                            <td>Task-level CPU + memory recommendations</td>
+                        </tr>
+                        <tr>
+                            <td>Auto Scaling Groups</td>
+                            <td>Added</td>
+                            <td>Instance type mix recommendations</td>
+                        </tr>
+                        <tr>
+                            <td>RDS MySQL/PostgreSQL</td>
+                            <td><strong>Jun 2024</strong></td>
+                            <td>Instance class rightsizing</td>
+                        </tr>
+                        <tr>
+                            <td>Aurora</td>
+                            <td><strong>Nov 2024</strong></td>
+                            <td>Instance class rightsizing for Aurora clusters</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="concept">
+                    <strong>How it works:</strong> Compute Optimizer analyzes CloudWatch metrics (CPU, memory, network, disk) using ML models and recommends optimal resource configurations. Memory-based EC2 rightsizing (Mar 2024) requires the CloudWatch agent to collect memory utilization metrics.
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Compute Optimizer is the answer for <strong>rightsizing recommendations</strong> across EC2, EBS, Lambda, ECS, Auto Scaling groups, RDS, and Aurora. For cost optimization questions, remember it provides ML-based recommendations from actual CloudWatch utilization data.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/compute-optimizer/latest/ug/what-is-compute-optimizer.html" target="_blank">AWS Docs: Compute Optimizer User Guide</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             STORAGE SECTION
+             ================================================================= -->
+        <h2 class="section-title">Storage</h2>
+
+        <!-- =================================================================
+             4. S3 Updates
+             ================================================================= -->
+        <div class="card" id="s3-updates">
+            <div class="card-header">
+                <h2>4. S3 Updates</h2>
+                <span class="badge badge-updated">Major</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>S3 Express One Zone (GA November 2023)</h3>
+                <div class="info">
+                    <strong>Game-changer:</strong> A new storage class purpose-built for performance-critical applications requiring single-digit millisecond latency.
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Latency</td>
+                            <td><strong>Single-digit milliseconds</strong> &mdash; 10x faster than S3 Standard</td>
+                        </tr>
+                        <tr>
+                            <td>Request cost</td>
+                            <td><strong>50% lower</strong> request costs vs Standard</td>
+                        </tr>
+                        <tr>
+                            <td>Throughput</td>
+                            <td>Up to <strong>2 million requests/sec</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Bucket type</td>
+                            <td><strong>Directory buckets</strong> (not general-purpose buckets)</td>
+                        </tr>
+                        <tr>
+                            <td>Availability</td>
+                            <td><strong>Single-AZ</strong> (trade durability for performance)</td>
+                        </tr>
+                        <tr>
+                            <td>Authentication</td>
+                            <td>Session-based auth (CreateSession API)</td>
+                        </tr>
+                        <tr>
+                            <td>Use cases</td>
+                            <td>ML training data, financial analytics, media processing, real-time analytics</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>S3 Object Lambda (GA March 2021)</h3>
+                <ul>
+                    <li>Attach Lambda functions inline with S3 <code>GET</code>, <code>HEAD</code>, and <code>LIST</code> requests</li>
+                    <li>Transform data on retrieval <strong>without creating duplicate copies</strong></li>
+                    <li>Use cases: PII redaction, format conversion (XML to JSON), image resizing, data enrichment</li>
+                </ul>
+
+                <h3>S3 Glacier Instant Retrieval (November 2021)</h3>
+                <ul>
+                    <li>Archive storage class with <strong>millisecond retrieval</strong></li>
+                    <li><strong>68% cheaper</strong> than S3 Standard-IA for rarely accessed data</li>
+                    <li>Minimum storage duration: <strong>90 days</strong></li>
+                    <li>Same retrieval performance as S3 Standard and Standard-IA</li>
+                </ul>
+
+                <h3>Mountpoint for Amazon S3 (GA August 2023)</h3>
+                <ul>
+                    <li>Mount S3 buckets as a <strong>local Linux filesystem</strong> using FUSE</li>
+                    <li>Supports <strong>sequential reads and writes</strong> (not random writes)</li>
+                    <li>Throughput up to <strong>100 Gbps</strong> on supported instance types</li>
+                    <li>Ideal for data lakes, ML training pipelines, and analytics workloads that use POSIX file APIs</li>
+                </ul>
+
+                <h3>S3 Access Grants (GA November 2023)</h3>
+                <ul>
+                    <li>Map <strong>corporate identities</strong> (from IAM Identity Center) directly to S3 permissions</li>
+                    <li>Grant access by user/group at prefix, bucket, or object level</li>
+                    <li><strong>End-user identity</strong> appears in CloudTrail logs (not just the assumed role)</li>
+                    <li>Ideal for enterprise data lakes with many users needing fine-grained access</li>
+                </ul>
+
+                <h3>Security Defaults</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Change</th>
+                            <th>Date</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Default encryption</strong></td>
+                            <td>Jan 2023</td>
+                            <td>ALL new objects automatically encrypted with SSE-S3. Cannot be disabled.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Block Public Access</strong></td>
+                            <td>Apr 2023</td>
+                            <td>Block Public Access enabled <strong>by default</strong> on all new buckets. ACLs disabled by default.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>S3 Bucket Keys</strong></td>
+                            <td>&mdash;</td>
+                            <td>Reduce KMS API costs by up to <strong>99%</strong>. Enabled by default for SSE-KMS encryption.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Know all S3 storage classes and their latency/cost tradeoffs. <strong>Express One Zone</strong> = lowest latency (single-digit ms), single-AZ, directory buckets. <strong>Object Lambda</strong> = transform data on retrieval without duplication. <strong>Glacier Instant Retrieval</strong> = archive with ms access. <strong>Access Grants</strong> = enterprise data lake identity mapping. Remember that all new objects are encrypted by default (SSE-S3) and Block Public Access is ON by default.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-one-zone.html" target="_blank">AWS Docs: S3 Express One Zone</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/transforming-objects.html" target="_blank">AWS Docs: S3 Object Lambda</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/mountpoint.html" target="_blank">AWS Docs: Mountpoint for Amazon S3</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-grants.html" target="_blank">AWS Docs: S3 Access Grants</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             5. EBS Updates
+             ================================================================= -->
+        <div class="card" id="ebs-updates">
+            <div class="card-header">
+                <h2>5. EBS Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Volume Type Comparison</h3>
+                <table class="vs-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>gp3 (General Purpose)</th>
+                            <th>io2 Block Express</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Max IOPS</td>
+                            <td><strong>80,000</strong> (was 16K before Sep 2025)</td>
+                            <td><strong>256,000</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Max throughput</td>
+                            <td><strong>2,000 MB/s</strong> (was 1K before Sep 2025)</td>
+                            <td><strong>4,000 MB/s</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Max size</td>
+                            <td><strong>64 TiB</strong> (was 16 TiB before Sep 2025)</td>
+                            <td>64 TiB</td>
+                        </tr>
+                        <tr>
+                            <td>Baseline included</td>
+                            <td>3,000 IOPS + 125 MB/s (free)</td>
+                            <td>Pay per provisioned IOPS</td>
+                        </tr>
+                        <tr>
+                            <td>Durability</td>
+                            <td>99.8&ndash;99.9%</td>
+                            <td><strong>99.999%</strong> (100x more durable than io1)</td>
+                        </tr>
+                        <tr>
+                            <td>Latency</td>
+                            <td>Low ms</td>
+                            <td><strong>Sub-millisecond</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Best for</td>
+                            <td>Most workloads (recommended default)</td>
+                            <td>Mission-critical databases, latency-sensitive apps</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="concept">
+                    <strong>gp3 Sep 2025 upgrade:</strong> The September 2025 update dramatically expanded gp3 capabilities: IOPS from 16K to <strong>80K</strong>, throughput from 1K to <strong>2K MB/s</strong>, and max size from 16 TiB to <strong>64 TiB</strong>. This significantly narrows the performance gap with io2 Block Express, making gp3 viable for many workloads that previously required io2.
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> <code>gp3</code> is the recommended default volume type for most workloads. <code>io2 Block Express</code> is the answer for mission-critical databases requiring 99.999% durability and sub-ms latency. After the Sep 2025 update, gp3 handles up to 80K IOPS &mdash; only choose io2 when you need &gt;80K IOPS, 99.999% durability, or sub-ms latency.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html" target="_blank">AWS Docs: EBS Volume Types</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             6. EFS Updates
+             ================================================================= -->
+        <div class="card" id="efs-updates">
+            <div class="card-header">
+                <h2>6. EFS Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Elastic Throughput (November 2022)</h3>
+                <ul>
+                    <li><strong>Pay-as-you-use</strong> throughput model &mdash; no need to provision throughput in advance</li>
+                    <li>Automatically scales throughput up and down based on workload demand</li>
+                    <li>Ideal for <strong>spiky or unpredictable workloads</strong> where provisioned throughput would be wasteful</li>
+                    <li>Replaces the need to choose between Bursting and Provisioned throughput modes for most use cases</li>
+                </ul>
+
+                <h3>Throughput Increase (October 2024)</h3>
+                <ul>
+                    <li>Maximum read throughput increased to <strong>60 GiB/s</strong> (a 6x increase)</li>
+                    <li>Makes EFS viable for <strong>ML training and large-scale analytics</strong> workloads that require high throughput shared file access</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> EFS Elastic Throughput is the answer for shared file systems with unpredictable access patterns. No capacity planning required &mdash; you only pay for what you use. The 60 GiB/s read throughput makes EFS competitive with FSx for high-throughput analytics and ML.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/efs/latest/ug/performance.html" target="_blank">AWS Docs: EFS Performance</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             7. FSx Updates
+             ================================================================= -->
+        <div class="card" id="fsx-updates">
+            <div class="card-header">
+                <h2>7. FSx Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>FSx for NetApp ONTAP (September 2021)</h3>
+                <ul>
+                    <li>Supports <strong>NFS + SMB + iSCSI simultaneously</strong> &mdash; the only FSx type with multi-protocol support</li>
+                    <li>Enterprise features: snapshots, cloning, replication, deduplication, compression, thin provisioning</li>
+                    <li><strong>2nd generation (2024):</strong> Doubled performance capabilities</li>
+                    <li>Ideal for: multi-protocol environments, VMware Cloud on AWS, Oracle/SQL Server databases, enterprise file shares</li>
+                </ul>
+
+                <h3>FSx for OpenZFS (November 2021)</h3>
+                <ul>
+                    <li><strong>Sub-millisecond latency</strong>, instant snapshots, and zero-cost clones</li>
+                    <li><strong>Gen 2 (November 2022):</strong> Up to 350K IOPS and 10 GB/s throughput</li>
+                    <li><strong>Multi-AZ support (August 2023):</strong> Added high availability across Availability Zones</li>
+                    <li>Ideal for: Linux-based workloads migrating from on-prem ZFS, development environments (cloning)</li>
+                </ul>
+
+                <h3>All Four FSx File Systems</h3>
+                <table class="vs-table">
+                    <thead>
+                        <tr>
+                            <th>FSx Type</th>
+                            <th>Protocols</th>
+                            <th>Best For</th>
+                            <th>Unique Feature</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Windows File Server</strong></td>
+                            <td>SMB</td>
+                            <td>Windows workloads, Active Directory integration</td>
+                            <td>Native Windows NTFS, DFS namespaces</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lustre</strong></td>
+                            <td>POSIX (Lustre client)</td>
+                            <td>HPC, ML training, genomics</td>
+                            <td>S3 integration (lazy loading from S3)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NetApp ONTAP</strong></td>
+                            <td><strong>NFS + SMB + iSCSI</strong></td>
+                            <td>Multi-protocol environments, VMware, enterprise</td>
+                            <td>Only FSx with multi-protocol support</td>
+                        </tr>
+                        <tr>
+                            <td><strong>OpenZFS</strong></td>
+                            <td>NFS</td>
+                            <td>Linux workloads, ZFS migration, dev/test</td>
+                            <td>Instant snapshots, zero-cost clones</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Know all four FSx file systems and when to use each. Key differentiator: <strong>NetApp ONTAP is the only FSx type supporting NFS + SMB + iSCSI simultaneously</strong>. When a question mentions multi-protocol requirements or "supports both Windows and Linux clients," the answer is FSx for NetApp ONTAP.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html" target="_blank">AWS Docs: FSx for NetApp ONTAP</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/what-is-fsx.html" target="_blank">AWS Docs: FSx for OpenZFS</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             DATABASES SECTION
+             ================================================================= -->
+        <h2 class="section-title">Databases</h2>
+
+        <!-- =================================================================
+             8. Aurora Updates
+             ================================================================= -->
+        <div class="card" id="aurora-updates">
+            <div class="card-header">
+                <h2>8. Aurora Updates</h2>
+                <span class="badge badge-updated">Major</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Aurora Serverless v2 (GA April 2022)</h3>
+                <div class="info">
+                    <strong>Major upgrade:</strong> Aurora Serverless v2 is a complete re-architecture from v1. It supports ALL Aurora features and scales in <strong>0.5 ACU increments</strong> with millisecond scaling response. <strong>V1 is deprecated.</strong>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Aurora Serverless v1 (Deprecated)</th>
+                            <th>Aurora Serverless v2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Scaling granularity</td>
+                            <td>Doubling (2, 4, 8, 16...)</td>
+                            <td><strong>0.5 ACU increments</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Scaling speed</td>
+                            <td>Minutes</td>
+                            <td><strong>Milliseconds</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Read replicas</td>
+                            <td>Not supported</td>
+                            <td><strong>Supported</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Global Database</td>
+                            <td>Not supported</td>
+                            <td><strong>Supported</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Multi-AZ</td>
+                            <td>Not supported</td>
+                            <td><strong>Supported</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Mixed deployment</td>
+                            <td>No</td>
+                            <td><strong>Mix provisioned + serverless in same cluster</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Aurora I/O-Optimized (GA May 2023)</h3>
+                <ul>
+                    <li><strong>Eliminates per-I/O charges</strong> &mdash; pay only for instance and storage, not individual read/write operations</li>
+                    <li>Saves up to <strong>40%</strong> when I/O costs exceed 25% of total Aurora spend</li>
+                    <li>Switch to I/O-Optimized <strong>once per 30 days</strong>; switch back to Standard anytime</li>
+                    <li>Same performance, durability, and availability as Standard</li>
+                </ul>
+
+                <h3>Aurora Limitless Database (GA 2024, PostgreSQL only)</h3>
+                <ul>
+                    <li><strong>Horizontal scaling and sharding</strong> built into Aurora &mdash; no application-level sharding required</li>
+                    <li>Architecture: <strong>Routers</strong> (distribute queries) + <strong>Shards</strong> (store and process data)</li>
+                    <li>Requires <strong>I/O-Optimized</strong> storage configuration</li>
+                    <li>PostgreSQL only (MySQL not supported)</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> <strong>Serverless v2</strong> = variable/unpredictable workloads (supports all Aurora features). <strong>I/O-Optimized vs Standard</strong> = cost optimization question (choose I/O-Optimized when I/O &gt;25% of spend). <strong>Limitless</strong> = horizontal scaling for massive PostgreSQL workloads. Remember v1 is deprecated &mdash; always choose v2.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2.html" target="_blank">AWS Docs: Aurora Serverless v2</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-storage-io-optimized.html" target="_blank">AWS Docs: Aurora I/O-Optimized</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/limitless.html" target="_blank">AWS Docs: Aurora Limitless Database</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             9. DynamoDB Updates
+             ================================================================= -->
+        <div class="card" id="dynamodb-updates">
+            <div class="card-header">
+                <h2>9. DynamoDB Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Import/Export Features</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Date</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Import from S3</strong></td>
+                            <td>Aug 2022</td>
+                            <td>Bulk import to <strong>new tables only</strong>. Supports CSV, DynamoDB JSON, and Ion formats. Does <strong>NOT</strong> consume write capacity units.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Incremental Export</strong></td>
+                            <td>2023</td>
+                            <td>Export only changes since the last export. Reduces cost and time for recurring analytics pipelines.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Standard-IA Table Class (November 2021)</h3>
+                <ul>
+                    <li><strong>60% lower storage cost</strong> with higher per-request costs</li>
+                    <li>Ideal for infrequently accessed tables (e.g., logs, historical data, audit trails)</li>
+                    <li>Change table class <strong>without any downtime</strong></li>
+                </ul>
+
+                <h3>Zero-ETL Integrations</h3>
+                <div class="concept">
+                    <strong>Zero-ETL</strong> eliminates the need to build and maintain custom ETL pipelines. DynamoDB data is automatically replicated to analytics services for near-real-time querying.
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Integration</th>
+                            <th>Status</th>
+                            <th>Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Amazon Redshift</td>
+                            <td>GA 2024</td>
+                            <td>Run complex SQL analytics on DynamoDB data</td>
+                        </tr>
+                        <tr>
+                            <td>Amazon OpenSearch</td>
+                            <td>Available</td>
+                            <td>Full-text search and log analytics on DynamoDB data</td>
+                        </tr>
+                        <tr>
+                            <td>SageMaker Lakehouse</td>
+                            <td>Dec 2024</td>
+                            <td>ML training and feature engineering from DynamoDB</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> <strong>Import from S3</strong> = bulk migration to DynamoDB (new tables, no WCU consumed). <strong>Standard-IA</strong> = cost optimization for infrequently accessed tables. <strong>Zero-ETL</strong> = analytics on DynamoDB data without building pipelines. When you see "analyze DynamoDB data in Redshift without ETL," the answer is Zero-ETL integration.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/S3DataImport.HowItWorks.html" target="_blank">AWS Docs: DynamoDB Import from S3</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/redshift-integration.html" target="_blank">AWS Docs: DynamoDB Zero-ETL with Redshift</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             10. ElastiCache Updates
+             ================================================================= -->
+        <div class="card" id="elasticache-updates">
+            <div class="card-header">
+                <h2>10. ElastiCache Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>ElastiCache Serverless (GA November 2023)</h3>
+                <ul>
+                    <li>Create a cache in <strong>under 1 minute</strong> &mdash; no node selection, sizing, or cluster management</li>
+                    <li><strong>Auto-scales</strong> compute and memory based on workload demand</li>
+                    <li>Multi-AZ by default with <strong>99.99% SLA</strong></li>
+                    <li>Supports Redis OSS 7.1+ and Memcached 1.6.22+</li>
+                </ul>
+
+                <h3>Valkey Support (June 2024)</h3>
+                <div class="warning">
+                    <strong>License change context:</strong> In March 2024, Redis Ltd changed Redis from BSD to dual SSPL/RSAL license. In response, the Linux Foundation forked Redis as <strong>Valkey</strong> (BSD-3 license). AWS adopted Valkey as the open-source Redis alternative.
+                </div>
+                <table class="vs-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Redis OSS</th>
+                            <th>Valkey</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>License</td>
+                            <td>SSPL/RSAL (since Mar 2024)</td>
+                            <td><strong>BSD-3</strong> (truly open source)</td>
+                        </tr>
+                        <tr>
+                            <td>Pricing</td>
+                            <td>Standard</td>
+                            <td><strong>20% lower</strong> (33% lower for Serverless)</td>
+                        </tr>
+                        <tr>
+                            <td>Migration</td>
+                            <td>&mdash;</td>
+                            <td><strong>In-place upgrade</strong> from Redis OSS</td>
+                        </tr>
+                        <tr>
+                            <td>Compatibility</td>
+                            <td>&mdash;</td>
+                            <td>Redis-compatible APIs and data structures</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> <strong>ElastiCache Serverless</strong> eliminates node sizing entirely &mdash; the answer for "how to reduce cache management overhead." Know the <strong>Valkey</strong> migration path: in-place upgrade from Redis, lower cost, same API compatibility. Valkey is the recommended choice for new ElastiCache deployments.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/WhatIs.html" target="_blank">AWS Docs: Amazon ElastiCache</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/valkey.html" target="_blank">AWS Docs: ElastiCache for Valkey</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             11. MemoryDB
+             ================================================================= -->
+        <div class="card" id="memorydb">
+            <div class="card-header">
+                <h2>11. MemoryDB</h2>
+                <span class="badge badge-new">NEW</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <p><strong>GA August 2021.</strong> A durable, in-memory database compatible with Redis and Valkey, designed to be used as a <strong>primary database</strong> &mdash; not just a cache.</p>
+
+                <h3>Key Characteristics</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Durability</td>
+                            <td><strong>Multi-AZ transaction log</strong> &mdash; data survives node failures</td>
+                        </tr>
+                        <tr>
+                            <td>Read latency</td>
+                            <td><strong>Microseconds</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Write latency</td>
+                            <td><strong>Single-digit milliseconds</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Availability</td>
+                            <td><strong>99.99% SLA</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Compatibility</td>
+                            <td>Redis and Valkey compatible APIs</td>
+                        </tr>
+                        <tr>
+                            <td>Use as</td>
+                            <td><strong>Primary database</strong> (not just a cache)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="concept">
+                    <strong>MemoryDB vs ElastiCache &mdash; Critical Distinction:</strong>
+                    <br><strong>ElastiCache</strong> = <em>Cache</em> (ephemeral). Data may be lost on node failure. Use in front of another primary database (e.g., RDS, DynamoDB).
+                    <br><strong>MemoryDB</strong> = <em>Durable primary database</em> (persistent). Data survives node failures via Multi-AZ transaction log. Can replace both the cache AND the database layer.
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> When a question describes needing <strong>microsecond read latency with data durability</strong>, the answer is MemoryDB. When the question only needs a cache layer, the answer is ElastiCache. MemoryDB eliminates the "cache + database" architecture by serving as both.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/memorydb/latest/devguide/what-is-memorydb-for-redis.html" target="_blank">AWS Docs: Amazon MemoryDB</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             12. RDS Updates
+             ================================================================= -->
+        <div class="card" id="rds-updates">
+            <div class="card-header">
+                <h2>12. RDS Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Multi-AZ DB Clusters (GA 2022)</h3>
+                <div class="info">
+                    <strong>Not the same as traditional Multi-AZ:</strong> Multi-AZ DB Clusters provide 1 writer + 2 <strong>readable</strong> standbys across 3 AZs, with faster failover. Traditional Multi-AZ has 1 writer + 1 non-readable standby.
+                </div>
+                <table class="vs-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Traditional Multi-AZ</th>
+                            <th>Multi-AZ DB Clusters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Architecture</td>
+                            <td>1 writer + 1 standby (2 AZs)</td>
+                            <td><strong>1 writer + 2 readers (3 AZs)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Standby readable?</td>
+                            <td>No</td>
+                            <td><strong>Yes</strong> &mdash; standbys serve read traffic</td>
+                        </tr>
+                        <tr>
+                            <td>Failover time</td>
+                            <td>60&ndash;120 seconds</td>
+                            <td><strong>&lt;35 seconds</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Storage</td>
+                            <td>EBS only</td>
+                            <td><strong>NVMe SSD + EBS</strong> (local write caching)</td>
+                        </tr>
+                        <tr>
+                            <td>Supported engines</td>
+                            <td>All RDS engines</td>
+                            <td>MySQL and PostgreSQL only</td>
+                        </tr>
+                        <tr>
+                            <td>Graviton support</td>
+                            <td>Yes</td>
+                            <td><strong>Yes</strong> (recommended)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Blue/Green Deployments (GA November 2022)</h3>
+                <ul>
+                    <li>Create a <strong>staging copy</strong> (green environment) of your production database</li>
+                    <li>Apply changes (engine upgrades, schema changes, parameter tuning) to the green environment</li>
+                    <li><strong>Switch traffic</strong> with minimal downtime using built-in switchover mechanism</li>
+                    <li>Supported engines: Aurora MySQL/PostgreSQL, RDS MySQL/PostgreSQL/MariaDB</li>
+                    <li>With <strong>RDS Proxy + Multi-AZ</strong> = switchover in approximately <strong>1 second</strong></li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> <strong>Multi-AZ DB Clusters</strong> vs traditional Multi-AZ: readable standbys and &lt;35 sec failover are the key differentiators. <strong>Blue/Green Deployments</strong> = safe database upgrades with minimal downtime. When a question mentions "upgrade database engine version with minimal risk," the answer is Blue/Green Deployments.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html" target="_blank">AWS Docs: RDS Multi-AZ DB Clusters</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/blue-green-deployments.html" target="_blank">AWS Docs: RDS Blue/Green Deployments</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             13. Other Database Updates
+             ================================================================= -->
+        <div class="card" id="other-db-updates">
+            <div class="card-header">
+                <h2>13. Other Database Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <!-- Neptune -->
+                <h3>Amazon Neptune</h3>
+                <ul>
+                    <li><strong>Neptune Serverless (2022):</strong> Auto-scaling graph database. Minimum reduced to <strong>1 NCU</strong> (Neptune Capacity Unit) in Mar 2023.</li>
+                    <li><strong>Neptune Analytics (GA December 2023):</strong> Combined <strong>graph + vector database</strong> for analytics workloads. Run graph algorithms and vector similarity searches on large datasets without managing infrastructure.</li>
+                </ul>
+
+                <!-- DocumentDB -->
+                <h3>Amazon DocumentDB</h3>
+                <ul>
+                    <li><strong>Elastic Clusters (GA November 2022):</strong> Horizontal sharding for DocumentDB. Scales to <strong>millions of reads/writes per second</strong> and <strong>petabytes of storage</strong>.</li>
+                    <li>MongoDB-compatible document database with automatic scaling</li>
+                </ul>
+
+                <!-- Timestream -->
+                <h3>Amazon Timestream</h3>
+                <div class="warning">
+                    <strong>Timestream LiveAnalytics:</strong> CLOSED to new customers as of <strong>June 2025</strong>. The replacement is <strong>Timestream for InfluxDB</strong> (GA March 2024), which provides a managed InfluxDB experience for time-series workloads.
+                </div>
+
+                <!-- QLDB -->
+                <h3>Amazon QLDB</h3>
+                <div class="warning">
+                    <strong>DEPRECATED:</strong> Amazon QLDB reaches end of support on <strong>July 31, 2025</strong>. AWS recommends migrating to <strong>Aurora PostgreSQL</strong>. Note: Aurora PostgreSQL does NOT provide the same cryptographic verifiability that QLDB offered &mdash; this capability is lost in migration.
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Neptune Analytics combines graph + vector search capabilities. DocumentDB Elastic Clusters enable horizontal scaling for document workloads. Know the deprecation timelines: Timestream LiveAnalytics closed to new customers, QLDB end of support July 2025. For new time-series workloads, choose Timestream for InfluxDB.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless.html" target="_blank">AWS Docs: Neptune Serverless</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/documentdb/latest/developerguide/elastic-clusters.html" target="_blank">AWS Docs: DocumentDB Elastic Clusters</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/timestream/latest/developerguide/what-is-timestream.html" target="_blank">AWS Docs: Amazon Timestream</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             ANALYTICS & DATA SERVICES SECTION
+             ================================================================= -->
+        <h2 class="section-title" id="analytics">Analytics &amp; Data Services</h2>
+
+        <!-- =================================================================
+             14. Amazon Redshift Updates
+             ================================================================= -->
+        <div class="card" id="redshift-updates">
+            <div class="card-header">
+                <h2>14. Amazon Redshift Updates</h2>
+                <span class="badge badge-updated">Major</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Redshift Serverless (GA July 2022)</h3>
+                <ul>
+                    <li>No cluster management &mdash; pay-per-use compute with <strong>AI-driven scaling</strong> (2024)</li>
+                    <li>Use for <strong>ad-hoc analytics and development</strong> workloads</li>
+                </ul>
+
+                <h3>Zero-ETL Integrations (Paradigm Shift)</h3>
+                <div class="info">
+                    <strong>Zero-ETL is the biggest theme in modern AWS data architecture.</strong> Data is automatically replicated to Redshift without building ETL pipelines.
+                </div>
+                <ul>
+                    <li><strong>Aurora MySQL/PostgreSQL</strong> &mdash; near real-time replication to Redshift</li>
+                    <li><strong>DynamoDB</strong> &mdash; analyze NoSQL data with SQL in Redshift</li>
+                    <li><strong>RDS MySQL/PostgreSQL</strong> &mdash; standard RDS databases to Redshift</li>
+                    <li><strong>SaaS apps</strong> &mdash; Salesforce, ServiceNow, SAP, Zendesk via AppFlow integration</li>
+                </ul>
+
+                <h3>Multi-AZ (2024)</h3>
+                <ul>
+                    <li><strong>99.99% SLA</strong> for RA3 clusters &mdash; first-ever Multi-AZ support for Redshift</li>
+                </ul>
+
+                <h3>Lakehouse Integration</h3>
+                <ul>
+                    <li><strong>SageMaker Lakehouse</strong> with Apache Iceberg support</li>
+                    <li>Redshift can <strong>write directly to Iceberg tables</strong></li>
+                    <li>Query open data formats in S3</li>
+                </ul>
+
+                <h3>Other Enhancements</h3>
+                <ul>
+                    <li><strong>AQUA (Advanced Query Accelerator):</strong> hardware-accelerated cache for complex queries</li>
+                    <li><strong>Streaming Ingestion:</strong> ingest from Kinesis Data Streams and MSK directly</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Zero-ETL is the biggest theme in modern AWS data architecture. <em>"How to analyze DynamoDB/Aurora data in Redshift without building a pipeline?"</em> = <strong>Zero-ETL integration</strong>. Serverless vs Provisioned: Serverless for variable/ad-hoc, Provisioned for predictable/heavy. Multi-AZ is new for Redshift (it was single-AZ for years).
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/redshift/" target="_blank">AWS Docs: Amazon Redshift</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             15. AWS Glue Updates
+             ================================================================= -->
+        <div class="card" id="glue-updates">
+            <div class="card-header">
+                <h2>15. AWS Glue Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Glue 4.0 (November 2022)</h3>
+                <ul>
+                    <li>Spark 3.3 with built-in <strong>Apache Hudi, Iceberg, and Delta Lake</strong> support</li>
+                </ul>
+
+                <h3>Glue 5.0 (December 2024)</h3>
+                <ul>
+                    <li>Spark 3.5 with native <strong>Lake Formation fine-grained access control</strong> (table/column/row/cell level)</li>
+                    <li><strong>32% faster startup</strong> times</li>
+                </ul>
+
+                <h3>Glue Data Quality</h3>
+                <ul>
+                    <li>Full-featured engine using <strong>DQDL</strong> (Data Quality Definition Language)</li>
+                    <li>Auto-generated rule recommendations and anomaly detection</li>
+                    <li>Integration with Glue ETL jobs and Data Catalog</li>
+                </ul>
+
+                <h3>Glue Data Catalog &amp; Crawlers</h3>
+                <ul>
+                    <li><strong>Glue Data Catalog:</strong> central metadata repository for data lake. Iceberg REST Catalog support.</li>
+                    <li><strong>Glue Crawlers:</strong> auto-discover schemas from data sources</li>
+                </ul>
+
+                <h3>Open Table Format Support</h3>
+                <ul>
+                    <li>First-class support for <strong>Apache Iceberg, Hudi, Delta Lake</strong> across the platform</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Glue is THE ETL service for AWS. Know: <strong>Glue ETL</strong> (transform), <strong>Glue Crawlers</strong> (schema discovery), <strong>Glue Data Catalog</strong> (metadata), <strong>Glue Data Quality</strong> (validation). Open table formats (Iceberg especially) are increasingly exam-relevant as the standard for data lakes.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/glue/" target="_blank">AWS Docs: AWS Glue</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             16. Amazon EMR Updates
+             ================================================================= -->
+        <div class="card" id="emr-updates">
+            <div class="card-header">
+                <h2>16. Amazon EMR Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>EMR Serverless (GA June 2022)</h3>
+                <ul>
+                    <li>Run Spark, Hive, Presto <strong>without managing clusters</strong></li>
+                    <li>Auto-scales per processing stage &mdash; pay for compute/memory used</li>
+                </ul>
+
+                <h3>Interactive Applications (October 2023)</h3>
+                <ul>
+                    <li>JupyterLab notebooks on EMR Serverless for <strong>interactive data exploration</strong></li>
+                </ul>
+
+                <h3>EMR on EKS</h3>
+                <ul>
+                    <li>Run EMR workloads on existing EKS clusters</li>
+                    <li>Share compute with other Kubernetes workloads</li>
+                </ul>
+
+                <h3>EMR Studio</h3>
+                <ul>
+                    <li>Integrated development environment for EMR</li>
+                </ul>
+
+                <h3>Three Deployment Options</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Best For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>EMR on EC2</strong></td>
+                            <td>Most control over cluster configuration</td>
+                        </tr>
+                        <tr>
+                            <td><strong>EMR on EKS</strong></td>
+                            <td>Kubernetes integration, shared compute</td>
+                        </tr>
+                        <tr>
+                            <td><strong>EMR Serverless</strong></td>
+                            <td>Simplest &mdash; no cluster management</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> EMR Serverless is to big data what Fargate is to containers &mdash; no cluster management. Know the three deployment options and when to use each. <strong>EMR = Spark/Hadoop. Glue = ETL. Athena = ad-hoc SQL on S3.</strong>
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/emr/" target="_blank">AWS Docs: Amazon EMR</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             17. Amazon MSK Updates
+             ================================================================= -->
+        <div class="card" id="msk-updates">
+            <div class="card-header">
+                <h2>17. Amazon MSK Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-devops">DevOps</span>
+            </div>
+            <div class="card-body">
+
+                <h3>MSK Serverless (GA April 2022)</h3>
+                <ul>
+                    <li>Fully managed auto-scaling Apache Kafka &mdash; <strong>no broker/partition management</strong></li>
+                </ul>
+
+                <h3>MSK Connect</h3>
+                <ul>
+                    <li>Managed Kafka Connect clusters for source/sink connectors</li>
+                    <li>Serverless scaling</li>
+                </ul>
+
+                <h3>MSK Replicator (2023)</h3>
+                <ul>
+                    <li>Managed <strong>cross-region Kafka replication</strong></li>
+                    <li>Keeps consumer group offsets in sync</li>
+                    <li>Replaces manual MirrorMaker 2 setup</li>
+                </ul>
+
+                <h3>Express Brokers (2024)</h3>
+                <ul>
+                    <li><strong>90% faster recovery</strong>, 3x throughput, 20x faster scaling</li>
+                    <li>Eliminates ZooKeeper dependency (uses <strong>KRaft mode</strong>)</li>
+                </ul>
+
+                <h3>Three Broker Types</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Best For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Standard</strong></td>
+                            <td>Most control over configuration</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Express</strong> (new)</td>
+                            <td>Best performance, fastest recovery</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Serverless</strong></td>
+                            <td>Simplest &mdash; no broker management</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> MSK = managed Kafka. Know: MSK Provisioned vs MSK Serverless (same tradeoff as other serverless services). <strong>MSK Replicator</strong> for cross-region DR. <strong>Express Brokers</strong> for high-performance streaming. MSK vs Kinesis: MSK = open-source Kafka, Kinesis = AWS-native. MSK for Kafka ecosystem compatibility.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/msk/" target="_blank">AWS Docs: Amazon MSK</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             18. Amazon Kinesis Data Streams Updates
+             ================================================================= -->
+        <div class="card" id="kinesis-updates">
+            <div class="card-header">
+                <h2>18. Amazon Kinesis Data Streams Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>On-Demand Capacity Mode (November 2021)</h3>
+                <ul>
+                    <li>Auto-scales <strong>without managing shards</strong></li>
+                    <li>Scales up to <strong>10 GB/s writes / 20 GB/s reads</strong> (November 2024)</li>
+                </ul>
+
+                <h3>On-Demand Advantage Mode (2025)</h3>
+                <ul>
+                    <li>New pricing tier with <strong>60%+ cost discount</strong> for on-demand</li>
+                </ul>
+
+                <h3>Provisioned Mode</h3>
+                <ul>
+                    <li>Manual shard management for <strong>predictable workloads</strong></li>
+                </ul>
+
+                <h3>Enhanced Fan-Out</h3>
+                <ul>
+                    <li>Dedicated <strong>2 MB/s per consumer per shard</strong> (vs shared in standard)</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> On-Demand = no shard management (like DynamoDB on-demand). Provisioned = you manage shards. On-Demand is more expensive per GB but eliminates capacity planning. <strong>Enhanced Fan-Out</strong> for multiple consumers needing dedicated throughput. Kinesis vs MSK: Kinesis = AWS-native simplicity, MSK = Kafka ecosystem.
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             19. Amazon OpenSearch Service Updates
+             ================================================================= -->
+        <div class="card" id="opensearch-updates">
+            <div class="card-header">
+                <h2>19. Amazon OpenSearch Service Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-security">Security</span>
+            </div>
+            <div class="card-body">
+
+                <h3>OpenSearch Serverless (GA 2023)</h3>
+                <ul>
+                    <li>No cluster sizing &mdash; auto-scales</li>
+                    <li>Three collection types: <strong>Search</strong>, <strong>Time-series</strong>, <strong>Vector Search</strong></li>
+                </ul>
+
+                <h3>OpenSearch Ingestion (2023)</h3>
+                <ul>
+                    <li>Managed data pipeline service (based on Data Prepper)</li>
+                    <li>Ingest from S3, Kinesis, DynamoDB, CloudWatch Logs</li>
+                </ul>
+
+                <h3>Zero-ETL Integrations</h3>
+                <ul>
+                    <li>DynamoDB, DocumentDB, S3, Security Lake, CloudWatch Logs</li>
+                </ul>
+
+                <h3>Direct Queries (2024)</h3>
+                <ul>
+                    <li>Query <strong>CloudWatch Logs and Security Lake data in-place</strong> without copying</li>
+                </ul>
+
+                <h3>Vector Search</h3>
+                <ul>
+                    <li>Neural search plugin for <strong>semantic/similarity search</strong></li>
+                    <li><strong>RAG pattern support</strong> for GenAI architectures</li>
+                </ul>
+
+                <div class="concept">
+                    <strong>Name change reminder:</strong> Was <strong>Amazon Elasticsearch Service</strong> until September 2021.
+                </div>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> OpenSearch = search + analytics + vector DB. Serverless collections simplify deployment. <strong>Vector Search</strong> makes it relevant for GenAI/RAG architectures. Direct queries on Security Lake data make it a <strong>security analytics tool</strong>. Know the rename from Elasticsearch.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/opensearch-service/" target="_blank">AWS Docs: Amazon OpenSearch Service</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             20. AWS Lake Formation Updates
+             ================================================================= -->
+        <div class="card" id="lake-formation-updates">
+            <div class="card-header">
+                <h2>20. AWS Lake Formation Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+                <span class="badge badge-exam badge-security">Security</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Tag-Based Access Control (LF-TBAC)</h3>
+                <ul>
+                    <li>Now the <strong>recommended approach</strong> for large data lakes</li>
+                    <li>Assign tags to databases/tables/columns, create policies based on tags</li>
+                </ul>
+
+                <h3>Hybrid Access Mode (2023&ndash;2024)</h3>
+                <ul>
+                    <li>Incremental adoption alongside existing IAM+S3 policies</li>
+                    <li><strong>No big-bang migration needed</strong></li>
+                </ul>
+
+                <h3>Governed Tables Deprecated (December 2024)</h3>
+                <div class="warning">
+                    <strong>Governed Tables deprecated:</strong> Replaced by <strong>Apache Iceberg, Hudi, Delta Lake</strong> open table formats.
+                </div>
+
+                <h3>Fine-Grained Access</h3>
+                <ul>
+                    <li><strong>Table, column, row, and cell-level</strong> security</li>
+                    <li>Cross-account data sharing via <strong>AWS RAM</strong></li>
+                    <li>Integration with <strong>Glue Data Catalog</strong> for metadata</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Lake Formation = fine-grained data lake permissions. <strong>LF-TBAC</strong> for scale. <strong>Hybrid Access Mode</strong> for gradual adoption. It sits on top of S3 + Glue and adds the permission layer. <em>"Secure data lake with column-level access"</em> = Lake Formation.
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             DATA TRANSFER & HYBRID SECTION
+             ================================================================= -->
+        <h2 class="section-title" id="data-transfer">Data Transfer &amp; Hybrid</h2>
+
+        <!-- =================================================================
+             21. AWS Snow Family - Major Discontinuations
+             ================================================================= -->
+        <div class="card" id="snow-family">
+            <div class="card-header">
+                <h2>21. AWS Snow Family - Major Discontinuations</h2>
+                <span class="badge badge-deprecated">Deprecated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <div class="warning">
+                    <strong>Snowcone DISCONTINUED (November 2024):</strong> No new orders. Legacy Snowball Edge models also <strong>DISCONTINUED (November 2024)</strong>.
+                </div>
+
+                <h3>Current Status</h3>
+                <ul>
+                    <li>Only two current models: <strong>Storage Optimized 210TB</strong> and <strong>Compute Optimized 104 vCPUs</strong></li>
+                    <li>Snowball Edge going <strong>existing-customers-only</strong> (November 2025)</li>
+                </ul>
+
+                <h3>Replacements</h3>
+                <ul>
+                    <li><strong>AWS Data Transfer Terminal:</strong> physical drop-off locations with 100G fiber connections for large data transfers</li>
+                    <li><strong>AWS DataSync:</strong> for network-based transfers</li>
+                    <li><strong>Direct Connect:</strong> for ongoing transfers</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> This fundamentally changes migration architecture answers. <em>"Transfer 100TB to AWS"</em> historically = Snowball. Now = <strong>DataSync</strong> (if network allows) or <strong>Data Transfer Terminal</strong> (for physical). Know the replacement paths.
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             22. AWS DataSync Updates
+             ================================================================= -->
+        <div class="card" id="datasync-updates">
+            <div class="card-header">
+                <h2>22. AWS DataSync Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Cross-Cloud Transfers (2025)</h3>
+                <ul>
+                    <li>Direct transfers between <strong>Google Cloud Storage, Azure Blob/Files, Oracle Cloud</strong> and S3 without intermediate agents</li>
+                </ul>
+
+                <h3>Enhanced Mode (October 2024)</h3>
+                <ul>
+                    <li>Parallel processing, <strong>removes file count limitations</strong></li>
+                </ul>
+
+                <h3>Expanded Locations</h3>
+                <ul>
+                    <li>HDFS, S3-compatible storage, Azure Data Lake Storage Gen2, all FSx variants, EFS, S3</li>
+                </ul>
+
+                <h3>Key Points</h3>
+                <ul>
+                    <li>Now <strong>THE recommended replacement for Snow Family</strong> for network-based data transfers</li>
+                    <li>Supports incremental/scheduled transfers</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> DataSync = network-based data transfer (online). Snow Family = physical data transfer (offline, being deprecated). Transfer Family = managed SFTP/FTPS/FTP. <strong>DataSync now supports cross-cloud</strong>, making it the multi-cloud data mobility tool.
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             23. AWS Transfer Family Updates
+             ================================================================= -->
+        <div class="card" id="transfer-family-updates">
+            <div class="card-header">
+                <h2>23. AWS Transfer Family Updates</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Key Updates</h3>
+                <ul>
+                    <li><strong>AS2 (Applicability Statement 2):</strong> protocol support for B2B data exchange</li>
+                    <li><strong>SFTP Connectors (2023&ndash;2025):</strong> connect TO external SFTP servers FROM AWS (outbound, not just inbound)</li>
+                    <li><strong>Dual-stack IPv4/IPv6</strong> support</li>
+                    <li><strong>Multi-factor authentication:</strong> password + SSH key for SFTP</li>
+                </ul>
+
+                <h3>Protocol &amp; Storage Support</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Protocols</th>
+                            <th>Storage Backends</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SFTP, FTPS, FTP, AS2</td>
+                            <td>S3 or EFS</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Transfer Family = managed file transfer protocols into S3/EFS. <strong>AS2</strong> for B2B EDI exchange. <strong>SFTP Connectors</strong> for pulling data from external servers. <em>"Managed SFTP endpoint"</em> = Transfer Family.
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             24. AWS Backup
+             ================================================================= -->
+        <div class="card" id="aws-backup">
+            <div class="card-header">
+                <h2>24. AWS Backup</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Vault Lock</h3>
+                <table class="vs-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Compliance Mode</th>
+                            <th>Governance Mode</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Immutability</td>
+                            <td><strong>Fully immutable</strong> &mdash; not even root can remove</td>
+                            <td>Authorized users (with specific IAM permissions) can remove</td>
+                        </tr>
+                        <tr>
+                            <td>WORM</td>
+                            <td><strong>Yes</strong> &mdash; Write Once Read Many</td>
+                            <td>Soft WORM (removable with authorization)</td>
+                        </tr>
+                        <tr>
+                            <td>Use case</td>
+                            <td>Regulatory compliance (SEC, FINRA, healthcare)</td>
+                            <td>Organizational governance with flexibility</td>
+                        </tr>
+                        <tr>
+                            <td>Can be disabled?</td>
+                            <td><strong>No, never</strong></td>
+                            <td>Yes, by authorized users</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Cross-Account and Cross-Region Backup</h3>
+                <ul>
+                    <li>Copy backups to <strong>different AWS accounts and Regions</strong> for disaster recovery</li>
+                    <li>Expanded to <strong>all commercial Regions</strong></li>
+                    <li>Managed through AWS Organizations for centralized backup policies</li>
+                </ul>
+
+                <h3>Logically Air-Gapped Vault (GA August 2024)</h3>
+                <div class="concept">
+                    <strong>Strongest ransomware protection:</strong> Logically air-gapped vaults provide <strong>logical isolation</strong> from source accounts. The vault exists in an AWS-managed account and is shared with your accounts via AWS RAM. Even if an attacker compromises your account, they cannot access or delete backups in the air-gapped vault.
+                </div>
+                <ul>
+                    <li>Logical isolation from source AWS accounts</li>
+                    <li>Shared via <strong>AWS Resource Access Manager (RAM)</strong></li>
+                    <li>Provides the strongest protection against ransomware and insider threats</li>
+                    <li>Recovery points are immutable and isolated by design</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> <strong>Vault Lock Compliance mode</strong> = regulatory requirements where backups cannot be deleted by anyone (WORM). <strong>Logically air-gapped vaults</strong> = ransomware defense where backups must survive a full account compromise. Know the hierarchy: Governance (soft lock) &lt; Compliance (hard lock) &lt; Air-gapped (isolated from account).
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/aws-backup/latest/devguide/vault-lock.html" target="_blank">AWS Docs: AWS Backup Vault Lock</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/aws-backup/latest/devguide/logically-air-gapped-vault.html" target="_blank">AWS Docs: Logically Air-Gapped Vaults</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             25. Well-Architected Framework
+             ================================================================= -->
+        <div class="card" id="well-architected">
+            <div class="card-header">
+                <h2>25. Well-Architected Framework</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Sustainability Pillar (December 2021)</h3>
+                <div class="info">
+                    <strong>6th Pillar:</strong> The Well-Architected Framework added <strong>Sustainability</strong> as its sixth pillar, focusing on minimizing the environmental impact of cloud workloads.
+                </div>
+                <ul>
+                    <li><strong>Region selection:</strong> Choose Regions powered by renewable energy where possible</li>
+                    <li><strong>Software patterns:</strong> Optimize code efficiency, reduce idle resources, use efficient algorithms</li>
+                    <li><strong>Data patterns:</strong> Minimize data movement, use lifecycle policies, compress and deduplicate</li>
+                    <li><strong>Hardware patterns:</strong> Use the most efficient instance types (e.g., Graviton), rightsize resources</li>
+                </ul>
+
+                <h3>All Six Pillars</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pillar</th>
+                            <th>Focus</th>
+                            <th>Key Question</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Operational Excellence</strong></td>
+                            <td>Run and monitor systems</td>
+                            <td>How do you manage and automate changes?</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Security</strong></td>
+                            <td>Protect data, systems, assets</td>
+                            <td>How do you protect your information?</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reliability</strong></td>
+                            <td>Recover from failures, meet demand</td>
+                            <td>How do you recover from disruptions?</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Performance Efficiency</strong></td>
+                            <td>Use compute resources efficiently</td>
+                            <td>How do you select the right resource types?</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cost Optimization</strong></td>
+                            <td>Avoid unnecessary costs</td>
+                            <td>How do you manage spend?</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sustainability</strong> <span class="badge badge-new">NEW</span></td>
+                            <td>Minimize environmental impact</td>
+                            <td>How do you reduce the environmental impact?</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Other Updates</h3>
+                <ul>
+                    <li><strong>100% of best practices</strong> refreshed by November 2024</li>
+                    <li><strong>New lenses:</strong> Generative AI Lens, Financial Services Lens, updated ML Lens</li>
+                    <li>Lenses provide domain-specific best practices on top of the base framework</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> Know all <strong>six pillars</strong> &mdash; Sustainability is the newest and commonly tested. Expect questions that ask "which pillar addresses environmental impact?" or "which pillar was added in 2021?" The Generative AI Lens is increasingly relevant for ML/AI exam questions.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/wellarchitected/latest/sustainability-pillar/sustainability-pillar.html" target="_blank">AWS Docs: Sustainability Pillar</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html" target="_blank">AWS Docs: Well-Architected Framework</a>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             26. Migration Tools
+             ================================================================= -->
+        <div class="card" id="migration-tools">
+            <div class="card-header">
+                <h2>26. Migration Tools</h2>
+                <span class="badge badge-updated">Updated</span>
+                <span class="badge badge-exam badge-sa-pro">SA Pro</span>
+            </div>
+            <div class="card-body">
+
+                <h3>Application Migration Service (AWS MGN)</h3>
+                <ul>
+                    <li>Primary <strong>lift-and-shift</strong> migration service since March 2022</li>
+                    <li>Replaced both <strong>CloudEndure Migration</strong> and <strong>Server Migration Service (SMS)</strong></li>
+                    <li>Agent-based: install the AWS Replication Agent on source servers</li>
+                    <li>Continuous block-level replication to AWS, then launch test/cutover instances</li>
+                    <li>Supports physical, virtual, and cloud-to-cloud migrations</li>
+                </ul>
+
+                <h3>Migration Hub Refactor Spaces</h3>
+                <div class="warning">
+                    <strong>CLOSING November 2025:</strong> Migration Hub Refactor Spaces is being discontinued. It was used for the <strong>strangler fig pattern</strong> &mdash; incrementally migrating application components from monolith to microservices. The replacement is <strong>AWS Transform</strong> (launched May 2025), which provides broader application modernization capabilities.
+                </div>
+
+                <h3>Migration Service Landscape</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Purpose</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>AWS MGN</strong></td>
+                            <td>Lift-and-shift (rehost) server migration</td>
+                            <td>Active &mdash; primary migration tool</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS DMS</strong></td>
+                            <td>Database migration and replication</td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS Transform</strong></td>
+                            <td>Application modernization (replaces Refactor Spaces)</td>
+                            <td>Active (May 2025)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Migration Hub</strong></td>
+                            <td>Central tracking for all migration activities</td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>CloudEndure</td>
+                            <td>Replaced by AWS MGN</td>
+                            <td><span class="badge badge-deprecated">Deprecated</span></td>
+                        </tr>
+                        <tr>
+                            <td>Server Migration Service</td>
+                            <td>Replaced by AWS MGN</td>
+                            <td><span class="badge badge-deprecated">Deprecated</span></td>
+                        </tr>
+                        <tr>
+                            <td>Refactor Spaces</td>
+                            <td>Replaced by AWS Transform</td>
+                            <td><span class="badge badge-deprecated">Closing Nov 2025</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>EXAM TIP:</strong> <strong>AWS MGN</strong> is the answer for lift-and-shift migration questions (not CloudEndure or SMS, which are deprecated). For the <strong>strangler fig pattern</strong>, know that Refactor Spaces is being replaced by <strong>AWS Transform</strong>. AWS DMS remains the standard for database migration and ongoing replication.
+                </div>
+
+                <a class="doc-link" href="https://docs.aws.amazon.com/mgn/latest/ug/what-is-application-migration-service.html" target="_blank">AWS Docs: AWS Application Migration Service</a>
+                <br>
+                <a class="doc-link" href="https://docs.aws.amazon.com/migrationhub/latest/ug/whatishub.html" target="_blank">AWS Docs: AWS Migration Hub</a>
+            </div>
+        </div>
+
+    </main>
+
+    <footer style="text-align: center; padding: 30px 20px; color: var(--text-light); font-size: 0.85rem;">
+        <p>AWS Catch-Up Guide 2021&ndash;2026 &mdash; Compute, Storage &amp; Databases &mdash; Last updated June 2026</p>
+    </footer>
+
+</body>
+</html>
